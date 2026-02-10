@@ -93,7 +93,7 @@ const StatsSection = () => {
             className="inline-flex items-center gap-3 bg-[#91CD95] hover:bg-[#91CD95] text-white px-8 py-3 rounded-full font-bold transition-colors mt-8 text-lg"
           >
             <span>Contact Us</span>
-            <div className="w-8 h-9 rounded-full bg-white flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
               {/* <span className="text-red-600 text-sm">→</span> */}
             </div>
 

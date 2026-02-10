@@ -1,6 +1,13 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Menu, X, ChevronDown, Twitter, Linkedin, Instagram } from "lucide-react";
+import {
+  Menu,
+  X,
+  ChevronDown,
+  Twitter,
+  Linkedin,
+  Instagram,
+} from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -10,8 +17,18 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 
 // ── Types ────────────────────────────────────────────────
 interface NavSubItem {
@@ -33,18 +50,42 @@ const navItems: NavItem[] = [
     label: "About Us",
     href: "/AboutArmada",
     subItems: [
-      { label: "About Armada CRB", href: "/AboutArmada", description: "Learn about our company and values" },
-      { label: "Our People", href: "/OurPeople", description: "Meet our leadership" },
+      {
+        label: "About Armada CRB",
+        href: "/AboutArmada",
+        description: "Learn about our company and values",
+      },
+      {
+        label: "Our People",
+        href: "/OurPeople",
+        description: "Meet our leadership",
+      },
     ],
   },
   {
     label: "Product Suites",
     href: "/product-suites",
     subItems: [
-      { label: "Credit Information & Risk Reports", href: "/product-suites/credit-reports", description: "Actionable insights for credit decisions" },
-      { label: "Decision and Data Analytics", href: "/product-suites/analytics", description: "Data-driven business intelligence" },
-      { label: "Portfolio & Risk Management", href: "/product-suites/portfolio", description: "Comprehensive risk management solutions" },
-      { label: "Data Management", href: "/product-suites/data-management", description: "Data is a valuable source of actionable insight" },
+      {
+        label: "Credit Information & Risk Reports",
+        href: "/product-suites/credit-reports",
+        description: "Actionable insights for credit decisions",
+      },
+      {
+        label: "Decision and Data Analytics",
+        href: "/product-suites/analytics",
+        description: "Data-driven business intelligence",
+      },
+      {
+        label: "Portfolio & Risk Management",
+        href: "/product-suites/portfolio",
+        description: "Comprehensive risk management solutions",
+      },
+      {
+        label: "Data Management",
+        href: "/product-suites/data-management",
+        description: "Data is a valuable source of actionable insight",
+      },
     ],
   },
   { label: "News", href: "/news" },
@@ -52,10 +93,26 @@ const navItems: NavItem[] = [
     label: "Customer Information",
     href: "/credit-education",
     subItems: [
-      { label: "Self Inquiry", href: "/SelfInquiry", description: "Submit a self inquiry request" },
-      { label: "Complaint Handling", href: "/DisputeResolutionForm", description: "How we handle your concerns" },
-      { label: "Consumer Education", href: "/credit-education", description: "Resources to improve your credit knowledge" },
-      { label: "FAQs", href: "/FAQ", description: "Frequently asked questions" },
+      {
+        label: "Self Inquiry",
+        href: "/SelfInquiry",
+        description: "Submit a self inquiry request",
+      },
+      {
+        label: "Complaint Handling",
+        href: "/DisputeResolutionForm",
+        description: "How we handle your concerns",
+      },
+      {
+        label: "Consumer Education",
+        href: "/credit-education",
+        description: "Resources to improve your credit knowledge",
+      },
+      {
+        label: "FAQs",
+        href: "/FAQ",
+        description: "Frequently asked questions",
+      },
     ],
   },
   { label: "Contact Us", href: "/contact" },
@@ -68,7 +125,9 @@ export default function Header() {
 
   const toggleMobileDropdown = (label: string) => {
     setOpenMobileDropdowns((prev) =>
-      prev.includes(label) ? prev.filter((item) => item !== label) : [...prev, label]
+      prev.includes(label)
+        ? prev.filter((item) => item !== label)
+        : [...prev, label],
     );
   };
 
@@ -86,11 +145,12 @@ export default function Header() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-center gap-12 py-2">
           {/* Logo */}
-          <a href="/" className="flex items-center gap-2 flex-shrink-0">
+          <a href="/" className="flex items-center gap-2 flex-shrink-0 min-w-0">
             <img
               src="/armada-logo.png"
               alt="Armada Credit Bureau"
-              className="h-18 md:h-14 object-contain"
+              className="h-12 w-auto md:h-14 max-w-[120px] md:max-w-[180px] object-contain block"
+              style={{ minWidth: 0 }}
             />
             <span className="sr-only">Armada Credit Bureau</span>
           </a>
@@ -110,7 +170,8 @@ export default function Header() {
                             "bg-transparent focus:bg-transparent data-[state=open]:bg-transparent hover:bg-transparent hover:text-[#1A2636] px-4 py-2 text-base font-bold",
                             textColor,
                             "transition-none",
-                            isItemActive && `${activeColor} border-b-2 border-[#91CD95]`
+                            isItemActive &&
+                              `${activeColor} border-b-2 border-[#91CD95]`,
                           )}
                         >
                           {item.label}
@@ -127,11 +188,14 @@ export default function Header() {
                                       href={sub.href}
                                       className={cn(
                                         "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none w-full text-left hover:text-[#1A2636]",
-                                        isSubActive && `${activeColor} ${activeBg}`,
-                                        "transition-none font-bold"
+                                        isSubActive &&
+                                          `${activeColor} ${activeBg}`,
+                                        "transition-none font-bold",
                                       )}
                                     >
-                                      <div className="text-base font-bold leading-none">{sub.label}</div>
+                                      <div className="text-base font-bold leading-none">
+                                        {sub.label}
+                                      </div>
                                       {sub.description && (
                                         <p className="line-clamp-2 text-xs leading-snug text-muted-foreground font-normal">
                                           {sub.description}
@@ -153,7 +217,8 @@ export default function Header() {
                             "group inline-flex h-10 items-center justify-center rounded-md bg-transparent px-4 py-2 text-base font-bold hover:text-[#1A2636]",
                             textColor,
                             "transition-none",
-                            isItemActive && `${activeColor} border-b-2 border-[#91CD95]`
+                            isItemActive &&
+                              `${activeColor} border-b-2 border-[#91CD95]`,
                           )}
                         >
                           {item.label}
@@ -169,15 +234,25 @@ export default function Header() {
           {/* Desktop Socials */}
           <div className="hidden lg:flex items-center gap-2">
             <SocialLink icon={Twitter} href="https://x.com/ArmadaCRB" />
-            <SocialLink icon={Linkedin} href="https://ug.linkedin.com/company/armada-credit-bureau" />
+            <SocialLink
+              icon={Linkedin}
+              href="https://ug.linkedin.com/company/armada-credit-bureau"
+            />
             <SocialLink icon={Instagram} href="#" />
           </div>
 
           {/* Mobile Menu */}
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger asChild>
-              <button className="lg:hidden p-2 text-[#1A2636]" aria-label="Toggle menu">
-                {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              <button
+                className="lg:hidden p-2 text-[#1A2636]"
+                aria-label="Toggle menu"
+              >
+                {isMenuOpen ? (
+                  <X className="w-6 h-6" />
+                ) : (
+                  <Menu className="w-6 h-6" />
+                )}
               </button>
             </SheetTrigger>
 
@@ -185,8 +260,14 @@ export default function Header() {
               <SheetHeader>
                 <SheetTitle className="text-left">
                   <div className="flex items-center gap-2">
-                    <img src="/armada-logo.png" alt="Armada" className="w-24 h-24 object-contain" />
-                    <span className="text-xl font-bold text-[#1A2636]">ARMADA</span>
+                    <img
+                      src="/armada-logo.png"
+                      alt="Armada"
+                      className="w-24 h-24 object-contain"
+                    />
+                    <span className="text-xl font-bold text-[#1A2636]">
+                      ARMADA
+                    </span>
                   </div>
                 </SheetTitle>
               </SheetHeader>
@@ -204,14 +285,15 @@ export default function Header() {
                             "flex w-full items-center justify-between py-3 px-3 font-bold text-base rounded-md",
                             textColor,
                             "transition-none",
-                            isActive(item.href) && activeColor
+                            isActive(item.href) && activeColor,
                           )}
                         >
                           {item.label}
                           <ChevronDown
                             className={cn(
                               "h-4 w-4 transition-transform duration-200",
-                              openMobileDropdowns.includes(item.label) && "rotate-180"
+                              openMobileDropdowns.includes(item.label) &&
+                                "rotate-180",
                             )}
                           />
                         </CollapsibleTrigger>
@@ -224,7 +306,9 @@ export default function Header() {
                               className={cn(
                                 "block py-2.5 px-3 text-base font-bold rounded-md",
                                 "transition-none",
-                                isActive(sub.href) ? activeColor : "text-muted-foreground"
+                                isActive(sub.href)
+                                  ? activeColor
+                                  : "text-muted-foreground",
                               )}
                               onClick={() => setIsMenuOpen(false)}
                             >
@@ -240,7 +324,7 @@ export default function Header() {
                           "block py-3 px-3 font-bold text-base rounded-md",
                           textColor,
                           "transition-none",
-                          isActive(item.href) && activeColor
+                          isActive(item.href) && activeColor,
                         )}
                         onClick={() => setIsMenuOpen(false)}
                       >
@@ -253,8 +337,16 @@ export default function Header() {
 
               {/* Mobile Socials */}
               <div className="flex justify-center gap-6 mt-10 pt-6 border-t">
-                <SocialLink icon={Twitter} size={20} href="https://x.com/ArmadaCRB" />
-                <SocialLink icon={Linkedin} size={20} href="https://ug.linkedin.com/company/armada-credit-bureau" />
+                <SocialLink
+                  icon={Twitter}
+                  size={20}
+                  href="https://x.com/ArmadaCRB"
+                />
+                <SocialLink
+                  icon={Linkedin}
+                  size={20}
+                  href="https://ug.linkedin.com/company/armada-credit-bureau"
+                />
                 <SocialLink icon={Instagram} size={20} href="#" />
               </div>
             </SheetContent>
@@ -266,7 +358,15 @@ export default function Header() {
 }
 
 // SocialLink
-function SocialLink({ icon: Icon, size = 20, href = "#" }: { icon: any; size?: number; href?: string }) {
+function SocialLink({
+  icon: Icon,
+  size = 20,
+  href = "#",
+}: {
+  icon: any;
+  size?: number;
+  href?: string;
+}) {
   return (
     <a
       href={href}

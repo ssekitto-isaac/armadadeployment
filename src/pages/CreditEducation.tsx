@@ -41,12 +41,12 @@ const CreditEducationPage = () => {
 
       <main className="flex-grow">
         {/* Hero - with overlay */}
-        <section className="relative h-[480px] md:h-[560px] overflow-hidden">
+        <section className="relative h-[400px] md:h-[420px] overflow-hidden">
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{ backgroundImage: `url(${literacyHero})` }}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/80 to-primary/50" />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/50 to-primary/50" />
           <div className="relative z-10 container mx-auto px-5 md:px-16 h-full flex items-center">
             <div className="max-w-3xl">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-5">
