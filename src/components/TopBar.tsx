@@ -25,7 +25,7 @@ const TopBar = () => {
           
           <a
             href="https://app.armadacrb.com/login.aspx"
-            className="justify-self-end flex items-center gap-2 bg-[#91CD95] hover:bg-[#7ab87d] text-white px-12 py-2 rounded font-semibold transition-all duration-300 whitespace-nowrap"
+            className="justify-self-end flex items-center gap-2 bg-[#91CD95] hover:bg-[#7ab87d] text-white px-12 py-2 rounded font-semibold transition-all duration-300 whitespace-nowrap ml-28"
           >
             <span>Member Login</span>
             <ArrowRight className="w-4 h-4" />

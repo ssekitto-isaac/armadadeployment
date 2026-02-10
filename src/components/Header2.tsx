@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Menu, X, ChevronDown, Twitter, Linkedin, Instagram, Youtube } from "lucide-react";
+import { Menu, X, ChevronDown, Twitter, Linkedin, Instagram } from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -84,7 +84,7 @@ export default function Header() {
   return (
     <header className="bg-background sticky top-0 z-50 shadow-sm font-sans">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-center gap-8 py-4">
+        <div className="flex items-center justify-center gap-12 py-2">
           {/* Logo */}
           <a href="/" className="flex items-center gap-2 flex-shrink-0">
             <img
@@ -167,11 +167,10 @@ export default function Header() {
           </NavigationMenu>
 
           {/* Desktop Socials */}
-          <div className="hidden lg:flex items-center gap-5">
+          <div className="hidden lg:flex items-center gap-2">
             <SocialLink icon={Twitter} href="https://x.com/ArmadaCRB" />
             <SocialLink icon={Linkedin} href="https://ug.linkedin.com/company/armada-credit-bureau" />
             <SocialLink icon={Instagram} href="#" />
-            <SocialLink icon={Youtube} href="#" />
           </div>
 
           {/* Mobile Menu */}
@@ -257,7 +256,6 @@ export default function Header() {
                 <SocialLink icon={Twitter} size={20} href="https://x.com/ArmadaCRB" />
                 <SocialLink icon={Linkedin} size={20} href="https://ug.linkedin.com/company/armada-credit-bureau" />
                 <SocialLink icon={Instagram} size={20} href="#" />
-                <SocialLink icon={Youtube} size={20} href="#" />
               </div>
             </SheetContent>
           </Sheet>

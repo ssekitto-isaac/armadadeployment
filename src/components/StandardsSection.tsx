@@ -1,20 +1,22 @@
-import { Users, Eye, FileText, ArrowRight } from "lucide-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUsers, faEye, faClipboard, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { ArrowRight, FileText, BarChart3, Shield, Database } from "lucide-react";
 
 const cards = [
   {
-    icon: Users,
+    icon: faUsers,
     title: "About Us",
     description: "We focus on stakeholder relations and astute partnership building.",
     link: "#about",
   },
   {
-    icon: Eye,
+    icon: faEye,
     title: "Our Vision",
     description: "Our vision is to be the leading and most trusted single",
     link: "#vision",
   },
   {
-    icon: FileText,
+    icon: faClipboard,
     title: "Our Mission",
     description: "To facilitate value creation and trust between creditors",
     link: "#mission",
@@ -45,8 +47,8 @@ const StandardsSection = () => {
               className="value-card group text-center"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="icon-circle-outline mx-auto">
-                <card.icon className="w-8 h-8 text-primary group-hover:text-navy transition-colors" />
+              <div className="icon-circle-outline mx-auto flex items-center justify-center" style={{ background: '#91CD95', borderRadius: '50%', width: 96, height: 96, border: '3px solid #91CD95' }}>
+                <FontAwesomeIcon icon={card.icon} style={{ color: '#fff', fontSize: '3.0rem' }} />
               </div>
               <h3 className="text-xl font-heading font-bold text-foreground mb-3">
                 {card.title}
@@ -54,10 +56,17 @@ const StandardsSection = () => {
               <p className="text-muted-foreground mb-6">{card.description}</p>
               <a
                 href={card.link}
-                className="inline-flex items-center gap-2 text-secondary font-semibold hover:gap-3 transition-all rounded-full px-4 py-2 group-hover:bg-navy-dark group-hover:text-primary-foreground"
+                className="inline-flex items-center gap-2 text-foreground font-semibold hover:gap-3 transition-all rounded-full px-4 py-2 group-hover:bg-navy-dark group-hover:text-primary-foreground"
               >
                 Read more
-                <ArrowRight className="w-4 h-4" />
+                  <span className="w-8 h-8 rounded-full bg-[#1d2530] flex items-center justify-center">
+                <FontAwesomeIcon icon={faArrowRight} style={{ color: '#ffffff', fontSize: '1rem' }} />
+                  </span>
+
+                {/* Read More{" "}
+                  <span className="w-8 h-8 rounded-full bg-[#1d2530] flex items-center justify-center">
+                    <faArrowRight className="w-4 h-4 text-white" />
+                  </span> */}
               </a>
             </div>
           ))}

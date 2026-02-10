@@ -29,7 +29,11 @@ const AboutSection = () => {
 
           {/* Content */}
           <div>
-            <span className="section-label">About us</span>
+            <span className="section-label font-semibold text-lg flex items-center gap-2 mb-2">
+              About us
+              <span className="inline-block w-8 h-1 bg-[#91CD95] rounded ml-2 align-middle"></span>
+            </span>
+
             <h2 className="section-title-dark mb-6">
               We are dedicated to supporting you
             </h2>
@@ -49,9 +53,11 @@ const AboutSection = () => {
               ))}
             </div>
 
-            <a href="#" className="btn-primary inline-flex items-center gap-2 group">
+            <a href="#" className="btn-primary inline-flex items-center gap-4 group rounded-full px-10 py-3 text-lg font-bold" style={{ borderRadius: '9999px' }}>
               Read More
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <span className="flex items-center justify-center bg-white" style={{ borderRadius: '50%', width: 40, height: 40 }}>
+                <ArrowRight className="w-6 h-6 text-[#0068ad] group-hover:translate-x-1 transition-transform" />
+              </span>
             </a>
           </div>
         </div>

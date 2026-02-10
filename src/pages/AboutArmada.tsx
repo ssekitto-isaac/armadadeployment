@@ -1,5 +1,6 @@
 import React from "react";
-import { ArrowRight, CheckCircle, Globe, Zap, Lock, Users } from "lucide-react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDatabase, faUsers, faClipboard, faGlobe, faBolt, faLock, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import heroImage from "@/assets/FinanaceTeam1.jpg"; // team or data visualization
 import teamImage from "@/assets/FinanceAnyalysing.jpg"; // professional team photo
 import LiveChatWidget from "@/components/LiveChat";
@@ -32,25 +33,25 @@ const partners = [
 
 const whyPartner = [
   {
-    icon: Globe,
+    icon: faGlobe,
     title: "Global Insight, Local Impact",
     description: "We blend international expertise with deep regional knowledge to deliver precise, actionable, and context-aware insights.",
     accent: "#14B1E7",
   },
   {
-    icon: Zap,
+    icon: faBolt,
     title: "Real-Time Intelligence",
     description: "By leveraging live, up-to-the-minute data, we empower you to make decisions that are timely, confident, and fully informed.",
     accent: "#91CD95",
   },
   {
-    icon: Lock,
+    icon: faLock,
     title: "Uncompromising Security",
     description: "We apply industry-leading encryption and rigorous compliance protocols to ensure your data remains secure, private, and fully protected.",
     accent: "#0066AB",
   },
   {
-    icon: Users,
+    icon: faUsers,
     title: "Our Team’s Expertise",
     description: "You will benefit from the collective skills of our seasoned professionals in credit, risk, and data management, delivering insights that are reliable, actionable, and tailored to your specific needs.",
     accent: "#14B1E7",
@@ -85,7 +86,7 @@ const AboutPage = () => {
                 className="btn-secondary inline-flex items-center gap-3 px-8 py-4 text-lg group"
               >
                 Why Partner With Us
-                <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+                <FontAwesomeIcon icon={faArrowRight} className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
               </a>
             </div>
           </div>
@@ -142,7 +143,7 @@ const AboutPage = () => {
                   <div
                     className="w-20 h-20 rounded-2xl bg-secondary/10 flex items-center justify-center mx-auto mb-6 group-hover:bg-secondary transition-colors duration-300"
                   >
-                    <item.icon className="w-10 h-10 text-secondary group-hover:text-secondary-foreground transition-colors" />
+                    <FontAwesomeIcon icon={item.icon} style={{ color: '#22313F', fontSize: '2.5rem' }} />
                   </div>
                   <h3 className="text-xl font-heading font-bold text-foreground mb-3 group-hover:text-secondary transition-colors">
                     {item.title}

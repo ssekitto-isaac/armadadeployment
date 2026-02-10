@@ -46,9 +46,9 @@ const ProductSuite = () => {
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
           <div className="flex items-center justify-center gap-4 mb-4">
-            <div className="h-1 w-8 bg-secondary flex-shrink-0 translate-y-[-2px]"></div>
+            <div className="h-1 w-8 bg-secondary flex-shrink-0 translate-y-[-4px]"></div>
             <span className="section-label">What We Offer</span>
-            <div className="h-1 w-8 bg-secondary flex-shrink-0 translate-y-[-2px]"></div>
+            <div className="h-1 w-8 bg-secondary flex-shrink-0 translate-y-[-4px]"></div>
           </div>
           <div className="flex items-center justify-center gap-4 mb-4">
             <h2 className="section-title-dark">Product Suite</h2>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Menu, X, ChevronDown, Twitter, Linkedin, Instagram, Youtube } from "lucide-react";
+import { Menu, X, ChevronDown, Twitter, Linkedin, Instagram } from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -173,7 +173,6 @@ export default function Header() {
             <SocialLink icon={Twitter} href="https://x.com/ArmadaCRB" />
             <SocialLink icon={Linkedin} href="https://ug.linkedin.com/company/armada-credit-bureau" />
             <SocialLink icon={Instagram} href="#" />
-            <SocialLink icon={Youtube} href="#" />
           </div>
 
           {/* Mobile Menu */}
@@ -261,7 +260,6 @@ export default function Header() {
                 <SocialLink icon={Twitter} size={20} href="https://x.com/ArmadaCRB" />
                 <SocialLink icon={Linkedin} size={20} href="https://ug.linkedin.com/company/armada-credit-bureau" />
                 <SocialLink icon={Instagram} size={20} href="#" />
-                <SocialLink icon={Youtube} size={20} href="#" />
               </div>
             </SheetContent>
           </Sheet>
