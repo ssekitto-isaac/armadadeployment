@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import hero1 from "@/assets/young team.png";
 import hero2 from "@/assets/credit_report.png";
 import hero3 from "@/assets/analytics_african_men.png";
-import hero4 from "@/assets/women_standing_final3.png";
+import hero4 from "@/assets/women_standing.png";
 import hero5 from "@/assets/risk_int.png";
 import hero6 from "@/assets/lady and the guy final.png";
 import hero7 from "@/assets/welcome6.png";
@@ -21,7 +21,7 @@ const slides = [
     subtitle: "We are global leaders in credit reporting and analytics",
     cta: "View Now",
     link: "/AboutArmada",
-    image: hero1
+    image: hero1,
   },
   {
     title: "ArmadaScore®",
@@ -48,7 +48,7 @@ const slides = [
     image: hero3,
   },
   {
-    title: "Credit Education & Financial Literacy",
+    title: "Credit Education &\nFinancial Literacy",
     subtitle:
       "Credit education is key to building a healthy credit culture. Learn more about credit today",
     cta: "View More",
@@ -56,7 +56,7 @@ const slides = [
     image: hero4,
   },
   {
-    title: "Business Intelligence & Insights Reports",
+    title: "Business Intelligence &\nInsights Reports",
     subtitle:
       "Our risk intelligence module provides insights into credit risk factors and trends",
     cta: "View More",
@@ -111,10 +111,10 @@ const HeroSection = () => {
   }, [currentSlide]);
 
   const goToSlide = (index: number) => setCurrentSlide(index);
-  
+
   const prevSlide = () =>
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-  
+
   const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % slides.length);
 
   const isWelcomeSlide = currentSlide === 0;
@@ -135,19 +135,19 @@ const HeroSection = () => {
           }}
           transition={{
             duration: 1.2,
-            ease: "easeInOut"
+            ease: "easeInOut",
           }}
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ 
+          style={{
             backgroundImage: `url(${slide.image})`,
-            zIndex: index === currentSlide ? 2 : 1
+            zIndex: index === currentSlide ? 2 : 1,
           }}
           aria-hidden={index !== currentSlide}
         />
       ))}
 
       {/* Overlay - Stronger on mobile for better text readability */}
-      <div className="hero-overlay absolute inset-0 bg-black/10 md:bg-black/10 z-[3]" />
+      <div className="hero-overlay absolute inset-0 bg-black/15 md:bg-black/15 z-[3]" />
 
       {/* Content - Responsive padding and spacing */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 md:px-12 lg:px-28 py-12 sm:py-16 md:py-20 lg:py-28 h-full flex items-center">
@@ -163,7 +163,7 @@ const HeroSection = () => {
               <div className="relative w-full max-w-[280px] sm:max-w-[320px] md:max-w-[380px] lg:max-w-[420px] mx-auto md:mx-0">
                 {/* Background glow effect */}
                 <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/20 to-blue-500/20 blur-3xl -z-10 rounded-3xl" />
-                
+
                 {/* Shattered logo pieces */}
                 <div className="relative w-full aspect-[420/120]">
                   {logoPieces.map((piece) => {
