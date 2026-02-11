@@ -1,6 +1,6 @@
 import { Lightbulb, Award, ShieldCheck } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUsers } from "@fortawesome/free-solid-svg-icons";
+import { faUsers, faLightbulb } from "@fortawesome/free-solid-svg-icons";
 import innovationImg from "@/assets/innovation4.png";
 
 const CollaborationIcon = ({ className }) => (
@@ -10,29 +10,13 @@ const CollaborationIcon = ({ className }) => (
   />
 );
 
-const InnovationIcon = () => (
-  <svg className="w-14 h-14" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="2">
-    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2z" strokeLinecap="round" strokeLinejoin="round" />
-    <line x1="12" y1="6" x2="12" y2="4" strokeLinecap="round" />
-    <line x1="12" y1="20" x2="12" y2="22" strokeLinecap="round" />
-    <line x1="18" y1="12" x2="20" y2="12" strokeLinecap="round" />
-    <line x1="4" y1="12" x2="6" y2="12" strokeLinecap="round" />
-    <line x1="17.2" y1="6.8" x2="18.6" y2="5.4" strokeLinecap="round" />
-    <line x1="5.4" y1="18.6" x2="6.8" y2="17.2" strokeLinecap="round" />
-    <line x1="17.2" y1="17.2" x2="18.6" y2="18.6" strokeLinecap="round" />
-    <line x1="5.4" y1="5.4" x2="6.8" y2="6.8" strokeLinecap="round" />
-    <circle cx="9" cy="9" r="1.5" fill="#16a34a" />
-    <circle cx="15" cy="8" r="1" fill="#16a34a" />
-    <circle cx="12" cy="14" r="1.5" fill="#16a34a" />
-    <path d="M9 10.5v2.5M15 9v2M12 15.5v2" stroke="#16a34a" strokeWidth="1.5" strokeLinecap="round" />
-    <path d="M12 6l-1.5 3H12l1.5 3M12 6v8" stroke="#16a34a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
+const InnovationIcon = (props) => (
+  <FontAwesomeIcon icon={faLightbulb} className={`w-14 h-14 text-white fill-white ${props.className || ""}`} />
 );
-
 
 const values = [
   {
-    icon: innovationImg,
+    icon: InnovationIcon,
     title: "Innovation",
     description: "We relentlessly pursue creative solutions to improve our processes and systems.",
   },
@@ -77,7 +61,7 @@ const CoreValues = () => {
           {values.map((value, index) => (
             <div
               key={value.title}
-              className="value-card group text-center transition-colors duration-300 hover:bg-primary"
+              className="value-card group text-center transition-colors duration-300 hover:bg-navy"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="w-28 h-28 rounded-full bg-[#91CD95] flex items-center justify-center mx-auto mb-8 transition-colors duration-300">
