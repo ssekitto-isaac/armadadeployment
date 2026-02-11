@@ -147,7 +147,7 @@ const HeroSection = () => {
       ))}
 
       {/* Overlay - Stronger on mobile for better text readability */}
-      <div className="hero-overlay absolute inset-0 bg-black/20 md:bg-black/30 z-[3]" />
+      <div className="hero-overlay absolute inset-0 bg-black/10 md:bg-black/10 z-[3]" />
 
       {/* Content - Responsive padding and spacing */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 md:px-12 lg:px-28 py-12 sm:py-16 md:py-20 lg:py-28 h-full flex items-center">

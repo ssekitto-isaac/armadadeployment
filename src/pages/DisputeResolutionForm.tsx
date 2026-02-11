@@ -16,7 +16,7 @@ import {
   Send,
 } from "lucide-react";
 import TopBar from "@/components/TopBar";
-import Header from "@/components/Header2";
+import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 // Hero image (used in both top hero and bottom CTA)
@@ -169,15 +169,15 @@ const DisputeResolution = () => {
                     </div>
 
                     <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-5">
-                      Lodge Your Credit Dispute
+                     If you have noticed erroneous information
                     </h2>
 
                     <p className="text-base md:text-lg text-muted-foreground mb-8 max-w-3xl mx-auto">
-                      Found inaccuracies in your credit report? Click below to start the formal dispute process — secure, compliant, and handled promptly.
+                     In your credit information report, please use the form below to log a dispute.
                     </p>
 
                     <div className="inline-flex items-center gap-3 px-7 py-4 bg-secondary/10 rounded-full text-secondary font-semibold hover:bg-secondary/20 transition-colors group">
-                      Click to Start Dispute
+                      Click to Log a Dispute
                       <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                     </div>
                   </div>
@@ -190,8 +190,8 @@ const DisputeResolution = () => {
                   <div className="w-14 h-14 rounded-2xl bg-secondary/10 flex items-center justify-center mx-auto mb-3">
                     <Clock className="w-7 h-7 text-secondary" />
                   </div>
-                  <p className="font-bold text-foreground">Response Time</p>
-                  <p className="text-sm text-muted-foreground">5–7 Business Days</p>
+                  <p className="font-bold text-foreground">Resolution Time</p>
+                  <p className="text-sm text-muted-foreground">14 Working Days</p>
                 </div>
                 <div>
                   <div className="w-14 h-14 rounded-2xl bg-secondary/10 flex items-center justify-center mx-auto mb-3">

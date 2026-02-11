@@ -29,7 +29,7 @@ const StandardsSection = () => {
       <div className="container mx-auto px-4">
         {/* Title */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="section-title mb-6">
+          <h2 className="section-title-dark mb-6">
             We're setting the new standards
           </h2>
           <p className="text-lg text-muted-foreground">
@@ -56,17 +56,12 @@ const StandardsSection = () => {
               <p className="text-muted-foreground mb-6">{card.description}</p>
               <a
                 href={card.link}
-                className="inline-flex items-center gap-2 text-foreground font-semibold hover:gap-3 transition-all rounded-full px-4 py-2 group-hover:bg-navy-dark group-hover:text-primary-foreground"
+                className="inline-flex items-center gap-2 text-foreground font-semibold hover:gap-3 transition-all rounded-full px-4 py-2 group-hover:text-white"
               >
                 Read more
-                  <span className="w-8 h-8 rounded-full bg-[#1d2530] flex items-center justify-center">
-                <FontAwesomeIcon icon={faArrowRight} style={{ color: '#ffffff', fontSize: '1rem' }} />
-                  </span>
-
-                {/* Read More{" "}
-                  <span className="w-8 h-8 rounded-full bg-[#1d2530] flex items-center justify-center">
-                    <faArrowRight className="w-4 h-4 text-white" />
-                  </span> */}
+                <span className="w-8 h-8 rounded-full bg-[#1d2530] flex items-center justify-center transition-colors group-hover:bg-[#91CD95]">
+                  <FontAwesomeIcon icon={faArrowRight} style={{ color: '#ffffff', fontSize: '1rem' }} />
+                </span>
               </a>
             </div>
           ))}

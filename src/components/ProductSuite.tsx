@@ -63,13 +63,13 @@ const ProductSuite = () => {
           {products.map((p) => (
             <div
               key={p.id}
-              className="product-card group scroll-mt-24 h-[26rem] flex flex-col w-full items-center text-center bg-white shadow-lg rounded-none"
+              className="product-card group scroll-mt-24 h-[26rem] flex flex-col w-full items-center text-center bg-white shadow-lg rounded-2xl transition-all duration-300 hover:bg-[#0068AD]"
             >
               {/* Icon Header */}
               <div className="p-4 justify-center">
-                <div className="w-24 h-24 rounded-full bg-secondary flex items-center justify-center group-hover:bg-secondary/90 transition-all duration-300">
+                <div className="w-28 h-28 rounded-full bg-secondary/10 flex items-center justify-center mx-auto mb-8 group-hover:bg-secondary group-hover:bg-opacity-80 group-hover:shadow-lg transition-colors duration-300">
                   <p.icon
-                    className="w-12 h-12 text-primary-foreground"
+                    className="w-14 h-14 text-secondary group-hover:text-secondary-foreground group-hover:text-white transition-colors"
                     stroke="currentColor"
                   />
                 </div>
@@ -77,19 +77,19 @@ const ProductSuite = () => {
 
               {/* Content */}
               <div className="p-6 flex flex-col flex-1 w-full items-center text-center">
-                <h3 className="text-xl md:text-2xl font-heading font-bold text-foreground mb-3 line-clamp-2">
+                <h3 className="text-xl md:text-2xl font-heading font-bold text-foreground mb-3 group-hover:text-white transition-colors">
                   {p.title}
                 </h3>
-                <p className="text-foreground text-base mb-4 line-clamp-3 flex-1">
+                <p className="text-muted-foreground text-base mb-4 line-clamp-3 flex-1 group-hover:text-white transition-colors">
                   {p.description}
                 </p>
                 <a
                   href={p.link}
-                  className="inline-flex items-center gap-2 text-foreground font-bold text-base hover:gap-3 transition-all"
+                  className="inline-flex items-center gap-2 text-foreground font-bold text-base hover:gap-3 transition-all group-hover:text-white"
                 >
                   Read More{" "}
-                  <span className="w-8 h-8 rounded-full bg-[#1d2530] flex items-center justify-center">
-                    <ArrowRight className="w-4 h-4 text-white" />
+                  <span className="w-8 h-8 rounded-full bg-[#1d2530] flex items-center justify-center group-hover:bg-secondary transition-colors">
+                    <ArrowRight className="w-4 h-4 text-white group-hover:text-secondary-foreground transition-colors" />
                   </span>
                 </a>
               </div>

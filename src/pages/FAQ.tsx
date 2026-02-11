@@ -9,7 +9,7 @@ import {
   Shield,
 } from 'lucide-react';
 
-import Header from "@/components/Header2";
+import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import LiveChatWidget from "@/components/LiveChat";
 

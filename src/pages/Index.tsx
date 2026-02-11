@@ -1,5 +1,5 @@
 import TopBar from "@/components/TopBar";
-import Header from "@/components/Header2";
+import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import StandardsSection from "@/components/StandardsSection";
 import CoreValues from "@/components/CoreValues";
@@ -19,7 +19,7 @@ const Index = () => {
         <StandardsSection />
         <CoreValues />
         <AboutSection />
-        <WhyChooseUs />
+        {/* <WhyChooseUs /> */}
         <ProductSuite />
         <StatsSection />
       </main>

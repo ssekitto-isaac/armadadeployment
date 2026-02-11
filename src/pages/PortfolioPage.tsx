@@ -1,5 +1,5 @@
 import TopBar from "@/components/TopBar";
-import Header from "@/components/Header2";
+import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import menArmada from "@/assets/men_armada.jpeg";
 import { BarChart3, AlertCircle, Zap, Workflow, Clock, TrendingUp, Filter, ArrowLeft, ArrowRight } from "lucide-react";
@@ -81,7 +81,7 @@ const PortfolioPage = () => {
         <section className="py-20 bg-white">
           <div className="container mx-auto px-4 max-w-5xl">
             <div className="mb-16">
-              <h2 className="text-4xl font-bold text-secondary mb-6">
+              <h2 className="text-4xl font-bold section-title-dark mb-6">
                 Risk is ubiquitous. You need a partner that works
               </h2>
               <p className="text-lg text-foreground leading-relaxed">

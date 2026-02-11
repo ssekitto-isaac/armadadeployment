@@ -1,5 +1,5 @@
 import TopBar from "@/components/TopBar";
-import Header from "@/components/Header2";
+import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import dataImage from "@/assets/data.jpg";
 import { Database, Shield, Zap, ArrowLeft, ArrowRight } from "lucide-react";
@@ -55,7 +55,7 @@ const DataManagementPage = () => {
         <section className="py-20 bg-white">
           <div className="container mx-auto px-4 max-w-5xl">
             <div className="mb-16">
-              <h2 className="text-4xl font-bold text-secondary mb-6">
+              <h2 className="text-4xl font-bold section-title-dark mb-6">
                 Data is a valuable source of actionable insight.
               </h2>
               <p className="text-lg text-foreground leading-relaxed mb-8">
