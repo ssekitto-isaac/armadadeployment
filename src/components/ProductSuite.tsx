@@ -67,9 +67,9 @@ const ProductSuite = () => {
             >
               {/* Icon Header */}
               <div className="p-4 justify-center">
-                <div className="w-28 h-28 rounded-full bg-secondary/10 flex items-center justify-center mx-auto mb-8 group-hover:bg-secondary group-hover:bg-opacity-80 group-hover:shadow-lg transition-colors duration-300">
+                <div className="w-28 h-28 rounded-full bg-[#91CD95] flex items-center justify-center mx-auto mb-8 transition-colors duration-300">
                   <p.icon
-                    className="w-14 h-14 text-secondary group-hover:text-secondary-foreground group-hover:text-white transition-colors"
+                    className="w-14 h-14 text-white"
                     stroke="currentColor"
                   />
                 </div>

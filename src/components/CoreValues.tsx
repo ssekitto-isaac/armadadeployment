@@ -77,20 +77,20 @@ const CoreValues = () => {
           {values.map((value, index) => (
             <div
               key={value.title}
-              className="value-card group text-center"
+              className="value-card group text-center transition-colors duration-300 hover:bg-primary"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="w-28 h-28 rounded-full bg-secondary/10 flex items-center justify-center mx-auto mb-8 group-hover:bg-secondary transition-colors duration-300">
+              <div className="w-28 h-28 rounded-full bg-[#91CD95] flex items-center justify-center mx-auto mb-8 transition-colors duration-300">
                 {typeof value.icon === "string" ? (
                   <img src={value.icon} alt={value.title} className="w-14 h-14" />
                 ) : (
-                  <value.icon className="w-14 h-14 text-secondary group-hover:text-secondary-foreground transition-colors" />
+                  <value.icon className="w-14 h-14 text-white fill-white" />
                 )}
               </div>
-              <h3 className="text-xl font-heading font-bold text-foreground mb-3">
+              <h3 className="text-xl font-heading font-bold text-foreground mb-3 group-hover:text-white transition-colors">
                 {value.title}
               </h3>
-              <p className="text-muted-foreground">{value.description}</p>
+              <p className="text-muted-foreground group-hover:text-white transition-colors">{value.description}</p>
             </div>
           ))}
         </div>
