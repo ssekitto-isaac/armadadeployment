@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 // Background images
-import hero1 from "@/assets/young-team.png";
-import hero2 from "@/assets/credit-report-fine.png";
+import hero1 from "@/assets/young team.png";
+import hero2 from "@/assets/credit_report.png";
 import hero3 from "@/assets/analytics_african_men.png";
-import hero4 from "@/assets/women_standing_final2.png";
+import hero4 from "@/assets/women_standing_final3.png";
 import hero5 from "@/assets/risk_int.png";
 import hero6 from "@/assets/lady and the guy final.png";
 import hero7 from "@/assets/welcome6.png";

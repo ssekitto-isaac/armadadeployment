@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers, faEye, faClipboard, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { ArrowRight, FileText, BarChart3, Shield, Database } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const cards = [
   {
@@ -40,7 +41,7 @@ const StandardsSection = () => {
         </div>
 
         {/* Cards */}
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-8 h-200">
           {cards.map((card, index) => (
             <div
               key={card.title}
@@ -54,15 +55,15 @@ const StandardsSection = () => {
                 {card.title}
               </h3>
               <p className="text-muted-foreground mb-6">{card.description}</p>
-              <a
-                href={card.link}
+              <Link
+                to="/AboutArmada"
                 className="inline-flex items-center gap-2 text-foreground font-semibold hover:gap-3 transition-all rounded-full px-4 py-2 group-hover:text-white"
               >
                 Read more
                 <span className="w-8 h-8 rounded-full bg-[#1d2530] flex items-center justify-center transition-colors group-hover:bg-[#91CD95]">
                   <FontAwesomeIcon icon={faArrowRight} style={{ color: '#ffffff', fontSize: '1rem' }} />
                 </span>
-              </a>
+              </Link>
             </div>
           ))}
         </div>

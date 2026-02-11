@@ -1,5 +1,6 @@
 import { ArrowRight, CheckCircle } from "lucide-react";
 import aboutImage from "@/assets/about-image.png";
+import { Link } from "react-router-dom";
 
 const features = [
   "Licensed by Bank of Uganda",
@@ -53,12 +54,16 @@ const AboutSection = () => {
               ))}
             </div>
 
-            <a href="#" className="btn-primary inline-flex items-center gap-4 group rounded-full px-10 py-3 text-lg font-bold" style={{ borderRadius: '9999px' }}>
+            <Link
+              to="/AboutArmada"
+              className="btn-primary inline-flex items-center gap-4 group rounded-full px-10 py-3 text-lg font-bold"
+              style={{ borderRadius: '9999px' }}
+            >
               Read More
               <span className="flex items-center justify-center bg-white" style={{ borderRadius: '50%', width: 40, height: 40 }}>
                 <ArrowRight className="w-6 h-6 text-[#0068ad] group-hover:translate-x-1 transition-transform" />
               </span>
-            </a>
+            </Link>
           </div>
         </div>
       </div>
