@@ -153,8 +153,12 @@ const SelfInquiry = () => {
                   key={index}
                   className="bg-background rounded-2xl shadow-xl border border-muted p-6 text-center transition-all hover:shadow-2xl"
                 >
-                  <div className="w-16 h-16 rounded-2xl bg-secondary/10 flex items-center justify-center mx-auto mb-6">
-                    <step.icon className="w-8 h-8 text-secondary" />
+                  {/* Step Number */}
+                  <div className="text-xl font-heading font-bold mb-3 tracking-wider">
+                    Step {index + 1}
+                  </div>
+                  <div className="w-24 h-24 rounded-full bg-[#91CD95] flex items-center justify-center mx-auto mb-6">
+                    <step.icon className="w-12 h-12 text-white" />
                   </div>
                   <h3 className="text-xl font-heading font-bold mb-3">{step.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line">

@@ -88,7 +88,7 @@ const navItems: NavItem[] = [
       },
     ],
   },
-  { label: "News", href: "/news" },
+  
   {
     label: "Customer Information",
     href: "/credit-education",
@@ -115,6 +115,8 @@ const navItems: NavItem[] = [
       },
     ],
   },
+  { label: "News", href: "/news" },
+  // { label: "FAQs", href: "/FAQ"},
   { label: "Contact Us", href: "/contact" },
 ];
 
@@ -136,6 +138,11 @@ export default function Header() {
     return location.pathname === href;
   };
 
+  const isAnySubActive = (subItems?: NavSubItem[]) => {
+    if (!subItems) return false;
+    return subItems.some((sub) => isActive(sub.href));
+  };
+
   const textColor = "text-[#1A2636]";
   const activeColor = "text-[#91CD95]";
   const activeBg = "bg-[#EAF7EC]";
@@ -143,10 +150,10 @@ export default function Header() {
 
   return (
     <header className="bg-background sticky top-0 z-50 shadow-sm font-sans">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-center gap-12 py-2">
+      <div className="container mx-auto px-2">
+        <div className="flex items-center justify-center gap-2 py-2">
           {/* Logo */}
-          <a href="/" className="flex items-center gap-2 flex-shrink-0 min-w-0">
+          <a href="/" className="flex items-center gap-2 flex-shrink-0 min-w-0 mr-10">
             <img
               src="/armada-logo.png"
               alt="Armada Credit Bureau"
@@ -158,9 +165,9 @@ export default function Header() {
 
           {/* Desktop Nav */}
           <NavigationMenu className="hidden lg:flex">
-            <NavigationMenuList className="gap-0.5">
+            <NavigationMenuList className="gap-6">
               {navItems.map((item) => {
-                const isItemActive = isActive(item.href);
+                const isItemActive = isActive(item.href) || isAnySubActive(item.subItems);
 
                 return (
                   <NavigationMenuItem key={item.label} className="relative inline-block">
@@ -168,7 +175,7 @@ export default function Header() {
                       <>
                         <NavigationMenuTrigger
                           className={cn(
-                            "bg-transparent focus:bg-transparent data-[state=open]:bg-transparent px-4 py-2 text-base font-bold transition-none",
+                            "bg-transparent focus:bg-transparent data-[state=open]:bg-transparent px-1 py-2 text-base font-bold transition-none",
                             textColor,
                             isItemActive && `${activeColor} border-b-2 border-[#91CD95]`
                           )}
@@ -240,7 +247,7 @@ export default function Header() {
                         <a
                           href={item.href}
                           className={cn(
-                            "group inline-flex h-10 items-center justify-center rounded-md bg-transparent px-4 py-2 text-base font-bold transition-none",
+                            "group inline-flex h-10 items-center justify-center rounded-md bg-transparent px-2 py-2 text-base font-bold transition-none",
                             textColor,
                             isItemActive && `${activeColor} border-b-2 border-[#91CD95]`
                           )}
@@ -267,7 +274,7 @@ export default function Header() {
           </NavigationMenu>
 
           {/* Desktop Socials */}
-          <div className="hidden lg:flex items-center gap-2">
+          <div className="hidden lg:flex items-center gap-5">
             <SocialLink icon={Twitter} href="https://x.com/ArmadaCRB" />
             <SocialLink
               icon={Linkedin}
@@ -371,7 +378,7 @@ export default function Header() {
               </nav>
 
               {/* Mobile Socials */}
-              <div className="flex justify-center gap-6 mt-10 pt-6 border-t">
+              <div className="flex justify-center gap-6 mt-10 pt-6 border-t ml-2">
                 <SocialLink
                   icon={Twitter}
                   size={20}

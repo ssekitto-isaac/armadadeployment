@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 // Background images
 import hero1 from "@/assets/young team.png";
 import hero2 from "@/assets/credit_report.png";
-import hero3 from "@/assets/analytics_african_men.png";
-import hero4 from "@/assets/women_standing_final3.png";
+import hero3 from "@/assets/analytics_african_men1.png";
+import hero4 from "@/assets/women_standing.png";
 import hero5 from "@/assets/risk_int.png";
 import hero6 from "@/assets/lady and the guy final.png";
 import hero7 from "@/assets/welcome6.png";
@@ -48,7 +48,7 @@ const slides = [
     image: hero3,
   },
   {
-    title: "Credit Education & Financial Literacy",
+    title: "Credit Education &\nFinancial Literacy",
     subtitle:
       "Credit education is key to building a healthy credit culture. Learn more about credit today",
     cta: "View More",
@@ -56,7 +56,7 @@ const slides = [
     image: hero4,
   },
   {
-    title: "Business Intelligence & Insights Reports",
+    title: "Business Intelligence &\nInsights Reports",
     subtitle:
       "Our risk intelligence module provides insights into credit risk factors and trends",
     cta: "View More",
@@ -147,7 +147,7 @@ const HeroSection = () => {
       ))}
 
       {/* Overlay - Stronger on mobile for better text readability */}
-      <div className="hero-overlay absolute inset-0 bg-black/10 md:bg-black/10 z-[3]" />
+      <div className="hero-overlay absolute inset-0 bg-black/4 md:bg-black/4 z-[3]" />
 
       {/* Content - Responsive padding and spacing */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 md:px-12 lg:px-28 py-12 sm:py-16 md:py-20 lg:py-28 h-full flex items-center">

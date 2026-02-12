@@ -46,7 +46,7 @@ const CoreValues = () => {
          {/* <span className="section-label">Our Framework</span> */}
           <div className="flex items-center justify-center gap-4 mb-4">
             <div className="h-1 w-8 bg-secondary flex-shrink-0 translate-y-[-4px]"></div>
-            <span className="section-label">Our Framework</span>
+            <span className="section-label text-xl font-heading font-bold text-foreground">Our Framework</span>
             <div className="h-1 w-8 bg-secondary flex-shrink-0 translate-y-[-4px]"></div>
           </div>
           <h2 className="section-title-dark mb-4">Our Core Values</h2>
@@ -61,7 +61,7 @@ const CoreValues = () => {
           {values.map((value, index) => (
             <div
               key={value.title}
-              className="value-card group text-center transition-colors duration-300 hover:bg-navy"
+              className="value-card group text-center h-[26rem] transition-colors duration-300 hover:bg-navy"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="w-28 h-28 rounded-full bg-[#91CD95] flex items-center justify-center mx-auto mb-8 transition-colors duration-300">

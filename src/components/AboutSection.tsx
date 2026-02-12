@@ -30,7 +30,7 @@ const AboutSection = () => {
 
           {/* Content */}
           <div>
-            <span className="section-label font-semibold text-lg flex items-center gap-2 mb-2">
+            <span className="section-label text-xl font-heading font-bold text-foreground text-lg flex items-center gap-2 mb-2">
               About us
               <span className="inline-block w-8 h-1 bg-[#91CD95] rounded ml-2 align-middle"></span>
             </span>
