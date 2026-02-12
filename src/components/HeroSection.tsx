@@ -21,7 +21,7 @@ const slides = [
     subtitle: "We are global leaders in credit reporting and analytics",
     cta: "View Now",
     link: "/AboutArmada",
-    image: hero1
+    image: hero1,
   },
   {
     title: "ArmadaScore®",
@@ -111,10 +111,10 @@ const HeroSection = () => {
   }, [currentSlide]);
 
   const goToSlide = (index: number) => setCurrentSlide(index);
-  
+
   const prevSlide = () =>
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-  
+
   const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % slides.length);
 
   const isWelcomeSlide = currentSlide === 0;
@@ -135,12 +135,12 @@ const HeroSection = () => {
           }}
           transition={{
             duration: 1.2,
-            ease: "easeInOut"
+            ease: "easeInOut",
           }}
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ 
+          style={{
             backgroundImage: `url(${slide.image})`,
-            zIndex: index === currentSlide ? 2 : 1
+            zIndex: index === currentSlide ? 2 : 1,
           }}
           aria-hidden={index !== currentSlide}
         />
@@ -163,7 +163,7 @@ const HeroSection = () => {
               <div className="relative w-full max-w-[280px] sm:max-w-[320px] md:max-w-[380px] lg:max-w-[420px] mx-auto md:mx-0">
                 {/* Background glow effect */}
                 <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/20 to-blue-500/20 blur-3xl -z-10 rounded-3xl" />
-                
+
                 {/* Shattered logo pieces */}
                 <div className="relative w-full aspect-[420/120]">
                   {logoPieces.map((piece) => {
