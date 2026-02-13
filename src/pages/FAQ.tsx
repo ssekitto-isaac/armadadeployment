@@ -12,9 +12,10 @@ import {
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import LiveChatWidget from "@/components/LiveChat";
-
-import heroImage from "@/assets/DisputeResolution.jpg"; // consistent hero background
+import heroImage from "@/assets/DisputeResolution.jpg";
 import TopBar from '@/components/TopBar';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 const FAQ = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -48,39 +49,41 @@ const FAQ = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <TopBar/>
+      <TopBar />
       <Header />
 
-      {/* Hero – same dimensions & treatment as DisputeResolution */}
-      <section className="relative h-[420px] md:h-[520px] overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center transition-transform duration-[1500ms] scale-105 hover:scale-110"
-          style={{ backgroundImage: `url(${heroImage})` }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/65 via-primary/75 to-primary/85" />
+      {/* Hero – no overlay, fixed background */}
+      <section
+  className="relative h-[340px] md:h-[420px] overflow-hidden"  // ← reduced height
+  style={{
+    backgroundImage: `url(${heroImage})`,
+    backgroundAttachment: "fixed",
+    backgroundSize: "cover",
+    backgroundPosition: "center top",          // ← less cropping on top/subjects
+  }}
+>
+  {/* No overlay – as per your previous preference */}
 
-       
+  <div className="relative z-10 container mx-auto px-6 md:px-20 lg:px-28 h-full flex items-center">
+    <div className="max-w-3xl">
+      <div className="flex items-center gap-3 text-white/90 text-sm uppercase tracking-wider mb-5 drop-shadow-md">
+        <span>Home</span>
+        <ChevronRight className="w-4 h-4" />
+        <span className="font-semibold">FAQ</span>
+      </div>
 
-        <div className="relative z-10 container mx-auto px-6 md:px-20 lg:px-28 h-full flex items-center">
-          <div className="max-w-3xl">
-            <div className="flex items-center gap-3 text-primary-foreground/80 text-sm uppercase tracking-wider mb-5">
-              <span>Home</span>
-              <ChevronRight className="w-4 h-4" />
-              <span className="font-semibold">FAQ</span>
-            </div>
+      <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-5 leading-tight drop-shadow-lg">
+        Frequently Asked Questions
+      </h1>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-primary-foreground mb-5 leading-tight">
-              Frequently Asked Questions
-            </h1>
+      <p className="text-xl text-white/90 max-w-2xl drop-shadow-md">
+        Find quick answers to the most common questions about credit reporting and our services.
+      </p>
+    </div>
+  </div>
+</section>
 
-            <p className="text-xl text-primary-foreground/90 max-w-2xl">
-              Find quick answers to the most common questions about credit reporting and our services.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section – same vertical spacing as form in DisputeResolution */}
+      {/* FAQ Section – unchanged */}
       <section className="py-16 bg-muted">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
@@ -139,7 +142,6 @@ const FAQ = () => {
               ))}
             </div>
 
-            {/* Compliance note – same style as DisputeResolution */}
             <div className="mt-12 flex items-center justify-center gap-4 text-muted-foreground text-center text-sm max-w-3xl mx-auto">
               <Shield className="w-5 h-5 text-secondary flex-shrink-0" />
               <p>
@@ -150,35 +152,56 @@ const FAQ = () => {
         </div>
       </section>
 
-      {/* Help CTA – matched exactly to DisputeResolution CTA styling */}
+      {/* Compact Help CTA – standardized with navy overlay + reduced size */}
       <section
-        className="relative py-16 bg-cover bg-center bg-no-repeat text-foreground"
-        style={{ backgroundImage: `url(${heroImage})` }}
+        className="py-12 md:py-16 relative overflow-hidden"
+        style={{
+          backgroundImage: `url(${heroImage})`,
+          backgroundAttachment: "fixed",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
       >
-        <div className="absolute inset-0 bg-white/65 md:bg-white/55" />
+        <div
+          className="absolute inset-0 pointer-events-none z-0"
+          style={{ backgroundColor: "rgba(0, 30, 121, 0.77)" }}
+        />
 
-        <div className="relative z-10 container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold mb-5 text-gray-900">
-            Still Have Questions?
-          </h2>
-          <p className="text-lg max-w-4xl mx-auto mb-8 text-gray-800 opacity-95">
-            Our support team is ready to assist you with any additional inquiries about credit reports, disputes, or our services.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-5">
-            <a
-              href="tel:0800280180"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-primary-foreground rounded-full font-semibold hover:bg-primary/90 transition-all shadow-md text-base"
-            >
-              <Phone className="w-5 h-5" />
-              Call Toll-Free: 0800 280 180
-            </a>
-            <a
-              href="mailto:info@armadacrb.co.ug"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-secondary text-primary-foreground rounded-full font-semibold hover:bg-secondary/90 transition-all shadow-md text-base"
-            >
-              <MessageSquare className="w-5 h-5" />
-              Email Support
-            </a>
+        <div className="container mx-auto px-4 relative z-10 text-center">
+          <div className="max-w-3xl mx-auto">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <div className="h-0.5 w-8 bg-[#91CD95]"></div>
+              <span className="text-white font-bold text-sm tracking-wide uppercase">
+                Still Have Questions?
+              </span>
+              <div className="h-0.5 w-8 bg-[#91CD95]"></div>
+            </div>
+
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
+              Need More Help?
+            </h2>
+
+            <p className="text-base md:text-lg text-white/90 mb-6 max-w-2xl mx-auto">
+              Our team is ready to answer any questions about credit reports, disputes, or our services.
+            </p>
+
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <a
+                href="tel:0800280180"
+                className="inline-flex items-center justify-center gap-2 bg-[#91CD95] hover:bg-[#7ab87e] text-white px-6 py-3 rounded-full font-semibold text-base transition-colors shadow-md"
+              >
+                <Phone className="w-5 h-5" />
+                <span>Call Toll-Free: 0800 280 180</span>
+              </a>
+
+              <a
+                href="mailto:info@armadacrb.co.ug"
+                className="inline-flex items-center justify-center gap-2 bg-white/15 hover:bg-white/25 text-white px-6 py-3 rounded-full font-semibold text-base transition-colors backdrop-blur-sm border border-white/30"
+              >
+                <MessageSquare className="w-5 h-5" />
+                <span>Email Support</span>
+              </a>
+            </div>
           </div>
         </div>
       </section>

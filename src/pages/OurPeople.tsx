@@ -59,7 +59,7 @@ const TeamPage = () => {
           </div>
         </section>
       </main>
-      <StatsSection/>
+ 
       <LiveChatWidget />
       <Footer />
     </div>

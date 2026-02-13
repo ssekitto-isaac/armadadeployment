@@ -6,7 +6,6 @@ import {
   PenTool,
   Upload,
   CheckCircle2,
-  AlertCircle,
   ChevronRight,
   Shield,
   Clock,
@@ -21,6 +20,9 @@ import Footer from "@/components/Footer";
 import LiveChatWidget from "@/components/LiveChat";
 
 import heroImage from "@/assets/men_armada.jpeg";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import StatsSection from "@/components/StatsSection";
 
 const SelfInquiry = () => {
   const [formData, setFormData] = useState({
@@ -96,47 +98,54 @@ const SelfInquiry = () => {
       <Header />
 
       <main className="flex-grow">
-        {/* Hero – matched to DisputeResolution */}
-        <section className="relative h-[420px] md:h-[520px] overflow-hidden">
-          <div
-            className="absolute inset-0 bg-cover bg-center transition-transform duration-[1500ms] scale-105 hover:scale-110"
-            style={{ backgroundImage: `url(${heroImage})` }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-primary/65 via-primary/75 to-primary/85" />
+        {/* Hero – overlay removed, fixed background for movement */}
+       {/* Hero – reduced height + better positioning to avoid heavy cropping */}
+<section
+  className="relative h-[320px] sm:h-[360px] md:h-[400px] overflow-hidden"
+  style={{
+    backgroundImage: `url(${heroImage})`,
+    backgroundAttachment: "fixed",
+    backgroundSize: "cover",
+    backgroundPosition: "center top",     // ← shows more of the top (faces/subjects usually higher)
+    // Alternative options if "center top" still crops too much:
+    // backgroundPosition: "50% 25%",     // shifts slightly down
+    // backgroundPosition: "center 30%",  // more centered-down
+  }}
+>
+  {/* No overlay – clean image as per your preference */}
 
-          <div className="relative z-10 container mx-auto px-6 md:px-20 lg:px-28 h-full flex items-center">
-            <div className="max-w-3xl">
-              <div className="flex items-center gap-3 text-primary-foreground/80 text-sm uppercase tracking-wider mb-5">
-                <span>Home</span>
-                <ChevronRight className="w-4 h-4" />
-                <span className="font-semibold">Self Inquiry</span>
-              </div>
+  <div className="relative z-10 container mx-auto px-6 md:px-20 lg:px-28 h-full flex items-center">
+    <div className="max-w-3xl">
+      <div className="flex items-center gap-3 text-white/90 text-sm uppercase tracking-wider mb-4 drop-shadow-md">
+        <span>Home</span>
+        <ChevronRight className="w-4 h-4" />
+        <span className="font-semibold">Self Inquiry</span>
+      </div>
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-primary-foreground mb-5 leading-tight">
-                Self Inquiry
-              </h1>
+      <h1 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-white mb-4 leading-tight drop-shadow-lg">
+        Self Inquiry
+      </h1>
 
-              <div className="flex flex-col sm:flex-row gap-4">
-                <a
-                  href="#form"
-                  className="btn-secondary inline-flex items-center gap-3 px-7 py-4 text-base font-semibold group shadow-md"
-                >
-                  Start Request Now
-                  <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </a>
-                <a
-                  href="tel:0800280180"
-                  className="inline-flex items-center gap-3 px-6 py-4 bg-primary-foreground/10 backdrop-blur-sm rounded-full text-primary-foreground hover:bg-primary-foreground/20 transition-all text-base"
-                >
-                  <Phone className="w-5 h-5" />
-                  Book via Phone
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Process Steps – adjusted spacing & sizing to match rhythm */}
+      <div className="flex flex-col sm:flex-row gap-4">
+        <a
+          href="#form"
+          className="inline-flex items-center gap-3 px-6 py-3 text-base font-semibold bg-[#91CD95] hover:bg-[#7ab87e] text-white rounded-full shadow-md group transition-colors"
+        >
+          Start Request Now
+          <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+        </a>
+        <a
+          href="tel:0800280180"
+          className="inline-flex items-center gap-3 px-5 py-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-all text-base"
+        >
+          <Phone className="w-5 h-5" />
+          Book via Phone
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+        {/* Process Steps – unchanged (already well-aligned) */}
         <section className="py-16 -mt-12 relative z-10 bg-muted">
           <div className="container mx-auto px-4">
             <div className="text-center mb-10">
@@ -147,30 +156,49 @@ const SelfInquiry = () => {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="relative grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
               {processSteps.map((step, index) => (
                 <div
                   key={index}
-                  className="bg-background rounded-2xl shadow-xl border border-muted p-6 text-center transition-all hover:shadow-2xl"
+                  className={`value-card group text-center flex flex-col justify-between h-full bg-background rounded-2xl p-6 relative
+                    ${index < processSteps.length - 1 ? 'md:after:content-[""] md:after:absolute md:after:top-1/2 md:after:-right-4 md:after:w-8 md:after:h-0.5 md:after:bg-[#91CD95] md:after:z-0' : ''}
+                    ${index > 0 ? 'md:before:content-[""] md:before:absolute md:before:top-1/2 md:before:-left-4 md:before:w-8 md:before:h-0.5 md:before:bg-[#91CD95] md:before:z-0' : ''}
+                  `}
+                  style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  {/* Step Number */}
-                  <div className="text-xl font-heading font-bold mb-3 tracking-wider">
-                    Step {index + 1}
+                  <div>
+                    <div className="text-xl font-heading font-bold mb-4 text-foreground">
+                      Step {index + 1}
+                    </div>
+
+                    <div
+                      className="mx-auto flex items-center justify-center mb-6 relative z-10"
+                      style={{
+                        background: "#91CD95",
+                        borderRadius: "50%",
+                        width: 96,
+                        height: 96,
+                        border: "3px solid #91CD95",
+                      }}
+                    >
+                      <step.icon className="w-12 h-12 text-white" />
+                    </div>
+
+                    <h3 className="text-xl font-heading font-bold text-foreground mb-3 group-hover:text-white transition-colors">
+                      {step.title}
+                    </h3>
+
+                    <p className="text-muted-foreground mb-6 min-h-[90px] text-sm leading-relaxed whitespace-pre-line">
+                      {step.description}
+                    </p>
                   </div>
-                  <div className="w-24 h-24 rounded-full bg-[#91CD95] flex items-center justify-center mx-auto mb-6">
-                    <step.icon className="w-12 h-12 text-white" />
-                  </div>
-                  <h3 className="text-xl font-heading font-bold mb-3">{step.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
-                    {step.description}
-                  </p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Form Section – matched sizing, padding, inputs */}
+        {/* Form Section – unchanged */}
         <section id="form" className="py-16 bg-muted">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
@@ -410,38 +438,73 @@ const SelfInquiry = () => {
           </div>
         </section>
 
-        {/* Bottom CTA – matched to DisputeResolution */}
-        <section
-          className="relative py-16 bg-cover bg-center bg-no-repeat text-foreground"
-          style={{ backgroundImage: `url(${heroImage})` }}
-        >
-          <div className="absolute inset-0 bg-white/65 md:bg-white/55" />
+        {/* Bottom CTA – now matches StatsSection design */}
+      {/* Compact Bottom CTA – standardized height */}
+<section
+  className="py-12 md:py-16 relative overflow-hidden"
+  style={{
+    backgroundImage: `url(${heroImage})`,
+    backgroundAttachment: "fixed",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  }}
+>
+  {/* Navy Overlay */}
+  <div
+    className="absolute inset-0 pointer-events-none z-0"
+    style={{ backgroundColor: "rgba(0, 30, 121, 0.77)" }}
+  />
 
-          <div className="relative z-10 container mx-auto px-4 text-center">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-5 text-gray-900">
-              Need Assistance with Your Request?
-            </h2>
-            <p className="text-lg max-w-4xl mx-auto mb-8 text-gray-800 opacity-95">
-              Our team is here to help. Contact us for guidance on submitting or tracking your inquiry.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-5">
-              <a
-                href="tel:0800280180"
-                className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-primary-foreground rounded-full font-semibold hover:bg-primary/90 transition-all shadow-md text-base"
-              >
-                <Phone className="w-5 h-5" />
-                Call Toll-Free: 0800 280 180
-              </a>
-              <a
-                href="#"
-                className="btn-secondary inline-flex items-center gap-3 px-8 py-4 text-base font-semibold group shadow-md"
-              >
-                Contact Support
-                <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </a>
-            </div>
+  <div className="container mx-auto px-4 relative z-10 text-center">
+    <div className="max-w-3xl mx-auto">
+
+      {/* Accent Divider */}
+      <div className="flex items-center justify-center gap-3 mb-4">
+        <div className="h-0.5 w-8 bg-[#91CD95]" />
+        <span className="text-white font-bold text-sm tracking-wide uppercase">
+          Need Help?
+        </span>
+        <div className="h-0.5 w-8 bg-[#91CD95]" />
+      </div>
+
+      {/* Heading */}
+      <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
+        Need Assistance with Your Self Inquiry?
+      </h2>
+
+      {/* Description */}
+      <p className="text-base md:text-lg text-white/90 mb-6 max-w-2xl mx-auto">
+        Our team is ready to guide you through the process or help book your appointment.
+      </p>
+
+      {/* Buttons */}
+      <div className="flex flex-col sm:flex-row justify-center gap-4">
+        <a
+          href="tel:0800280180"
+          className="inline-flex items-center justify-center gap-2 bg-[#91CD95] hover:bg-[#7ab87e] text-white px-6 py-3 rounded-full font-semibold text-base transition-colors shadow-md"
+        >
+          <Phone className="w-5 h-5" />
+          Call 0800 280 180
+        </a>
+
+        <a
+          href="/contact"
+          className="inline-flex items-center justify-center gap-2 bg-white/15 hover:bg-white/25 text-white px-6 py-3 rounded-full font-semibold text-base transition-colors backdrop-blur-sm border border-white/30"
+        >
+          <span>Contact Support</span>
+          <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
+            <FontAwesomeIcon
+              icon={faArrowRight}
+              className="text-[#91CD95] text-base"
+            />
           </div>
-        </section>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
       </main>
 
       <LiveChatWidget />

@@ -1,10 +1,13 @@
 import React from "react";
 import { ArrowRight, BookOpen, ShieldCheck, TrendingUp, Users } from "lucide-react";
-import literacyHero from "@/assets/FinanceWorkshop2.jpg"; // workshop / financial education image
+import literacyHero from "@/assets/FinanceWorkshop2.jpg";
 import LiveChatWidget from "@/components/LiveChat";
 import TopBar from "@/components/TopBar";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 const benefits = [
   {
@@ -40,32 +43,38 @@ const CreditEducationPage = () => {
       <Header />
 
       <main className="flex-grow">
-        {/* Hero - with overlay */}
-        <section className="relative h-[400px] md:h-[420px] overflow-hidden">
-          <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: `url(${literacyHero})` }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/50 to-primary/50" />
+        {/* Hero – no overlay, fixed background */}
+        <section
+          className="relative h-[400px] md:h-[420px] overflow-hidden"
+          style={{
+            backgroundImage: `url(${literacyHero})`,
+            backgroundAttachment: "fixed",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          {/* No overlay – clean image */}
+
           <div className="relative z-10 container mx-auto px-5 md:px-16 h-full flex items-center">
             <div className="max-w-3xl">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground mb-5">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-5 drop-shadow-lg">
                 Credit Education & Financial Literacy
               </h1>
-              <p className="text-lg md:text-xl text-primary-foreground/90 mb-7">
+              <p className="text-lg md:text-xl text-white/90 mb-7 drop-shadow-md">
                 Knowledge builds financial confidence. We equip individuals, businesses, and institutions with the skills to make smart credit and money decisions.
               </p>
               <a
                 href="#benefits"
-                className="inline-flex items-center gap-2 bg-secondary text-secondary-foreground px-7 py-3 rounded-lg font-medium hover:bg-secondary/90 transition"
+                className="inline-flex items-center gap-2 bg-[#91CD95] hover:bg-[#7ab87e] text-white px-7 py-3 rounded-lg font-medium transition shadow-md"
               >
-                Explore Our Programs <ArrowRight className="w-5 h-5" />
+                Explore Our Programs
+                <ArrowRight className="w-5 h-5" />
               </a>
             </div>
           </div>
         </section>
 
-        {/* Benefits section - with working hover effects */}
+        {/* Benefits section – unchanged (already good) */}
         <section id="benefits" className="py-16 md:py-20 bg-muted">
           <div className="container mx-auto px-5 md:px-8">
             <div className="text-center max-w-2xl mx-auto mb-12">
@@ -78,57 +87,89 @@ const CreditEducationPage = () => {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {benefits.map((benefit) => (
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {benefits.map((card, index) => (
                 <div
-                  key={benefit.title}
-                  className="group text-center p-6 rounded-xl border border-gray-200 bg-white hover:border-secondary/60 hover:shadow-lg transition-all duration-300"
+                  key={card.title}
+                  className="value-card group text-center flex flex-col justify-between h-full"
+                  style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <div
-                    className="w-16 h-16 mx-auto mb-5 rounded-xl flex items-center justify-center transition-colors duration-300"
-                    style={{ backgroundColor: `${benefit.color}15` }}
-                  >
-                    <benefit.icon
-                      className="w-8 h-8 transition-colors duration-300 group-hover:scale-110"
-                      style={{ color: benefit.color }}
-                    />
+                  <div>
+                    <div
+                      className="mx-auto flex items-center justify-center mb-6"
+                      style={{
+                        background: "#91CD95",
+                        borderRadius: "50%",
+                        width: 96,
+                        height: 96,
+                        border: "3px solid #91CD95",
+                      }}
+                    >
+                      <card.icon className="w-12 h-12 text-white" />
+                    </div>
+
+                    <h3 className="text-xl font-heading font-bold text-foreground mb-3 group-hover:text-white transition-colors">
+                      {card.title}
+                    </h3>
+
+                    <p className="text-muted-foreground mb-6 min-h-[100px]">
+                      {card.description}
+                    </p>
                   </div>
-                  <h3 className="font-bold text-gray-900 mb-2 group-hover:text-secondary transition-colors duration-300">
-                    {benefit.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground group-hover:text-gray-700 transition-colors duration-300">
-                    {benefit.description}
-                  </p>
+
+                  <div className="flex justify-center">
+                    {/* Optional: add "Learn More" links here if desired */}
+                  </div>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Final CTA – background image, no full overlay */}
+        {/* Compact Final CTA – standardized navy overlay + StatsSection style, reduced size */}
         <section
-          className="relative py-16 md:py-20 bg-cover bg-center bg-no-repeat text-foreground"
-          style={{ backgroundImage: `url(${literacyHero})` }}
+          className="py-12 md:py-16 relative overflow-hidden"
+          style={{
+            backgroundImage: `url(${literacyHero})`,
+            backgroundAttachment: "fixed",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
         >
-          {/* Subtle backdrop only behind content area */}
-          <div className="absolute inset-0 bg-white/65 md:bg-white/55" />
+          <div
+            className="absolute inset-0 pointer-events-none z-0"
+            style={{ backgroundColor: "rgba(0, 30, 121, 0.77)" }}
+          />
 
-          <div className="relative z-10 container mx-auto px-5 md:px-8 text-center">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-gray-900">
-              Turn Knowledge Into Lasting Success
-            </h2>
-            <p className="text-lg md:text-xl max-w-3xl mx-auto mb-8 text-gray-800">
-              Our programs don’t just teach — they empower you to confidently navigate credit and finance for better outcomes and long-term well-being.
-            </p>
+          <div className="container mx-auto px-5 md:px-8 relative z-10 text-center">
+            <div className="max-w-3xl mx-auto">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <div className="h-0.5 w-8 bg-[#91CD95]"></div>
+                <span className="text-white font-bold text-sm tracking-wide uppercase">
+                  Get Started
+                </span>
+                <div className="h-0.5 w-8 bg-[#91CD95]"></div>
+              </div>
 
-            <div className="flex flex-col sm:flex-row justify-center gap-5">
-              <a
-                href="/contact"
-                className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-lg font-medium hover:bg-primary/90 transition shadow-md"
-              >
-                Join a Workshop <ArrowRight className="w-5 h-5" />
-              </a>
-             
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
+                Ready to Build Financial Confidence?
+              </h2>
+
+              <p className="text-base md:text-lg text-white/90 mb-6 max-w-2xl mx-auto">
+                Join our workshops and programs to master credit and achieve better financial outcomes.
+              </p>
+
+              <div className="flex flex-col sm:flex-row justify-center gap-4">
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center justify-center gap-2 bg-[#91CD95] hover:bg-[#7ab87e] text-white px-6 py-3 rounded-full font-semibold text-base transition-colors shadow-md"
+                >
+                  <span>Join a Workshop</span>
+                  <ArrowRight className="w-5 h-5" />
+                </Link>
+
+              
+              </div>
             </div>
           </div>
         </section>

@@ -18,10 +18,10 @@ import {
 import TopBar from "@/components/TopBar";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-
-// Hero image (used in both top hero and bottom CTA)
 import heroImage from "@/assets/DisputeResolution.jpg";
 import LiveChatWidget from "@/components/LiveChat";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 const DisputeResolution = () => {
   const navigate = useNavigate();
@@ -94,48 +94,54 @@ const DisputeResolution = () => {
       <TopBar />
       <Header />
 
-     <main className="flex-grow">
-  {/* Hero – floating icons removed */}
-  <section className="relative h-[420px] md:h-[520px] overflow-hidden">
-    <div
-      className="absolute inset-0 bg-cover bg-center transition-transform duration-[1500ms] scale-105 hover:scale-110"
-      style={{ backgroundImage: `url(${heroImage})` }}
-    />
-    <div className="absolute inset-0 bg-gradient-to-b from-primary/65 via-primary/75 to-primary/85" />
+      <main className="flex-grow">
+        {/* Hero – overlay removed, fixed background added */}
+      {/* Hero – reduced height + better positioning to avoid heavy cropping */}
+<section
+  className="relative h-[320px] sm:h-[360px] md:h-[400px] overflow-hidden"
+  style={{
+    backgroundImage: `url(${heroImage})`,
+    backgroundAttachment: "fixed",
+    backgroundSize: "cover",
+    backgroundPosition: "center top",     // shows more of the top / subjects (most common fix for cropping faces)
+    // If still cropped too much, try these alternatives one by one:
+    // backgroundPosition: "50% 25%",
+    // backgroundPosition: "center 30%",
+  }}
+>
+  {/* No overlay – clean image */}
 
-    <div className="relative z-10 container mx-auto px-6 md:px-20 lg:px-28 h-full flex items-center">
-      <div className="max-w-3xl">
-        <div className="flex items-center gap-3 text-primary-foreground/80 text-sm uppercase tracking-wider mb-5">
-          <span>Home</span>
-          <ChevronRight className="w-4 h-4" />
-          <span className="font-semibold">Dispute Resolution</span>
-        </div>
+  <div className="relative z-10 container mx-auto px-6 md:px-20 lg:px-28 h-full flex items-center">
+    <div className="max-w-3xl">
+      <div className="flex items-center gap-3 text-white/90 text-sm uppercase tracking-wider mb-4 drop-shadow-md">
+        <span>Home</span>
+        <ChevronRight className="w-4 h-4" />
+        <span className="font-semibold">Dispute Resolution</span>
+      </div>
 
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-primary-foreground mb-5 leading-tight">
-          Dispute Resolution Form
-        </h1>
+      <h1 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-white mb-4 leading-tight drop-shadow-lg">
+        Dispute Resolution Form
+      </h1>
 
-        <div className="flex flex-col sm:flex-row gap-4">
-          <a
-            href="#form"
-            className="btn-secondary inline-flex items-center gap-3 px-7 py-4 text-base font-semibold group shadow-md"
-          >
-            Submit Dispute Now
-            <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </a>
-          <a
-            href="tel:0800280180"
-            className="inline-flex items-center gap-3 px-6 py-4 bg-primary-foreground/10 backdrop-blur-sm rounded-full text-primary-foreground hover:bg-primary-foreground/20 transition-all text-base"
-          >
-            <Phone className="w-5 h-5" />
-            Need Help? Call Us
-          </a>
-        </div>
+      <div className="flex flex-col sm:flex-row gap-4">
+        <a
+          href="#form"
+          className="inline-flex items-center gap-3 px-6 py-3 text-base font-semibold bg-[#91CD95] hover:bg-[#7ab87e] text-white rounded-full shadow-md group transition-colors"
+        >
+          Submit Dispute Now
+          <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+        </a>
+        <a
+          href="tel:0800280180"
+          className="inline-flex items-center gap-3 px-5 py-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-all text-base"
+        >
+          <Phone className="w-5 h-5" />
+          Need Help? Call Us
+        </a>
       </div>
     </div>
-  </section>
-
-
+  </div>
+</section>
 
         {/* 3D Expand-on-Hover Card – unchanged */}
         <section className="py-16 -mt-12 relative z-10">
@@ -160,7 +166,7 @@ const DisputeResolution = () => {
                     animate="float"
                   >
                     <Shield className="absolute top-8 left-8 w-24 h-24 md:w-28 md:h-28 text-secondary/15" />
-                    <FileCheck className="absolute bottom-10 right-10 w-28 h-28 md:w-32 md:h-32 text-accent/10" />
+                   
                   </motion.div>
 
                   <div className="relative z-10">
@@ -169,11 +175,11 @@ const DisputeResolution = () => {
                     </div>
 
                     <h2 className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-5">
-                     If you have noticed erroneous information
+                      If you have noticed erroneous information
                     </h2>
 
                     <p className="text-base md:text-lg text-muted-foreground mb-8 max-w-3xl mx-auto">
-                     In your credit information report, please use the form below to log a dispute.
+                      In your credit information report, please use the form below to log a dispute.
                     </p>
 
                     <div className="inline-flex items-center gap-3 px-7 py-4 bg-secondary/10 rounded-full text-secondary font-semibold hover:bg-secondary/20 transition-colors group">
@@ -375,39 +381,63 @@ const DisputeResolution = () => {
           </div>
         </section>
 
-        {/* Help CTA – now uses hero background image, no full overlay */}
-        <section
-          className="relative py-16 bg-cover bg-center bg-no-repeat text-foreground"
-          style={{ backgroundImage: `url(${heroImage})` }}
-        >
-          {/* Subtle semi-transparent backdrop behind content only */}
-          <div className="absolute inset-0 bg-white/65 md:bg-white/55" />
+        {/* Bottom CTA – standardized with navy overlay + StatsSection style */}
+     {/* Compact Bottom CTA – reduced padding, smaller text, tighter layout */}
+<section
+  className="py-12 md:py-16 relative overflow-hidden"
+  style={{
+    backgroundImage: `url(${heroImage})`,
+    backgroundAttachment: "fixed",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  }}
+>
+  <div
+    className="absolute inset-0 pointer-events-none z-0"
+    style={{ backgroundColor: "rgba(0, 30, 121, 0.77)" }}
+  />
 
-          <div className="relative z-10 container mx-auto px-4 text-center">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-5 text-gray-900">
-              Need Assistance with Your Dispute?
-            </h2>
-            <p className="text-lg max-w-4xl mx-auto mb-8 text-gray-800 opacity-95">
-              Our team is here to help. Contact us for guidance on submitting or tracking your dispute.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-5">
-              <a
-                href="tel:0800280180"
-                className="inline-flex items-center gap-3 px-8 py-4 bg-primary text-primary-foreground rounded-full font-semibold hover:bg-primary/90 transition-all shadow-md text-base"
-              >
-                <Phone className="w-5 h-5" />
-                Call Toll-Free: 0800 280 180
-              </a>
-              <a
-                href="#"
-                className="btn-secondary inline-flex items-center gap-3 px-8 py-4 text-base font-semibold group shadow-md"
-              >
-                Contact Support
-                <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </a>
-            </div>
+  <div className="container mx-auto px-4 relative z-10 text-center">
+    <div className="max-w-3xl mx-auto">
+      {/* Smaller accent lines */}
+      <div className="flex items-center justify-center gap-3 mb-4">
+        <div className="h-0.5 w-8 bg-[#91CD95]"></div>
+        <span className="text-white font-bold text-sm tracking-wide uppercase">
+          Need Help?
+        </span>
+        <div className="h-0.5 w-8 bg-[#91CD95]"></div>
+      </div>
+
+      <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
+        Need Assistance with Your Dispute?
+      </h2>
+
+      <p className="text-base md:text-lg text-white/90 mb-6 max-w-2xl mx-auto">
+        Contact our team for help with submission or tracking.
+      </p>
+
+      <div className="flex flex-col sm:flex-row justify-center gap-4">
+        <a
+          href="tel:0800280180"
+          className="inline-flex items-center justify-center gap-2 bg-[#91CD95] hover:bg-[#7ab87e] text-white px-6 py-3 rounded-full font-semibold text-base transition-colors shadow-md"
+        >
+          <Phone className="w-5 h-5" />
+          Call 0800 280 180
+        </a>
+
+        <a
+          href="/contact"
+          className="inline-flex items-center justify-center gap-2 bg-white/15 hover:bg-white/25 text-white px-6 py-3 rounded-full font-semibold text-base transition-colors backdrop-blur-sm border border-white/30"
+        >
+          <span>Contact Support</span>
+          <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
+            <FontAwesomeIcon icon={faArrowRight} className="text-[#91CD95] text-base" />
           </div>
-        </section>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
       </main>
 
       <LiveChatWidget />

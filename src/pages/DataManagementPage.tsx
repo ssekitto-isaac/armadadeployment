@@ -39,20 +39,57 @@ const DataManagementPage = () => {
       <TopBar />
       <Header />
       <main className="flex-1">
-        <div
-          className="relative h-[500px] flex items-center bg-cover bg-center"
-          style={{ backgroundImage: `url(${dataImage})` }}
-        >
-          <div className="absolute inset-0 bg-black/40" />
-          <div className="relative container mx-auto px-4 md:px-12 lg:px-28">
-            <h1 className="text-5xl md:text-6xl text-left font-heading font-bold text-white mb-4">
-              Data Management
-            </h1>
-            <p className="text-xl text-white">Home - Product Suites - Data Management</p>
-          </div>
-        </div>
+       {/* Hero */}
+<section
+  className="relative h-[320px] sm:h-[360px] md:h-[400px] overflow-hidden"
+  style={{
+    backgroundImage: `url(${dataImage})`,
+    backgroundAttachment: "fixed",
+    backgroundSize: "cover",
+    backgroundPosition: "center top",
+  }}
+>
+  <div className="relative z-10 container mx-auto px-6 md:px-20 lg:px-28 h-full flex items-center">
+    <div className="max-w-3xl">
+      <div className="flex items-center gap-3 text-white/90 text-sm uppercase tracking-wider mb-4 drop-shadow-md">
+        <span>Home</span>
+        <span>/</span>
+        <span>Product Suites</span>
+        <span>/</span>
+        <span className="font-semibold">Data Management</span>
+      </div>
 
-        <section className="py-20 bg-white">
+      <h1 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-white mb-4 leading-tight drop-shadow-lg">
+        Data Management
+      </h1>
+
+      <p className="text-white/90 text-lg mb-6 max-w-2xl">
+        Transform your data into a strategic asset with structured governance,
+        integration, and quality control.
+      </p>
+
+      <div className="flex flex-col sm:flex-row gap-4">
+        <a
+          href="#services"
+          className="inline-flex items-center gap-3 px-6 py-3 text-base font-semibold bg-[#91CD95] hover:bg-[#7ab87e] text-white rounded-full shadow-md transition-colors"
+        >
+          Explore Solutions
+        </a>
+
+        <Link
+          to="/contact"
+          className="inline-flex items-center gap-3 px-5 py-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-all text-base"
+        >
+          Speak to Our Experts
+        </Link>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <section id="services" className="py-20 bg-white">
+
           <div className="container mx-auto px-4 max-w-5xl">
             <div className="mb-16">
               <h2 className="text-4xl font-bold section-title-dark mb-6">
@@ -101,20 +138,59 @@ const DataManagementPage = () => {
           </div>
         </section>
 
-        <section
-          className="py-20 bg-cover bg-center relative"
-          style={{ backgroundImage: `url(${dataImage})` }}
+       {/* CTA */}
+<section
+  className="py-12 md:py-16 relative overflow-hidden"
+  style={{
+    backgroundImage: `url(${dataImage})`,
+    backgroundAttachment: "fixed",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  }}
+>
+  <div
+    className="absolute inset-0 z-0"
+    style={{ backgroundColor: "rgba(0, 30, 121, 0.77)" }}
+  />
+
+  <div className="container mx-auto px-4 relative z-10 text-center">
+    <div className="max-w-3xl mx-auto">
+      <div className="flex items-center justify-center gap-3 mb-4">
+        <div className="h-0.5 w-8 bg-[#91CD95]" />
+        <span className="text-white font-bold text-sm tracking-wide uppercase">
+          Unlock the Power of Your Data
+        </span>
+        <div className="h-0.5 w-8 bg-[#91CD95]" />
+      </div>
+
+      <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
+        Ready to Build a Scalable Data Strategy?
+      </h2>
+
+      <p className="text-base md:text-lg text-white/90 mb-6 max-w-2xl mx-auto">
+        Let us help you design, consolidate, and govern your data for smarter
+        decisions and sustainable growth.
+      </p>
+
+      <div className="flex flex-col sm:flex-row justify-center gap-4">
+        <Link
+          to="/contact"
+          className="inline-flex items-center justify-center gap-2 bg-[#91CD95] hover:bg-[#7ab87e] text-white px-6 py-3 rounded-full font-semibold text-base transition-colors shadow-md"
         >
-          <div className="absolute inset-0 bg-black/40" />
-          <div className="container mx-auto px-4 relative z-10 text-center">
-            <h3 className="text-4xl font-bold text-white mb-4">
-              Manage Your Data Effectively
-            </h3>
-            <p className="text-xl text-white max-w-2xl mx-auto">
-              Build a comprehensive data management strategy that delivers value and insight.
-            </p>
-          </div>
-        </section>
+          Start Your Data Journey
+        </Link>
+
+        <Link
+          to="/product-suites"
+          className="inline-flex items-center justify-center gap-2 bg-white/15 hover:bg-white/25 text-white px-6 py-3 rounded-full font-semibold text-base transition-colors backdrop-blur-sm border border-white/30"
+        >
+          View All Suites
+        </Link>
+      </div>
+    </div>
+  </div>
+</section>
+
       </main>
       <Footer />
     </div>
