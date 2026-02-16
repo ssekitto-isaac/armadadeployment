@@ -96,6 +96,8 @@ const PortfolioPage = () => {
             backgroundPosition: "center top",
           }}
         >
+                {/* Overlay - Stronger on mobile for better text readability */}
+      <div className="hero-overlay absolute inset-0 bg-black/4 md:bg-black/4 z-[3]" />
           <div className="relative z-10 container mx-auto px-6 md:px-20 lg:px-28 h-full flex items-center">
             <div className="max-w-3xl">
               <div className="flex items-center gap-3 text-white/90 text-sm uppercase tracking-wider mb-4 drop-shadow-md">

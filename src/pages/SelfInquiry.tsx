@@ -112,7 +112,8 @@ const SelfInquiry = () => {
     // backgroundPosition: "center 30%",  // more centered-down
   }}
 >
-  {/* No overlay – clean image as per your preference */}
+      {/* Overlay - Stronger on mobile for better text readability */}
+      <div className="hero-overlay absolute inset-0 bg-black/4 md:bg-black/4 z-[3]" />
 
   <div className="relative z-10 container mx-auto px-6 md:px-20 lg:px-28 h-full flex items-center">
     <div className="max-w-3xl">

@@ -53,7 +53,8 @@ const CreditEducationPage = () => {
             backgroundPosition: "center",
           }}
         >
-          {/* No overlay – clean image */}
+               {/* Overlay - Stronger on mobile for better text readability */}
+      <div className="hero-overlay absolute inset-0 bg-black/4 md:bg-black/4 z-[3]" />
 
           <div className="relative z-10 container mx-auto px-5 md:px-16 h-full flex items-center">
             <div className="max-w-3xl">

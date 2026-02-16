@@ -70,8 +70,8 @@ const AnalyticsPage = () => {
     backgroundPosition: "center top",
   }}
 >
-  {/* Standard overlay */}
-  <div className="absolute inset-0 bg-black/40" />
+      {/* Overlay - Stronger on mobile for better text readability */}
+      <div className="hero-overlay absolute inset-0 bg-black/4 md:bg-black/4 z-[3]" />
 
   <div className="relative z-10 text-left px-6 md:px-12 lg:px-20 max-w-4xl">
     <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-4 leading-tight drop-shadow-lg">
