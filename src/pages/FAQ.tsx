@@ -59,7 +59,7 @@ const FAQ = () => {
     backgroundImage: `url(${heroImage})`,
     backgroundAttachment: "fixed",
     backgroundSize: "cover",
-    backgroundPosition: "center top",          // ← less cropping on top/subjects
+    backgroundPosition: "center top",          //  less cropping on top/subjects
   }}
 >
       {/* Overlay - Stronger on mobile for better text readability */}

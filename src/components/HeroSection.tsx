@@ -134,7 +134,7 @@ const HeroSection = () => {
             opacity: index === currentSlide ? 1 : 0,
           }}
           transition={{
-            duration: 1.2,
+            duration: 2.4,
             ease: "easeInOut",
           }}
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
