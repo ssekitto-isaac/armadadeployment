@@ -8,19 +8,19 @@ const cards = [
     icon: faUsers,
     title: "About Us",
     description: "We focus on stakeholder relations and astute partnership building.",
-    link: "#about",
+    link: "/AboutArmada#about",
   },
   {
     icon: faEye,
     title: "Our Vision",
     description: "Our vision is to be the leading and most trusted single",
-    link: "#vision",
+    link: "/AboutArmada#vision",
   },
   {
     icon: faClipboard,
     title: "Our Mission",
     description: "To facilitate value creation and trust between creditors",
-    link: "#mission",
+    link: "/AboutArmada#mission",
   },
 ];
 
@@ -56,7 +56,7 @@ const StandardsSection = () => {
               </h3>
               <p className="text-muted-foreground mb-6">{card.description}</p>
               <Link
-                to="/AboutArmada"
+              to={card.link}
                 className="inline-flex items-center gap-2 text-foreground font-semibold hover:gap-3 transition-all rounded-full px-4 py-2 group-hover:text-white"
               >
                 Read more

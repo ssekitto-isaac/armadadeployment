@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGlobe, faBolt, faLock, faUsers, faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import {
+  faGlobe,
+  faBolt,
+  faLock,
+  faUsers,
+  faArrowRight,
+  faChevronDown,
+} from "@fortawesome/free-solid-svg-icons";
+import { Link, useLocation } from "react-router-dom";
 
 import heroImage from "@/assets/FinanaceTeam1.jpg"; // team or data visualization
 import teamImage from "@/assets/FinanceAnyalysing.jpg"; // professional team photo
@@ -31,73 +38,91 @@ const whyPartner = [
   {
     icon: faGlobe,
     title: "Global Insight, Local Impact",
-    description: "We blend international expertise with deep regional knowledge to deliver precise, actionable, and context-aware insights.",
+    description:
+      "We blend international expertise with deep regional knowledge to deliver precise, actionable, and context-aware insights.",
     accent: "#14B1E7",
   },
   {
     icon: faBolt,
     title: "Real-Time Intelligence",
-    description: "By leveraging live, up-to-the-minute data, we empower you to make decisions that are timely, confident, and fully informed.",
+    description:
+      "By leveraging live, up-to-the-minute data, we empower you to make decisions that are timely, confident, and fully informed.",
     accent: "#91CD95",
   },
   {
     icon: faLock,
     title: "Uncompromising Security",
-    description: "We apply industry-leading encryption and rigorous compliance protocols to ensure your data remains secure, private, and fully protected.",
+    description:
+      "We apply industry-leading encryption and rigorous compliance protocols to ensure your data remains secure, private, and fully protected.",
     accent: "#0066AB",
   },
   {
     icon: faUsers,
     title: "Our Team’s Expertise",
-    description: "You will benefit from the collective skills of our seasoned professionals in credit, risk, and data management, delivering insights that are reliable, actionable, and tailored to your specific needs.",
+    description:
+      "You will benefit from the collective skills of our seasoned professionals in credit, risk, and data management, delivering insights that are reliable, actionable, and tailored to your specific needs.",
     accent: "#14B1E7",
   },
 ];
 
 const AboutPage = () => {
+  const location = useLocation();
+  const [openItem, setOpenItem] = useState<string | null>(null);
+
+  // Auto-open accordion if coming from nav link (e.g. #vision)
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace("#", "");
+      setOpenItem(id);
+
+      const element = document.getElementById(id);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 100);
+      }
+    }
+  }, [location]);
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <TopBar />
       <Header />
 
       <main className="flex-grow">
-   {/* Hero Section */}
-{/* Hero Section – matched to CreditReportsPage sizing */}
-<section
-  className="relative h-[320px] sm:h-[360px] md:h-[400px] flex items-center justify-start overflow-hidden"
-  style={{
-    backgroundImage: `url(${heroImage})`,
-    backgroundAttachment: "fixed",
-    backgroundSize: "cover",
-    backgroundPosition: "center top",
-  }}
->
-      {/* Overlay - Stronger on mobile for better text readability */}
-      <div className="hero-overlay absolute inset-0 bg-black/4 md:bg-black/4 z-[3]" />
+        {/* Hero Section */}
+        <section
+          className="relative h-[320px] sm:h-[360px] md:h-[400px] flex items-center justify-start overflow-hidden"
+          style={{
+            backgroundImage: `url(${heroImage})`,
+            backgroundAttachment: "fixed",
+            backgroundSize: "cover",
+            backgroundPosition: "center top",
+          }}
+        >
+          {/* Overlay - Stronger on mobile for better text readability */}
+          <div className="hero-overlay absolute inset-0 bg-black/4 md:bg-black/4 z-[3]" />
 
-  <div className="relative z-10 text-left px-6 md:px-12 lg:px-20 max-w-4xl">
-    <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-4 leading-tight drop-shadow-lg">
-      About Armada Credit Bureau
-    </h1>
+          <div className="relative z-10 text-left px-6 md:px-12 lg:px-20 max-w-4xl">
+            <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-4 leading-tight drop-shadow-lg">
+              About Armada Credit Bureau
+            </h1>
 
-    <p className="text-base sm:text-lg md:text-xl text-white max-w-2xl mb-6 drop-shadow-md">
-      At Armada Credit Bureau, we believe reliable data is the heartbeat of a thriving economy. We transform raw data into actionable intelligence that fosters trust between lenders and borrowers.
-    </p>
+            <p className="text-base sm:text-lg md:text-xl text-white max-w-2xl mb-6 drop-shadow-md">
+              At Armada Credit Bureau, we believe reliable data is the heartbeat of a thriving economy. We transform raw data into actionable intelligence that fosters trust between lenders and borrowers.
+            </p>
 
-    <a
-      href="#why-partner"
-      className="inline-flex items-center gap-2 px-6 py-3 text-base bg-[#91CD95] hover:bg-[#7ab87e] text-white rounded-full font-semibold transition-colors shadow-md"
-    >
-      Why Partner With Us
-      <FontAwesomeIcon
-        icon={faArrowRight}
-        className="w-4 h-4"
-      />
-    </a>
-  </div>
-</section>
+            <a
+              href="#why-partner"
+              className="inline-flex items-center gap-2 px-6 py-3 text-base bg-[#91CD95] hover:bg-[#7ab87e] text-white rounded-full font-semibold transition-colors shadow-md"
+            >
+              Why Partner With Us
+              <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
+            </a>
+          </div>
+        </section>
 
-        {/* Excellence & Inclusion Section – unchanged */}
+        {/* Excellence & Inclusion Section */}
         <section className="py-20 bg-muted">
           <div className="container mx-auto px-4">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -126,7 +151,9 @@ const AboutPage = () => {
           </div>
         </section>
 
-        {/* Why Partner With Us – unchanged */}
+    
+
+        {/* Why Partner With Us */}
         <section id="why-partner" className="py-20 bg-background">
           <div className="container mx-auto px-4">
             <div className="text-center max-w-3xl mx-auto mb-16">
@@ -186,7 +213,133 @@ const AboutPage = () => {
           </div>
         </section>
 
-        {/* Trusted by Leading Institutions – unchanged */}
+
+            {/* Vision, Mission & Values – Navy + Green Corporate Accordion (your exact design) */}
+        <section
+          id="about"
+          className="relative py-14 md:py-20 border-t border-muted/40 overflow-hidden"
+          style={{
+           
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          {/* Light overlay */}
+          <div className="absolute inset-0 bg-white/85 backdrop-blur-[1px]" />
+
+          <div className="relative container mx-auto px-4 max-w-4xl">
+            {/* Header */}
+            <div className="text-center mb-10">
+         
+
+              <h2 className="text-3xl md:text-4xl font-bold mt-3 mb-3 text-gray-900">
+                Our Vision, Mission & Values
+              </h2>
+
+              <p className="text-gray-600 max-w-2xl mx-auto">
+                Click below to explore what drives Armada Credit Bureau.
+              </p>
+            </div>
+
+            {/* Accordion */}
+            <div className="space-y-4">
+              {[
+                {
+                  id: "vision",
+                  title: "Our Vision",
+                  icon: faGlobe,
+                  content:
+                    "Our vision is to be the leading and most trusted single source of reliable and actionable insights for individuals, businesses, and non-corporate entities.",
+                },
+                {
+                  id: "mission",
+                  title: "Our Mission",
+                  icon: faBolt,
+                  content:
+                    "To facilitate value creation and trust between creditors and their customers through the power of data and analytics.",
+                },
+                {
+                  id: "values",
+                  title: "Our Core Values",
+                  icon: faUsers,
+                  content: (
+                    <ul className="space-y-3">
+                      {["Innovation", "Excellence", "Collaboration", "Accountability"].map(
+                        (value, index) => (
+                          <li key={index} className="flex gap-3 items-center">
+                            <span className="w-2 h-2 rounded-full bg-[#91CD95]" />
+                            <span className="font-semibold text-white">{value}</span>
+                          </li>
+                        )
+                      )}
+                    </ul>
+                  ),
+                },
+              ].map((item) => {
+                const isOpen = openItem === item.id;
+
+                return (
+                  <div key={item.id} id={item.id} className="group scroll-mt-32">
+                    {/* Header */}
+                    <button
+                      onClick={() => setOpenItem(isOpen ? null : item.id)}
+                      className={`w-full flex items-center justify-between px-6 py-4 rounded-xl transition-all duration-300 ${
+                        isOpen ? "bg-white shadow-lg" : "bg-white/70 hover:bg-white"
+                      }`}
+                    >
+                      <div className="flex items-center gap-4">
+                        {/* Green icon */}
+                        <div className="w-10 h-10 rounded-lg bg-[#91CD95]/20 flex items-center justify-center">
+                          <FontAwesomeIcon
+                            icon={item.icon}
+                            className="text-[#91CD95] text-lg"
+                          />
+                        </div>
+
+                        {/* Title */}
+                        <h3
+                          className={`text-lg font-semibold transition-colors duration-300 ${
+                            isOpen ? "text-[#91CD95]" : "text-gray-800"
+                          }`}
+                        >
+                          {item.title}
+                        </h3>
+                      </div>
+
+                      <FontAwesomeIcon
+                        icon={faChevronDown}
+                        className={`transition-transform duration-300 ${
+                          isOpen ? "rotate-180 text-[#91CD95]" : "text-gray-500"
+                        }`}
+                      />
+                    </button>
+
+                    {/* Expanded Content */}
+                    <div
+                      className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                        isOpen
+                          ? "max-h-[500px] opacity-100 mt-3"
+                          : "max-h-0 opacity-0"
+                      }`}
+                    >
+                      <div className="px-6 py-6 rounded-xl bg-[#0B1F3A] text-white shadow-xl">
+                        {typeof item.content === "string" ? (
+                          <p className="leading-relaxed text-gray-200">
+                            {item.content}
+                          </p>
+                        ) : (
+                          item.content
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* Trusted by Leading Institutions */}
         <section className="py-16 md:py-20 bg-white overflow-hidden">
           <div className="container mx-auto px-5 md:px-8">
             <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-10">
@@ -224,55 +377,51 @@ const AboutPage = () => {
           </div>
         </section>
 
-        {/* Closing CTA – updated to match StatsSection design */}
-       {/* Compact Closing CTA – matches CreditReportsPage sizing */}
-<section
-  className="py-12 md:py-16 relative overflow-hidden"
-  style={{
-    backgroundImage: `url(${heroImage})`,
-    backgroundAttachment: "fixed",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-  }}
->
-  {/* Standard overlay */}
-  <div
-    className="absolute inset-0 pointer-events-none z-0"
-    style={{ backgroundColor: "rgba(0, 30, 121, 0.77)" }}
-  />
+        {/* Closing CTA */}
+        <section
+          className="py-12 md:py-16 relative overflow-hidden"
+          style={{
+            backgroundImage: `url(${heroImage})`,
+            backgroundAttachment: "fixed",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          <div
+            className="absolute inset-0 pointer-events-none z-0"
+            style={{ backgroundColor: "rgba(0, 30, 121, 0.77)" }}
+          />
 
-  <div className="container mx-auto px-4 relative z-10 text-center">
-    <div className="max-w-3xl mx-auto">
+          <div className="container mx-auto px-4 relative z-10 text-center">
+            <div className="max-w-3xl mx-auto">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <div className="h-0.5 w-8 bg-[#91CD95]"></div>
+                <span className="text-white font-bold text-sm tracking-wide uppercase">
+                  Get Started
+                </span>
+                <div className="h-0.5 w-8 bg-[#91CD95]"></div>
+              </div>
 
-      {/* Smaller accent lines */}
-      <div className="flex items-center justify-center gap-3 mb-4">
-        <div className="h-0.5 w-8 bg-[#91CD95]"></div>
-        <span className="text-white font-bold text-sm tracking-wide uppercase">
-          Get Started
-        </span>
-        <div className="h-0.5 w-8 bg-[#91CD95]"></div>
-      </div>
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
+                Ready to Unlock Financial Clarity?
+              </h2>
 
-      <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
-        Ready to Unlock Financial Clarity?
-      </h2>
+              <p className="text-base md:text-lg text-white/90 mb-6 max-w-2xl mx-auto">
+                Join leading institutions and individuals across Uganda who trust Armada Credit Bureau for secure and accurate credit information.
+              </p>
 
-      <p className="text-base md:text-lg text-white/90 mb-6 max-w-2xl mx-auto">
-        Join leading institutions and individuals across Uganda who trust Armada Credit Bureau for secure and accurate credit information.
-      </p>
-
-      <Link
-        to="/contact"
-        className="inline-flex items-center justify-center gap-2 bg-[#91CD95] hover:bg-[#7ab87e] text-white px-6 py-3 rounded-full font-semibold text-base transition-colors shadow-md"
-      >
-        <span>Contact Us Now</span>
-        <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
-          <FontAwesomeIcon icon={faArrowRight} className="text-[#91CD95] text-base" />
-        </div>
-      </Link>
-    </div>
-  </div>
-</section>
+              <Link
+                to="/contact"
+                className="inline-flex items-center justify-center gap-2 bg-[#91CD95] hover:bg-[#7ab87e] text-white px-6 py-3 rounded-full font-semibold text-base transition-colors shadow-md"
+              >
+                <span>Contact Us Now</span>
+                <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
+                  <FontAwesomeIcon icon={faArrowRight} className="text-[#91CD95] text-base" />
+                </div>
+              </Link>
+            </div>
+          </div>
+        </section>
       </main>
 
       <LiveChatWidget />
