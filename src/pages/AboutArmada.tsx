@@ -154,54 +154,51 @@ const AboutPage = () => {
     
 
         {/* Why Partner With Us */}
-        <section id="why-partner" className="py-20 bg-background">
-          <div className="container mx-auto px-4">
-            <div className="text-center max-w-3xl mx-auto mb-16">
-              <span className="section-label">Why Choose Armada</span>
-              <h2 className="section-title-dark mb-6">Why Partner with Armada?</h2>
-              <p className="text-lg text-muted-foreground">
-                Whether you are a financial institution seeking to optimize your risk management or an individual looking to understand your credit standing, Armada Credit Bureau is your most trusted ally in the journey toward financial clarity.
-              </p>
-            </div>
+<section id="why-partner" className="py-20 bg-background">
+  <div className="container mx-auto px-4">
+    <div className="text-center max-w-3xl mx-auto mb-16">
+      <span className="section-label">Why Choose Armada</span>
+      <h2 className="section-title-dark mb-6">Why Partner with Armada?</h2>
+      <p className="text-lg text-muted-foreground">
+        Whether you are a financial institution seeking to optimize your risk management or an individual looking to understand your credit standing, Armada Credit Bureau is your most trusted ally in the journey toward financial clarity.
+      </p>
+    </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {whyPartner.map((card, index) => (
-                <div
-                  key={card.title}
-                  className="value-card group text-center"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <div
-                    className="mx-auto flex items-center justify-center mb-6"
-                    style={{
-                      background: card.accent,
-                      borderRadius: "50%",
-                      width: 96,
-                      height: 96,
-                      border: `3px solid ${card.accent}`,
-                    }}
-                  >
-                    <FontAwesomeIcon
-                      icon={card.icon}
-                      style={{ color: "#fff", fontSize: "3.0rem" }}
-                    />
-                  </div>
-
-                  <h3 className="text-xl font-heading font-bold text-foreground mb-3 group-hover:text-white transition-colors">
-                    {card.title}
-                  </h3>
-
-                  <p className="text-muted-foreground mb-6 min-h-[80px]">
-                    {card.description}
-                  </p>
-
-                 
-                </div>
-              ))}
-            </div>
+    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {whyPartner.map((card, index) => (
+        <div
+          key={card.title}
+          className="value-card group text-center"
+          style={{ animationDelay: `${index * 0.1}s` }}
+        >
+          <div
+            className="mx-auto flex items-center justify-center mb-6"
+            style={{
+              background: "#91CD95",           // ← REPLACE THIS with the exact hex from your "Real Time Intelligence" card
+              borderRadius: "50%",
+              width: 96,
+              height: 96,
+              border: "3px solid #91CD95",     // same color for border
+            }}
+          >
+            <FontAwesomeIcon
+              icon={card.icon}
+              style={{ color: "#ffffff", fontSize: "3.0rem" }}
+            />
           </div>
-        </section>
 
+          <h3 className="text-xl font-heading font-bold text-foreground mb-3 group-hover:text-white transition-colors">
+            {card.title}
+          </h3>
+
+          <p className="text-muted-foreground mb-6 min-h-[80px]">
+            {card.description}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
 
             {/* Vision, Mission & Values – Navy + Green Corporate Accordion (your exact design) */}
         <section
