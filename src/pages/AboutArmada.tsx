@@ -195,18 +195,7 @@ const AboutPage = () => {
                     {card.description}
                   </p>
 
-                  <Link
-                    to="/about"
-                    className="inline-flex items-center gap-2 text-foreground font-semibold hover:gap-3 transition-all rounded-full px-4 py-2 group-hover:text-white"
-                  >
-                    Read more
-                    <span className="w-8 h-8 rounded-full bg-[#1d2530] flex items-center justify-center transition-colors group-hover:bg-[#91CD95]">
-                      <FontAwesomeIcon
-                        icon={faArrowRight}
-                        style={{ color: "#ffffff", fontSize: "1rem" }}
-                      />
-                    </span>
-                  </Link>
+                 
                 </div>
               ))}
             </div>
