@@ -1,20 +1,43 @@
-// components/LiveChatWidget.tsx
 import React, { useState } from "react";
 import { MessageSquare, X, Clock, Send } from "lucide-react";
+import emailjs from "@emailjs/browser";
 
 const LiveChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In production: send to your backend / Formilla / Intercom / etc.
-    console.log("Chat submitted:", { email, message });
-    alert("Thank you! We'll get back to you within 24 hours.");
-    setEmail("");
-    setMessage("");
-    setIsOpen(false);
+
+    setStatus("sending");
+
+    const templateParams = {
+      email: email,
+      message: message,
+      timestamp: new Date().toLocaleString(),
+      // You can add more fields if your template uses them
+    };
+
+    try {
+      await emailjs.send(
+        "service_9iib0d6",       // ← from Email Services (e.g. "service_abc123")
+        "template_u4idv26",      // ← from Email Templates (e.g. "template_xyz789")
+        templateParams,
+        "KcCmfCQ7VOA2kkQ-y"        // ← your User ID from dashboard (public key)
+      );
+
+      setStatus("success");
+      alert("Thank you! Your message has been sent. We'll get back to you soon.");
+      setEmail("");
+      setMessage("");
+      setTimeout(() => setIsOpen(false), 1500); // optional: close after success
+    } catch (err) {
+      console.error("EmailJS error:", err);
+      setStatus("error");
+      alert("Sorry, something went wrong. Please try again later.");
+    }
   };
 
   return (
@@ -95,11 +118,23 @@ const LiveChatWidget = () => {
 
                 <button
                   type="submit"
-                  className="w-full bg-secondary text-primary-foreground font-bold py-4 rounded-xl hover:bg-secondary/90 transition-all flex items-center justify-center gap-2 shadow-md"
+                  disabled={status === "sending"}
+                  className="w-full bg-secondary text-primary-foreground font-bold py-4 rounded-xl hover:bg-secondary/90 transition-all flex items-center justify-center gap-2 shadow-md disabled:opacity-60"
                 >
-                  Send Message
+                  {status === "sending" ? "Sending..." : "Send Message"}
                   <Send className="w-5 h-5" />
                 </button>
+
+                {status === "success" && (
+                  <p className="text-green-600 text-center text-sm mt-2">
+                    Message sent successfully!
+                  </p>
+                )}
+                {status === "error" && (
+                  <p className="text-red-600 text-center text-sm mt-2">
+                    Failed to send. Please try again.
+                  </p>
+                )}
               </form>
             </div>
           </div>
