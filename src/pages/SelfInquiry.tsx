@@ -8,7 +8,6 @@ import {
   CheckCircle2,
   ChevronRight,
   Shield,
-  Clock,
   User,
   MapPin,
   CreditCard,
@@ -22,7 +21,6 @@ import LiveChatWidget from "@/components/LiveChat";
 import heroImage from "@/assets/men_armada.jpeg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import StatsSection from "@/components/StatsSection";
 
 const SelfInquiry = () => {
   const [formData, setFormData] = useState({
@@ -38,12 +36,131 @@ const SelfInquiry = () => {
     idNumber: "",
     idFile: null as File | null,
   });
+
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const validateForm = () => {
+    const newErrors: Record<string, string> = {};
+
+    // First Name
+    if (!formData.firstName.trim()) {
+      newErrors.firstName = "First name is required";
+    } else if (formData.firstName.trim().length > 50) {
+      newErrors.firstName = "First name cannot exceed 50 characters";
+    } else if (/\d/.test(formData.firstName)) {
+      newErrors.firstName = "First name cannot contain numbers";
+    } else if (formData.firstName.trim().length < 2) {
+      newErrors.firstName = "First name is too short";
+    }
+
+    // Last Name
+    if (!formData.lastName.trim()) {
+      newErrors.lastName = "Last name is required";
+    } else if (formData.lastName.trim().length > 50) {
+      newErrors.lastName = "Last name cannot exceed 50 characters";
+    } else if (/\d/.test(formData.lastName)) {
+      newErrors.lastName = "Last name cannot contain numbers";
+    } else if (formData.lastName.trim().length < 2) {
+      newErrors.lastName = "Last name is too short";
+    }
+
+    // Date of Birth
+    if (!formData.dateOfBirth) {
+      newErrors.dateOfBirth = "Date of birth is required";
+    } else {
+      const dob = new Date(formData.dateOfBirth);
+      const today = new Date();
+      let age = today.getFullYear() - dob.getFullYear();
+      const m = today.getMonth() - dob.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+        age--;
+      }
+      if (age < 18) {
+        newErrors.dateOfBirth = "You must be at least 18 years old";
+      }
+    }
+
+    // Email
+    if (!formData.email) {
+      newErrors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Please enter a valid email address";
+    }
+
+    // Address
+    if (!formData.address.trim()) {
+      newErrors.address = "Full address is required";
+    } else if (formData.address.trim().length < 5) {
+      newErrors.address = "Address is too short";
+    }
+
+    // Country
+    if (!formData.country.trim()) {
+      newErrors.country = "Country is required";
+    }
+
+    // Phone number - only digits, max 10 digits
+    if (!formData.phone.trim()) {
+      newErrors.phone = "Phone number is required";
+    } else {
+      const cleaned = formData.phone.replace(/[^\d]/g, ""); // remove everything except digits
+      if (cleaned.length === 0) {
+        newErrors.phone = "Phone number must contain digits";
+      } else if (cleaned.length > 10) {
+        newErrors.phone = "Phone number cannot exceed 10 digits";
+      } else if (cleaned.length < 9) {
+        newErrors.phone = "Phone number is too short (min 9 digits)";
+      }
+    }
+
+    // ID Type
+    if (!formData.idType) {
+      newErrors.idType = "Please select an ID type";
+    }
+
+    // ID Number / NIN
+    if (!formData.idNumber.trim()) {
+      newErrors.idNumber = "ID number is required";
+    } else if (formData.idNumber.trim().length > 14) {
+      newErrors.idNumber = "ID number cannot exceed 14 characters";
+    }
+
+    // File upload
+    if (!formData.idFile) {
+      newErrors.idFile = "Please upload a copy of your ID";
+    } else {
+      if (formData.idFile.size > 5 * 1024 * 1024) {
+        newErrors.idFile = "File size must not exceed 5MB";
+      }
+      const allowedTypes = ["image/jpeg", "image/png", "application/pdf"];
+      if (!allowedTypes.includes(formData.idFile.type)) {
+        newErrors.idFile = "Only JPG, PNG or PDF files are allowed";
+      }
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!validateForm()) {
+      setTimeout(() => {
+        const firstErrorField = document.querySelector(
+          Object.keys(errors)[0]
+            ? `input[name="${Object.keys(errors)[0]}"], select[name="${Object.keys(errors)[0]}"]`
+            : "input"
+        );
+        firstErrorField?.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 150);
+      return;
+    }
+
     setIsSubmitted(true);
     setTimeout(() => setIsSubmitted(false), 6000);
+
     setFormData({
       firstName: "",
       lastName: "",
@@ -57,15 +174,24 @@ const SelfInquiry = () => {
       idNumber: "",
       idFile: null,
     });
+    setErrors({});
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: "" }));
+    }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setFormData({ ...formData, idFile: e.target.files[0] });
+      const file = e.target.files[0];
+      setFormData({ ...formData, idFile: file });
+      if (errors.idFile) {
+        setErrors((prev) => ({ ...prev, idFile: "" }));
+      }
     }
   };
 
@@ -98,55 +224,51 @@ const SelfInquiry = () => {
       <Header />
 
       <main className="flex-grow">
-        {/* Hero – overlay removed, fixed background for movement */}
-       {/* Hero – reduced height + better positioning to avoid heavy cropping */}
-<section
-  className="relative h-[320px] sm:h-[360px] md:h-[400px] overflow-hidden"
-  style={{
-    backgroundImage: `url(${heroImage})`,
-    backgroundAttachment: "fixed",
-    backgroundSize: "cover",
-    backgroundPosition: "center top",     // ← shows more of the top (faces/subjects usually higher)
-    // Alternative options if "center top" still crops too much:
-    // backgroundPosition: "50% 25%",     // shifts slightly down
-    // backgroundPosition: "center 30%",  // more centered-down
-  }}
->
-      {/* Overlay - Stronger on mobile for better text readability */}
-      <div className="hero-overlay absolute inset-0 bg-black/4 md:bg-black/4 z-[3]" />
-
-  <div className="relative z-10 container mx-auto px-6 md:px-20 lg:px-28 h-full flex items-center">
-    <div className="max-w-3xl">
-      <div className="flex items-center gap-3 text-white/90 text-sm uppercase tracking-wider mb-4 drop-shadow-md">
-        <span>Home</span>
-        <ChevronRight className="w-4 h-4" />
-        <span className="font-semibold">Self Inquiry</span>
-      </div>
-
-      <h1 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-white mb-4 leading-tight drop-shadow-lg">
-        Self Inquiry
-      </h1>
-
-      <div className="flex flex-col sm:flex-row gap-4">
-        <a
-          href="#form"
-          className="inline-flex items-center gap-3 px-6 py-3 text-base font-semibold bg-[#91CD95] hover:bg-[#7ab87e] text-white rounded-full shadow-md group transition-colors"
+        {/* Hero */}
+        <section
+          className="relative h-[320px] sm:h-[360px] md:h-[400px] overflow-hidden"
+          style={{
+            backgroundImage: `url(${heroImage})`,
+            backgroundAttachment: "fixed",
+            backgroundSize: "cover",
+            backgroundPosition: "center top",
+          }}
         >
-          Start Request Now
-          <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-        </a>
-        <a
-          href="tel:0800280180"
-          className="inline-flex items-center gap-3 px-5 py-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-all text-base"
-        >
-          <Phone className="w-5 h-5" />
-          Book via Phone
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-        {/* Process Steps – unchanged (already well-aligned) */}
+          <div className="hero-overlay absolute inset-0 bg-black/4 md:bg-black/4 z-[3]" />
+
+          <div className="relative z-10 container mx-auto px-6 md:px-20 lg:px-28 h-full flex items-center">
+            <div className="max-w-3xl">
+              <div className="flex items-center gap-3 text-white/90 text-sm uppercase tracking-wider mb-4 drop-shadow-md">
+                <span>Home</span>
+                <ChevronRight className="w-4 h-4" />
+                <span className="font-semibold">Self Inquiry</span>
+              </div>
+
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-white mb-4 leading-tight drop-shadow-lg">
+                Self Inquiry
+              </h1>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                <a
+                  href="#form"
+                  className="inline-flex items-center gap-3 px-6 py-3 text-base font-semibold bg-[#91CD95] hover:bg-[#7ab87e] text-white rounded-full shadow-md group transition-colors"
+                >
+                  Start Request Now
+                  <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </a>
+                <a
+                  href="tel:0800280180"
+                  className="inline-flex items-center gap-3 px-5 py-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-all text-base"
+                >
+                  <Phone className="w-5 h-5" />
+                  Book via Phone
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Process Steps */}
         <section className="py-16 -mt-12 relative z-10 bg-muted">
           <div className="container mx-auto px-4">
             <div className="text-center mb-10">
@@ -199,7 +321,7 @@ const SelfInquiry = () => {
           </div>
         </section>
 
-        {/* Form Section – unchanged */}
+        {/* Form */}
         <section id="form" className="py-16 bg-muted">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
@@ -240,9 +362,9 @@ const SelfInquiry = () => {
                         name="firstName"
                         value={formData.firstName}
                         onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 rounded-xl border border-muted focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all bg-background"
+                        className={`w-full px-4 py-3 rounded-xl border ${errors.firstName ? "border-red-500 ring-1 ring-red-500/30" : "border-muted"} focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all bg-background`}
                       />
+                      {errors.firstName && <p className="mt-1 text-sm text-red-600">{errors.firstName}</p>}
                     </div>
                     <div>
                       <label className="block text-sm font-semibold text-foreground mb-2">
@@ -253,9 +375,9 @@ const SelfInquiry = () => {
                         name="lastName"
                         value={formData.lastName}
                         onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 rounded-xl border border-muted focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all bg-background"
+                        className={`w-full px-4 py-3 rounded-xl border ${errors.lastName ? "border-red-500 ring-1 ring-red-500/30" : "border-muted"} focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all bg-background`}
                       />
+                      {errors.lastName && <p className="mt-1 text-sm text-red-600">{errors.lastName}</p>}
                     </div>
                     <div>
                       <label className="block text-sm font-semibold text-foreground mb-2">
@@ -266,9 +388,9 @@ const SelfInquiry = () => {
                         name="dateOfBirth"
                         value={formData.dateOfBirth}
                         onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 rounded-xl border border-muted focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all bg-background"
+                        className={`w-full px-4 py-3 rounded-xl border ${errors.dateOfBirth ? "border-red-500 ring-1 ring-red-500/30" : "border-muted"} focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all bg-background`}
                       />
+                      {errors.dateOfBirth && <p className="mt-1 text-sm text-red-600">{errors.dateOfBirth}</p>}
                     </div>
                     <div>
                       <label className="block text-sm font-semibold text-foreground mb-2">
@@ -279,9 +401,9 @@ const SelfInquiry = () => {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 rounded-xl border border-muted focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all bg-background"
+                        className={`w-full px-4 py-3 rounded-xl border ${errors.email ? "border-red-500 ring-1 ring-red-500/30" : "border-muted"} focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all bg-background`}
                       />
+                      {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
                     </div>
                   </div>
                 </div>
@@ -301,9 +423,9 @@ const SelfInquiry = () => {
                         name="address"
                         value={formData.address}
                         onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 rounded-xl border border-muted focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all bg-background"
+                        className={`w-full px-4 py-3 rounded-xl border ${errors.address ? "border-red-500 ring-1 ring-red-500/30" : "border-muted"} focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all bg-background`}
                       />
+                      {errors.address && <p className="mt-1 text-sm text-red-600">{errors.address}</p>}
                     </div>
                     <div className="grid md:grid-cols-3 gap-5">
                       <div>
@@ -325,9 +447,9 @@ const SelfInquiry = () => {
                           name="country"
                           value={formData.country}
                           onChange={handleChange}
-                          required
-                          className="w-full px-4 py-3 rounded-xl border border-muted focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all bg-background"
+                          className={`w-full px-4 py-3 rounded-xl border ${errors.country ? "border-red-500 ring-1 ring-red-500/30" : "border-muted"} focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all bg-background`}
                         />
+                        {errors.country && <p className="mt-1 text-sm text-red-600">{errors.country}</p>}
                       </div>
                     </div>
                     <div>
@@ -339,9 +461,10 @@ const SelfInquiry = () => {
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 rounded-xl border border-muted focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all bg-background"
+                        maxLength={15}
+                        className={`w-full px-4 py-3 rounded-xl border ${errors.phone ? "border-red-500 ring-1 ring-red-500/30" : "border-muted"} focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all bg-background`}
                       />
+                      {errors.phone && <p className="mt-1 text-sm text-red-600">{errors.phone}</p>}
                     </div>
                   </div>
                 </div>
@@ -361,8 +484,7 @@ const SelfInquiry = () => {
                           name="idType"
                           value={formData.idType}
                           onChange={handleChange}
-                          required
-                          className="w-full px-4 py-3 rounded-xl border border-muted focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all bg-background appearance-none cursor-pointer"
+                          className={`w-full px-4 py-3 rounded-xl border ${errors.idType ? "border-red-500 ring-1 ring-red-500/30" : "border-muted"} focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all bg-background appearance-none cursor-pointer`}
                         >
                           <option value="">Select ID Type</option>
                           <option value="national-id">National ID</option>
@@ -370,6 +492,7 @@ const SelfInquiry = () => {
                           <option value="drivers-license">Driver's License</option>
                           <option value="financial-card">Financial Card</option>
                         </select>
+                        {errors.idType && <p className="mt-1 text-sm text-red-600">{errors.idType}</p>}
                       </div>
                       <div>
                         <label className="block text-sm font-semibold text-foreground mb-2">
@@ -380,25 +503,30 @@ const SelfInquiry = () => {
                           name="idNumber"
                           value={formData.idNumber}
                           onChange={handleChange}
-                          required
-                          className="w-full px-4 py-3 rounded-xl border border-muted focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all bg-background"
+                          maxLength={15}
+                          className={`w-full px-4 py-3 rounded-xl border ${errors.idNumber ? "border-red-500 ring-1 ring-red-500/30" : "border-muted"} focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all bg-background`}
                         />
+                        {errors.idNumber && <p className="mt-1 text-sm text-red-600">{errors.idNumber}</p>}
                       </div>
                     </div>
 
                     <div>
                       <label className="block text-sm font-semibold text-foreground mb-3">
-                        Upload Copy of Valid ID
+                        Upload Copy of Valid ID <span className="text-red-500">*</span>
                       </label>
                       <label
                         htmlFor="id-upload"
-                        className="flex flex-col items-center justify-center gap-3 border-2 border-dashed border-muted rounded-xl py-8 px-5 cursor-pointer hover:border-secondary hover:bg-secondary/5 transition-all group"
+                        className={`flex flex-col items-center justify-center gap-3 border-2 border-dashed rounded-xl py-8 px-5 cursor-pointer transition-all group ${
+                          errors.idFile
+                            ? "border-red-500 bg-red-50/30"
+                            : "border-muted hover:border-secondary hover:bg-secondary/5"
+                        }`}
                       >
                         <div className="p-3 bg-secondary/10 rounded-full group-hover:bg-secondary/20 transition-all">
                           <Upload className="w-7 h-7 text-secondary group-hover:text-secondary-foreground transition-colors" />
                         </div>
                         <div className="text-center">
-                          <p className="text-foreground font-semibold group-hover:text-secondary text-sm">
+                          <p className={`text-foreground font-semibold group-hover:text-secondary text-sm ${formData.idFile ? "text-green-600" : ""}`}>
                             {formData.idFile ? formData.idFile.name : "Upload Evidence / Supporting Letters"}
                           </p>
                           <p className="text-xs text-muted-foreground mt-1">
@@ -413,11 +541,16 @@ const SelfInquiry = () => {
                           className="hidden"
                         />
                       </label>
+                      {errors.idFile && <p className="mt-2 text-sm text-red-600">{errors.idFile}</p>}
+                      {formData.idFile && !errors.idFile && (
+                        <p className="mt-2 text-xs text-green-600">
+                          File selected: {(formData.idFile.size / 1024 / 1024).toFixed(2)} MB
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>
 
-                {/* Submit */}
                 <div className="pt-6">
                   <button
                     type="submit"
@@ -439,73 +572,64 @@ const SelfInquiry = () => {
           </div>
         </section>
 
-        {/* Bottom CTA – now matches StatsSection design */}
-      {/* Compact Bottom CTA – standardized height */}
-<section
-  className="py-12 md:py-16 relative overflow-hidden"
-  style={{
-    backgroundImage: `url(${heroImage})`,
-    backgroundAttachment: "fixed",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-  }}
->
-  {/* Navy Overlay */}
-  <div
-    className="absolute inset-0 pointer-events-none z-0"
-    style={{ backgroundColor: "rgba(0, 30, 121, 0.77)" }}
-  />
-
-  <div className="container mx-auto px-4 relative z-10 text-center">
-    <div className="max-w-3xl mx-auto">
-
-      {/* Accent Divider */}
-      <div className="flex items-center justify-center gap-3 mb-4">
-        <div className="h-0.5 w-8 bg-[#91CD95]" />
-        <span className="text-white font-bold text-sm tracking-wide uppercase">
-          Need Help?
-        </span>
-        <div className="h-0.5 w-8 bg-[#91CD95]" />
-      </div>
-
-      {/* Heading */}
-      <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
-        Need Assistance with Your Self Inquiry?
-      </h2>
-
-      {/* Description */}
-      <p className="text-base md:text-lg text-white/90 mb-6 max-w-2xl mx-auto">
-        Our team is ready to guide you through the process or help book your appointment.
-      </p>
-
-      {/* Buttons */}
-      <div className="flex flex-col sm:flex-row justify-center gap-4">
-        <a
-          href="tel:0800280180"
-          className="inline-flex items-center justify-center gap-2 bg-[#91CD95] hover:bg-[#7ab87e] text-white px-6 py-3 rounded-full font-semibold text-base transition-colors shadow-md"
+        {/* Bottom CTA */}
+        <section
+          className="py-12 md:py-16 relative overflow-hidden"
+          style={{
+            backgroundImage: `url(${heroImage})`,
+            backgroundAttachment: "fixed",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
         >
-          <Phone className="w-5 h-5" />
-          Call 0800 280 180
-        </a>
+          <div
+            className="absolute inset-0 pointer-events-none z-0"
+            style={{ backgroundColor: "rgba(0, 30, 121, 0.77)" }}
+          />
 
-        <a
-          href="/contact"
-          className="inline-flex items-center justify-center gap-2 bg-white/15 hover:bg-white/25 text-white px-6 py-3 rounded-full font-semibold text-base transition-colors backdrop-blur-sm border border-white/30"
-        >
-          <span>Contact Support</span>
-          <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
-            <FontAwesomeIcon
-              icon={faArrowRight}
-              className="text-[#91CD95] text-base"
-            />
+          <div className="container mx-auto px-4 relative z-10 text-center">
+            <div className="max-w-3xl mx-auto">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <div className="h-0.5 w-8 bg-[#91CD95]" />
+                <span className="text-white font-bold text-sm tracking-wide uppercase">
+                  Need Help?
+                </span>
+                <div className="h-0.5 w-8 bg-[#91CD95]" />
+              </div>
+
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
+                Need Assistance with Your Self Inquiry?
+              </h2>
+
+              <p className="text-base md:text-lg text-white/90 mb-6 max-w-2xl mx-auto">
+                Our team is ready to guide you through the process or help book your appointment.
+              </p>
+
+              <div className="flex flex-col sm:flex-row justify-center gap-4">
+                <a
+                  href="tel:0800280180"
+                  className="inline-flex items-center justify-center gap-2 bg-[#91CD95] hover:bg-[#7ab87e] text-white px-6 py-3 rounded-full font-semibold text-base transition-colors shadow-md"
+                >
+                  <Phone className="w-5 h-5" />
+                  Call 0800 280 180
+                </a>
+
+                <a
+                  href="/contact"
+                  className="inline-flex items-center justify-center gap-2 bg-white/15 hover:bg-white/25 text-white px-6 py-3 rounded-full font-semibold text-base transition-colors backdrop-blur-sm border border-white/30"
+                >
+                  <span>Contact Support</span>
+                  <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
+                    <FontAwesomeIcon
+                      icon={faArrowRight}
+                      className="text-[#91CD95] text-base"
+                    />
+                  </div>
+                </a>
+              </div>
+            </div>
           </div>
-        </a>
-      </div>
-
-    </div>
-  </div>
-</section>
-
+        </section>
       </main>
 
       <LiveChatWidget />
