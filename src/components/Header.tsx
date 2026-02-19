@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import {
   Menu,
   X,
   ChevronDown,
-  Twitter,
   Linkedin,
   Instagram,
 } from "lucide-react";
@@ -43,7 +42,7 @@ interface NavItem {
   subItems?: NavSubItem[];
 }
 
-// ── Navigation Data ─────────────────────────────────────
+//  Navigation Data 
 const navItems: NavItem[] = [
   { label: "Home", href: "/" },
   {
@@ -208,8 +207,8 @@ export default function Header() {
                               return (
                                 <li key={sub.label}>
                                   <NavigationMenuLink asChild>
-                                    <a
-                                      href={sub.href}
+                                    <Link
+                                      to={sub.href}
                                       className={cn(
                                         "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none w-full text-left transition-none font-bold",
                                         isSubActive && `${activeColor} ${activeBg}`
@@ -234,7 +233,7 @@ export default function Header() {
                                           {sub.description}
                                         </p>
                                       )}
-                                    </a>
+                                    </Link>
                                   </NavigationMenuLink>
                                 </li>
                               );
@@ -244,8 +243,8 @@ export default function Header() {
                       </>
                     ) : (
                       <NavigationMenuLink asChild>
-                        <a
-                          href={item.href}
+                        <Link
+                          to={item.href}
                           className={cn(
                             "group inline-flex h-10 items-center justify-center rounded-md bg-transparent px-2 py-2 text-base font-bold transition-none",
                             textColor,
@@ -264,7 +263,7 @@ export default function Header() {
                           }}
                         >
                           {item.label}
-                        </a>
+                        </Link>
                       </NavigationMenuLink>
                     )}
                   </NavigationMenuItem>
@@ -275,7 +274,7 @@ export default function Header() {
 
           {/* Desktop Socials */}
           <div className="hidden lg:flex items-center gap-5">
-            <SocialLink icon={Twitter} href="https://x.com/ArmadaCRB" />
+            <SocialLink href="https://x.com/ArmadaCRB" />
             <SocialLink
               icon={Linkedin}
               href="https://ug.linkedin.com/company/armada-credit-bureau"
@@ -342,9 +341,9 @@ export default function Header() {
 
                         <CollapsibleContent className="pl-4 pt-1 pb-3">
                           {item.subItems.map((sub) => (
-                            <a
+                            <Link
                               key={sub.label}
-                              href={sub.href}
+                              to={sub.href}
                               className={cn(
                                 "block py-2.5 px-3 text-base font-bold rounded-md",
                                 "transition-none",
@@ -355,13 +354,13 @@ export default function Header() {
                               onClick={() => setIsMenuOpen(false)}
                             >
                               {sub.label}
-                            </a>
+                            </Link>
                           ))}
                         </CollapsibleContent>
                       </Collapsible>
                     ) : (
-                      <a
-                        href={item.href}
+                      <Link
+                        to={item.href}
                         className={cn(
                           "block py-3 px-3 font-bold text-base rounded-md",
                           textColor,
@@ -371,7 +370,7 @@ export default function Header() {
                         onClick={() => setIsMenuOpen(false)}
                       >
                         {item.label}
-                      </a>
+                      </Link>
                     )}
                   </div>
                 ))}
@@ -379,11 +378,7 @@ export default function Header() {
 
               {/* Mobile Socials */}
               <div className="flex justify-center gap-6 mt-10 pt-6 border-t ml-2">
-                <SocialLink
-                  icon={Twitter}
-                  size={20}
-                  href="https://x.com/ArmadaCRB"
-                />
+                <SocialLink href="https://x.com/ArmadaCRB" />
                 <SocialLink
                   icon={Linkedin}
                   size={20}
@@ -399,24 +394,53 @@ export default function Header() {
   );
 }
 
-// SocialLink
+// Updated SocialLink with brand colors
 function SocialLink({
   icon: Icon,
   size = 20,
   href = "#",
 }: {
-  icon: any;
+  icon?: any;
   size?: number;
   href?: string;
 }) {
+  const isX = href.includes("x.com");
+
+  let iconColor = '#6B7280'; // fallback muted gray
+
+  if (isX) {
+    iconColor = '#000000';
+  } else if (Icon === Linkedin) {
+    iconColor = '#0A66C2';
+  } else if (Icon === Instagram) {
+    iconColor = '#E4405F';
+  }
+
   return (
     <a
       href={href}
       target={href !== "#" ? "_blank" : undefined}
       rel={href !== "#" ? "noopener noreferrer" : undefined}
-      className="text-muted-foreground transition-none"
+      className="transition-none"
+      style={{ color: iconColor }}
     >
-      <Icon className="w-5 h-5" />
+      {isX ? (
+        <svg
+          width={size}
+          height={size}
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-label="X (formerly Twitter)"
+        >
+          <path
+            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+            fill="currentColor"
+          />
+        </svg>
+      ) : (
+        <Icon className={`w-${size/4} h-${size/4}`} /> // Adjust class for size
+      )}
     </a>
   );
 }

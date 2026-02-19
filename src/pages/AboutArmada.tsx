@@ -154,48 +154,55 @@ const AboutPage = () => {
     
 
         {/* Why Partner With Us */}
-<section id="why-partner" className="py-20 bg-background">
+{/* Trusted Partners – Modern & Professional Display */}
+
+<section id="partners" className="py-20 md:py-28 bg-background overflow-hidden">
   <div className="container mx-auto px-4">
-    <div className="text-center max-w-3xl mx-auto mb-16">
-      <span className="section-label">Why Choose Armada</span>
-      <h2 className="section-title-dark mb-6">Why Partner with Armada?</h2>
-      <p className="text-lg text-muted-foreground">
-        Whether you are a financial institution seeking to optimize your risk management or an individual looking to understand your credit standing, Armada Credit Bureau is your most trusted ally in the journey toward financial clarity.
+    {/* Header */}
+    <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+      <span className="section-label uppercase tracking-wider text-sm font-medium text-primary/80">
+        Trusted Partners
+      </span>
+      <h2 className="section-title-dark mt-4 mb-6">
+        Partnering with Leading Financial Institutions
+      </h2>
+      <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+        We work closely with respected banks and financial organizations across Uganda to provide secure, accurate, and actionable credit intelligence that drives trust and growth.
       </p>
     </div>
 
-    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-      {whyPartner.map((card, index) => (
+    
+
+    {/* Infinite Marquee – Full color scrolling logos */}
+    <div className="relative">
+      {/* Edge fade gradients – matches your background */}
+      <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-16 md:w-32 bg-gradient-to-r from-background to-transparent" />
+      <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-16 md:w-32 bg-gradient-to-l from-background to-transparent" />
+
+      <div className="overflow-hidden">
         <div
-          key={card.title}
-          className="value-card group text-center"
-          style={{ animationDelay: `${index * 0.1}s` }}
+          className="flex animate-marquee whitespace-nowrap py-6 md:py-8"
+          style={{
+            animationDuration: "45s", // Adjust speed: 30s = faster, 60s = slower
+            animationTimingFunction: "linear",
+            animationIterationCount: "infinite",
+          }}
         >
-          <div
-            className="mx-auto flex items-center justify-center mb-6"
-            style={{
-              background: "#91CD95",           // ← REPLACE THIS with the exact hex from your "Real Time Intelligence" card
-              borderRadius: "50%",
-              width: 96,
-              height: 96,
-              border: "3px solid #91CD95",     // same color for border
-            }}
-          >
-            <FontAwesomeIcon
-              icon={card.icon}
-              style={{ color: "#ffffff", fontSize: "3.0rem" }}
-            />
-          </div>
-
-          <h3 className="text-xl font-heading font-bold text-foreground mb-3 group-hover:text-white transition-colors">
-            {card.title}
-          </h3>
-
-          <p className="text-muted-foreground mb-6 min-h-[80px]">
-            {card.description}
-          </p>
+          {/* Duplicate 3× for smooth infinite loop */}
+          {[...partners, ...partners, ...partners].map((partner, index) => (
+            <div
+              key={`${partner.name}-${index}`}
+              className="flex-shrink-0 mx-10 md:mx-16 lg:mx-24"
+            >
+              <img
+                src={partner.logo}
+                alt={`${partner.name} logo`}
+                className="h-14 md:h-16 lg:h-20 w-auto object-contain transition-all duration-400 hover:scale-110"
+              />
+            </div>
+          ))}
         </div>
-      ))}
+      </div>
     </div>
   </div>
 </section>
