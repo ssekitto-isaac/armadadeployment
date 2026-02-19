@@ -151,62 +151,6 @@ const AboutPage = () => {
           </div>
         </section>
 
-    
-
-        {/* Why Partner With Us */}
-{/* Trusted Partners – Modern & Professional Display */}
-
-<section id="partners" className="py-20 md:py-28 bg-background overflow-hidden">
-  <div className="container mx-auto px-4">
-    {/* Header */}
-    <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-      <span className="section-label uppercase tracking-wider text-sm font-medium text-primary/80">
-        Trusted Partners
-      </span>
-      <h2 className="section-title-dark mt-4 mb-6">
-        Partnering with Leading Financial Institutions
-      </h2>
-      <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-        We work closely with respected banks and financial organizations across Uganda to provide secure, accurate, and actionable credit intelligence that drives trust and growth.
-      </p>
-    </div>
-
-    
-
-    {/* Infinite Marquee – Full color scrolling logos */}
-    <div className="relative">
-      {/* Edge fade gradients – matches your background */}
-      <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-16 md:w-32 bg-gradient-to-r from-background to-transparent" />
-      <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-16 md:w-32 bg-gradient-to-l from-background to-transparent" />
-
-      <div className="overflow-hidden">
-        <div
-          className="flex animate-marquee whitespace-nowrap py-6 md:py-8"
-          style={{
-            animationDuration: "45s", // Adjust speed: 30s = faster, 60s = slower
-            animationTimingFunction: "linear",
-            animationIterationCount: "infinite",
-          }}
-        >
-          {/* Duplicate 3× for smooth infinite loop */}
-          {[...partners, ...partners, ...partners].map((partner, index) => (
-            <div
-              key={`${partner.name}-${index}`}
-              className="flex-shrink-0 mx-10 md:mx-16 lg:mx-24"
-            >
-              <img
-                src={partner.logo}
-                alt={`${partner.name} logo`}
-                className="h-14 md:h-16 lg:h-20 w-auto object-contain transition-all duration-400 hover:scale-110"
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
             {/* Vision, Mission & Values – Navy + Green Corporate Accordion (your exact design) */}
         <section
           id="about"
@@ -332,43 +276,60 @@ const AboutPage = () => {
           </div>
         </section>
 
-        {/* Trusted by Leading Institutions */}
-        <section className="py-16 md:py-20 bg-white overflow-hidden">
-          <div className="container mx-auto px-5 md:px-8">
-            <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-10">
-              Trusted by Leading Institutions
-            </h2>
+       
+        {/* Why Partner With Us */}
+{/* Trusted Partners – Modern & Professional Display */}
 
-            <div className="relative">
-              <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-16 md:w-32 bg-gradient-to-r from-white to-transparent" />
-              <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-16 md:w-32 bg-gradient-to-l from-white to-transparent" />
+<section id="partners" className="py-20 md:py-28 bg-background overflow-hidden">
+  <div className="container mx-auto px-4">
+    {/* Header */}
+    <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+      <span className="section-label uppercase tracking-wider text-sm font-medium text-primary/80">
+        Trusted Partners
+      </span>
+      <h2 className="section-title-dark mt-4 mb-6">
+        Partnering with Leading Financial Institutions
+      </h2>
+      <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+        We work closely with respected banks and financial organizations across Uganda to provide secure, accurate, and actionable credit intelligence that drives trust and growth.
+      </p>
+    </div>
 
-              <div className="overflow-hidden">
-                <div
-                  className="flex animate-marquee whitespace-nowrap will-change-transform hover:pause-marquee"
-                  style={{
-                    animationDuration: "35s",
-                    animationTimingFunction: "linear",
-                    animationIterationCount: "infinite",
-                  }}
-                >
-                  {[...partners, ...partners, ...partners].map((partner, index) => (
-                    <div
-                      key={index}
-                      className="flex-shrink-0 mx-8 md:mx-12 lg:mx-16 xl:mx-20"
-                    >
-                      <img
-                        src={partner.logo}
-                        alt={`${partner.name} logo`}
-                        className="h-12 md:h-16 lg:h-20 w-auto object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
+    
+
+    {/* Infinite Marquee – Full color scrolling logos */}
+    <div className="relative">
+      {/* Edge fade gradients – matches your background */}
+      <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-16 md:w-32 bg-gradient-to-r from-background to-transparent" />
+      <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-16 md:w-32 bg-gradient-to-l from-background to-transparent" />
+
+      <div className="overflow-hidden">
+        <div
+          className="flex animate-marquee whitespace-nowrap py-6 md:py-8"
+          style={{
+            animationDuration: "45s", // Adjust speed: 30s = faster, 60s = slower
+            animationTimingFunction: "linear",
+            animationIterationCount: "infinite",
+          }}
+        >
+          {/* Duplicate 3× for smooth infinite loop */}
+          {[...partners, ...partners, ...partners].map((partner, index) => (
+            <div
+              key={`${partner.name}-${index}`}
+              className="flex-shrink-0 mx-10 md:mx-16 lg:mx-24"
+            >
+              <img
+                src={partner.logo}
+                alt={`${partner.name} logo`}
+                className="h-14 md:h-16 lg:h-20 w-auto object-contain transition-all duration-400 hover:scale-110"
+              />
             </div>
-          </div>
-        </section>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
         {/* Closing CTA */}
         <section
