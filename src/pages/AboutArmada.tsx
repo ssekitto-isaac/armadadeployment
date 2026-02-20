@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faGlobe,
+  faEye,
   faBolt,
   faLock,
   faUsers,
@@ -10,7 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link, useLocation } from "react-router-dom";
 
-import heroImage from "@/assets/FinanaceTeam1.jpg"; // team or data visualization
+import heroImage from "@/assets/Finance_team2.png"; // team or data visualization
 import teamImage from "@/assets/FinanceAnyalysing.jpg"; // professional team photo
 
 import LiveChatWidget from "@/components/LiveChat";
@@ -103,48 +104,71 @@ const AboutPage = () => {
           {/* Overlay - Stronger on mobile for better text readability */}
           <div className="hero-overlay absolute inset-0 bg-black/4 md:bg-black/4 z-[3]" />
 
-          <div className="relative z-10 text-left px-6 md:px-12 lg:px-20 max-w-4xl">
+          <div className="relative z-10 text-left px-6 md:px-12 lg:px-20 max-w-4xl ml-28">
             <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-4 leading-tight drop-shadow-lg">
               About Armada Credit Bureau
             </h1>
 
-            <p className="text-base sm:text-lg md:text-xl text-white max-w-2xl mb-6 drop-shadow-md">
+            {/* <p className="text-base sm:text-lg md:text-xl text-white max-w-2xl mb-6 drop-shadow-md">
               At Armada Credit Bureau, we believe reliable data is the heartbeat of a thriving economy. We transform raw data into actionable intelligence that fosters trust between lenders and borrowers.
-            </p>
+            </p> */}
 
-            <a
-              href="#why-partner"
-              className="inline-flex items-center gap-2 px-6 py-3 text-base bg-[#91CD95] hover:bg-[#7ab87e] text-white rounded-full font-semibold transition-colors shadow-md"
-            >
-              Why Partner With Us
-              <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
-            </a>
+            <div className="flex items-center max-w-2xl mb-6">
+              <p className="text-base sm:text-lg md:text-xl text-white drop-shadow-md mb-0 flex-1">
+                At Armada Credit Bureau, we believe reliable data is the heartbeat of a thriving economy. We transform raw data into actionable intelligence that fosters trust between lenders and borrowers.
+              
+              <button
+                type="button"
+                onClick={() => {
+                  const el = document.getElementById("excellence-inclusion");
+                  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                }}
+                className="inline-flex items-center gap-1 px-3 py-1.5 text-sm bg-[#91CD95] hover:bg-[#91CD96] text-white rounded-full font-semibold transition-colors shadow ml-2 whitespace-nowrap align-middle"
+                style={{ verticalAlign: "middle" }}
+              >
+                <span className="font-semibold">Read More</span>
+                <span className="w-6 h-6 rounded-full bg-[#91CD95] flex items-center justify-center ml-1">
+                  <FontAwesomeIcon icon={faArrowRight} className="text-white text-xs" />
+                </span>
+              </button>
+              </p>
+
+            </div>
           </div>
         </section>
 
         {/* Excellence & Inclusion Section */}
-        <section className="py-20 bg-muted">
+        <section id="excellence-inclusion" className="py-20 bg-muted">
           <div className="container mx-auto px-4">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl order-2 lg:order-1">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl order-2 lg:order-1 mb-8">
                 <img
                   src={teamImage}
                   alt="Armada team analyzing data"
-                  className="w-full h-[500px] object-cover"
+                  className="w-full h-[560px] object-cover"
                 />
                 <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-secondary/20 rounded-2xl -z-10" />
               </div>
 
               <div className="order-1 lg:order-2">
-                <span className="section-label">—— Our Commitment</span>
+
+                <div className="flex items-center justify-left gap-4 mb-2">
+                  <div className="h-1 w-8 bg-secondary flex-shrink-0 translate-y-[-4px]"></div>
+                  <span className="section-label text-xl font-heading font-bold text-foreground">Our Commitment</span>
+                  <div className="h-1 w-8 bg-secondary flex-shrink-0 translate-y-[-4px]"></div>
+                </div>
+
                 <h2 className="section-title-dark mb-6">
                   Excellence in Analytics, Integrity in Reporting
                 </h2>
                 <p className="text-lg text-muted-foreground mb-6">
-                  In an era where speed and accuracy are paramount, Armada stands at the forefront of innovation. We leverage cutting-edge technology and robust data modeling to deliver comprehensive credit reports that go beyond just numbers. Our analytics provide a deep-dive into financial behaviors, allowing institutions to mitigate risk effectively while identifying new opportunities for sustainable growth.
+                  In an era where speed and accuracy are paramount, Armada stands at the forefront of innovation. We leverage cutting-edge technology and robust data modeling to deliver comprehensive credit reports that go beyond just numbers.
+                </p>
+                <p className="text-lg text-muted-foreground mb-6">
+                  Our analytics provide a deep-dive into financial behaviors, allowing institutions to mitigate risk effectively while identifying new opportunities for sustainable growth.
                 </p>
                 <p className="text-lg text-muted-foreground mb-8">
-                  A Catalyst for Financial Inclusion: We don't just report data; we empower futures. For individuals, Armada serves as a gateway to financial opportunity. By maintaining the highest standards of data integrity, we ensure that every credit story is told fairly and accurately, helping consumers unlock access to the capital they need to build their dreams.
+                  We see ourselves as a catalyst for financial inclusion: We don't just provide insights from data; we empower futures. For individuals, ArmadaCRB's products serve as a gateway to financial opportunity. By maintaining the highest standards of data integrity, we ensure that every credit story is told fairly and accurately, helping consumers unlock access to the capital they need to build their dreams.
                 </p>
               </div>
             </div>
@@ -154,26 +178,22 @@ const AboutPage = () => {
             {/* Vision, Mission & Values – Navy + Green Corporate Accordion (your exact design) */}
         <section
           id="about"
-          className="relative py-14 md:py-20 border-t border-muted/40 overflow-hidden"
-          style={{
-           
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
-          {/* Light overlay */}
-          <div className="absolute inset-0 bg-white/85 backdrop-blur-[1px]" />
+          className="relative py-14 md:py-20 border-t border-muted/40 overflow-hidden">
+          <div
+            className="absolute inset-0 pointer-events-none z-0"
+            style={{ backgroundColor: "rgba(255, 255, 255, 0.77)" }}
+          />
 
           <div className="relative container mx-auto px-4 max-w-4xl">
             {/* Header */}
             <div className="text-center mb-10">
          
 
-              <h2 className="text-3xl md:text-4xl font-bold mt-3 mb-3 text-gray-900">
+              <h2 className="text-4xl md:text-4xl font-bold mt-3 mb-3 text-gray-900">
                 Our Vision, Mission & Values
               </h2>
 
-              <p className="text-gray-600 max-w-2xl mx-auto">
+              <p className="max-w-3xl mx-auto">
                 Click below to explore what drives Armada Credit Bureau.
               </p>
             </div>
@@ -184,7 +204,7 @@ const AboutPage = () => {
                 {
                   id: "vision",
                   title: "Our Vision",
-                  icon: faGlobe,
+                  icon: faEye,
                   content:
                     "Our vision is to be the leading and most trusted single source of reliable and actionable insights for individuals, businesses, and non-corporate entities.",
                 },
@@ -197,7 +217,7 @@ const AboutPage = () => {
                 },
                 {
                   id: "values",
-                  title: "Our Core Values",
+                  title: "Our Values",
                   icon: faUsers,
                   content: (
                     <ul className="space-y-3">
@@ -216,7 +236,11 @@ const AboutPage = () => {
                 const isOpen = openItem === item.id;
 
                 return (
-                  <div key={item.id} id={item.id} className="group scroll-mt-32">
+                  <div
+                    key={item.id}
+                    id={item.id}
+                    className="group scroll-mt-32 transition-all duration-300 shadow-md hover:shadow-2xl hover:-translate-y-1 bg-transparent"
+                  >
                     {/* Header */}
                     <button
                       onClick={() => setOpenItem(isOpen ? null : item.id)}
@@ -225,17 +249,25 @@ const AboutPage = () => {
                       }`}
                     >
                       <div className="flex items-center gap-4">
-                        {/* Green icon */}
-                        <div className="w-10 h-10 rounded-lg bg-[#91CD95]/20 flex items-center justify-center">
+                        {/* Green circle icon with outline, matching StandardsSection */}
+                        <div
+                          className="icon-circle-outline mx-auto flex items-center justify-center"
+                          style={{
+                            background: "#91CD95",
+                            borderRadius: "50%",
+                            width: 84,
+                            height: 84,
+                            border: "3px solid #91CD95",
+                          }}
+                        >
                           <FontAwesomeIcon
                             icon={item.icon}
-                            className="text-[#91CD95] text-lg"
+                            style={{ color: "#fff", fontSize: "3.0rem" }}
                           />
                         </div>
-
                         {/* Title */}
                         <h3
-                          className={`text-lg font-semibold transition-colors duration-300 ${
+                          className={`text-3xl font-extrabold transition-colors duration-300 mb-6 ${
                             isOpen ? "text-[#91CD95]" : "text-gray-800"
                           }`}
                         >
@@ -278,58 +310,42 @@ const AboutPage = () => {
 
        
         {/* Why Partner With Us */}
-{/* Trusted Partners – Modern & Professional Display */}
+          {/* Trusted Partners – Modern & Professional Display */}
 
-<section id="partners" className="py-20 md:py-28 bg-background overflow-hidden">
-  <div className="container mx-auto px-4">
-    {/* Header */}
-    <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-      <span className="section-label uppercase tracking-wider text-sm font-medium text-primary/80">
-        Trusted Partners
-      </span>
-      <h2 className="section-title-dark mt-4 mb-6">
-        Partnering with Leading Financial Institutions
-      </h2>
-      <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-        We work closely with respected banks and financial organizations across Uganda to provide secure, accurate, and actionable credit intelligence that drives trust and growth.
-      </p>
-    </div>
+          <section id="partners" className="py-10 md:py-10 bg-background overflow-hidden">
+            <div className="container mx-auto px-4">
+              {/* Header */}
+              <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+                
+                <div className="flex items-center justify-center gap-4 mb-2">
+                  <div className="h-1 w-8 bg-secondary flex-shrink-0 translate-y-[-4px]"></div>
+                      <span className="section-label text-xl font-heading font-bold text-foreground">Trusted Partners</span>
+                      <div className="h-1 w-8 bg-secondary flex-shrink-0 translate-y-[-4px]">  
+                      </div>
+                </div>
 
-    
+                <h2 className="section-title-dark mt-4 mb-6">
+                  Partnering with Leading Financial Institutions
+                </h2>
+                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                  We work closely with respected banks and financial organizations across Uganda to provide secure, accurate, and actionable credit intelligence that drives trust and growth.
+                </p>
+              </div>
+              
+              <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+                <Link
+                  to="/OurPeople#top"
+                  className="inline-flex items-center justify-center gap-2 bg-[#91CD95] hover:bg-[#7ab87e] text-white px-6 py-3 rounded-full font-semibold text-base transition-colors shadow-md"
+                >
+                  <span>See Our People</span>
+                  <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
+                    <FontAwesomeIcon icon={faArrowRight} className="text-[#91CD95] text-base" />
+                  </div>
+                </Link>
+              </div>
 
-    {/* Infinite Marquee – Full color scrolling logos */}
-    <div className="relative">
-      {/* Edge fade gradients – matches your background */}
-      <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-16 md:w-32 bg-gradient-to-r from-background to-transparent" />
-      <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-16 md:w-32 bg-gradient-to-l from-background to-transparent" />
-
-      <div className="overflow-hidden">
-        <div
-          className="flex animate-marquee whitespace-nowrap py-6 md:py-8"
-          style={{
-            animationDuration: "45s", // Adjust speed: 30s = faster, 60s = slower
-            animationTimingFunction: "linear",
-            animationIterationCount: "infinite",
-          }}
-        >
-          {/* Duplicate 3× for smooth infinite loop */}
-          {[...partners, ...partners, ...partners].map((partner, index) => (
-            <div
-              key={`${partner.name}-${index}`}
-              className="flex-shrink-0 mx-10 md:mx-16 lg:mx-24"
-            >
-              <img
-                src={partner.logo}
-                alt={`${partner.name} logo`}
-                className="h-14 md:h-16 lg:h-20 w-auto object-contain transition-all duration-400 hover:scale-110"
-              />
             </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+          </section>
 
         {/* Closing CTA */}
         <section
@@ -350,7 +366,7 @@ const AboutPage = () => {
             <div className="max-w-3xl mx-auto">
               <div className="flex items-center justify-center gap-3 mb-4">
                 <div className="h-0.5 w-8 bg-[#91CD95]"></div>
-                <span className="text-white font-bold text-sm tracking-wide uppercase">
+                <span className="text-white font-bold text-xl tracking-wide uppercase">
                   Get Started
                 </span>
                 <div className="h-0.5 w-8 bg-[#91CD95]"></div>
@@ -361,7 +377,7 @@ const AboutPage = () => {
               </h2>
 
               <p className="text-base md:text-lg text-white/90 mb-6 max-w-2xl mx-auto">
-                Join leading institutions and individuals across Uganda who trust Armada Credit Bureau for secure and accurate credit information.
+                Join leading institutions and individuals who trust Armada Credit Bureau for secure and accurate credit information.
               </p>
 
               <Link

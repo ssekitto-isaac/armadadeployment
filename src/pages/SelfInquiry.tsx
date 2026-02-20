@@ -247,6 +247,7 @@ const SelfInquiry = () => {
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-white mb-4 leading-tight drop-shadow-lg">
                 Self Inquiry
               </h1>
+              
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <a
@@ -272,7 +273,12 @@ const SelfInquiry = () => {
         <section className="py-16 -mt-12 relative z-10 bg-muted">
           <div className="container mx-auto px-4">
             <div className="text-center mb-10">
-              <span className="section-label">Easy Process</span>
+              {/* <span className="section-label">Easy Process</span> */}
+              <div className="flex items-center justify-center gap-4 mb-4">
+                <div className="h-1 w-8 bg-secondary flex-shrink-0 translate-y-[-4px]"></div>
+                <span className="section-label text-xl font-heading font-bold text-foreground">Easy Process</span>
+                <div className="h-1 w-8 bg-secondary flex-shrink-0 translate-y-[-4px]"></div>
+              </div>
               <h2 className="section-title-dark mb-4">How to Get Your Report</h2>
               <p className="text-base text-muted-foreground max-w-2xl mx-auto">
                 Follow these simple steps to access your credit information securely.
@@ -326,7 +332,11 @@ const SelfInquiry = () => {
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-10">
-                <span className="section-label">Self Inquiry Request</span>
+                <div className="flex items-center justify-center gap-4 mb-4">
+                  <div className="h-1 w-8 bg-secondary flex-shrink-0 translate-y-[-4px]"></div>
+                  <span className="section-label text-xl font-heading font-bold text-foreground">Self Inquiry Request</span>
+                  <div className="h-1 w-8 bg-secondary flex-shrink-0 translate-y-[-4px]"></div>
+                </div>
                 <h2 className="section-title-dark mb-4">Submit Your Request</h2>
                 <p className="text-base text-muted-foreground max-w-2xl mx-auto">
                   Provide accurate details below. All submissions are secure and compliant.

@@ -4,6 +4,7 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import TopBar from "@/components/TopBar";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import React from "react";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -56,7 +57,8 @@ const Contact = () => {
         <div 
           style={{ 
             transform: "translateZ(0px)",
-            transformStyle: "preserve-3d" 
+            transformStyle: "preserve-3d",
+            height: "420px" 
           }}
           className="group relative h-full glass p-8 rounded-[2.5rem] bg-white/80 backdrop-blur-xl border border-white/40 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.1)] transition-shadow duration-500 overflow-hidden"
         >
@@ -64,11 +66,19 @@ const Contact = () => {
           <div className="absolute inset-0 bg-gradient-to-br from-[#142842]/0 via-transparent to-[#91CD95]/0 group-hover:from-[#142842]/5 group-hover:to-[#91CD95]/5 transition-colors duration-700 pointer-events-none" />
 
           {/* ICON LAYER (High Depth: 60px) – uniform Armada green */}
-          <div 
-            style={{ transform: "translateZ(60px)" }}
-            className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-8 transition-all duration-500 shadow-sm bg-[#91CD95]/10 text-[#91CD95] group-hover:bg-[#91CD95] group-hover:text-white group-hover:shadow-[#91CD95]/30"
+          <div
+            style={{
+              background: "#91CD95",
+              borderRadius: "50%",
+              width: 96,
+              height: 96,
+              border: "3px solid #91CD95",
+              transform: "translateZ(60px)",
+            }}
+            className="icon-circle-outline mx-auto flex items-center justify-center mb-8"
           >
-            {item.icon}
+            {/* Render the icon as white and larger */}
+            {React.cloneElement(item.icon, { className: "w-12 h-12", color: "#fff" })}
           </div>
 
           {/* TEXT LAYER (Medium Depth: 40px) */}
@@ -84,7 +94,7 @@ const Contact = () => {
           {/* BUTTON LAYER (Medium Depth: 30px) */}
           <div style={{ transform: "translateZ(30px)" }} className="text-center">
             <button className="inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.15em] text-[#91CD95] transition-all duration-300">
-              <span className="relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#91CD95] group-hover:after:w-full after:transition-all">
+              <span className="text-sm relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#91CD95] group-hover:after:w-full after:transition-all">
                 {item.action}
               </span>
               <ChevronRight className="w-3 h-3 transition-transform group-hover:translate-x-1" />
@@ -169,7 +179,7 @@ const Contact = () => {
     { 
       icon: <Mail className="w-6 h-6" />, 
       title: "Digital Concierge", 
-      desc: "info@armadacrb.co.ug", 
+      desc: "info@armadacrb.com", 
       color: "blue",
       action: "Copy Email" 
     },
@@ -318,7 +328,7 @@ const Contact = () => {
 
                   <button
                     type="submit"
-                    className="w-full bg-[#142842] text-white font-bold py-5 rounded-2xl hover:bg-[#91CD95] transition-all duration-500 shadow-xl shadow-[#142842]/10 active:scale-[0.98] flex items-center justify-center gap-3 group"
+                    className="w-full bg-[#0068ad] text-white font-bold py-5 rounded-2xl hover:bg-[#0068ad] transition-all duration-500 shadow-xl shadow-[#0068ad]/10 active:scale-[0.98] flex items-center justify-center gap-3 group"
                   >
                     <span>Send Message</span>
                     <Send className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
@@ -330,11 +340,13 @@ const Contact = () => {
             {/* Visual Sidebar */}
             <div className="lg:col-span-2 space-y-8">
               {/* Updated Enterprise Data Guard Card – Armada blue + green */}
-              <div className="bg-[#142842] rounded-[2.5rem] p-10 text-white relative overflow-hidden h-fit group">
-                <div className="absolute -right-20 -bottom-20 w-64 h-64 bg-[#91CD95]/20 rounded-full blur-3xl group-hover:bg-[#91CD95]/30 transition-colors duration-1000" />
-                <Shield className="w-12 h-12 text-[#91CD95] mb-8" />
+              <div className="bg-[#0068ad] rounded-[2.5rem] p-10 text-white relative overflow-hidden h-fit group">
+                <div className="mb-4 absolute -right-18 -bottom-18 w-80 h-80 bg-[#0068ad]/20 rounded-full blur-3xl group-hover:bg-[#0068ad]/30 transition-colors duration-1000" />
+                <div className="mb-4 bg-[#91CD95] p-6 rounded-full inline-flex items-center justify-center">
+                  <Shield className="w-12 h-12 text-white" />
+                </div>
                 <h3 className="text-2xl font-bold mb-4">Enterprise Data Guard</h3>
-                <p className="text-slate-300 mb-8 leading-relaxed">Join 500+ financial institutions leveraging Armada's secure data analytics for real-time risk assessment.</p>
+                <p className="text-white mb-8 leading-relaxed">Join 500+ financial institutions leveraging Armada's secure data analytics for real-time risk assessment.</p>
                 <div className="space-y-4">
                   <div className="flex items-center gap-3 text-sm font-medium">
                     <CheckCircle2 className="w-4 h-4 text-[#91CD95]" /> ISO 27001 Certified

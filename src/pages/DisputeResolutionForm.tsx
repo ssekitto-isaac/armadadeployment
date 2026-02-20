@@ -191,27 +191,29 @@ const DisputeResolution = () => {
                 </motion.div>
               </motion.div>
 
-              {/* Trust facts – unchanged */}
+              {/* Trust facts – unchanged */}              
               <div className="grid md:grid-cols-3 gap-6 mt-12 text-center">
                 <div>
-                  <div className="w-14 h-14 rounded-2xl bg-secondary/10 flex items-center justify-center mx-auto mb-3">
-                    <Clock className="w-7 h-7 text-secondary" />
+                  <div className="w-24 h-24 rounded-full bg-[#91CD95] flex items-center justify-center mx-auto mb-3">
+                    <Clock className="w-14 h-14 text-white" />
                   </div>
-                  <p className="font-bold text-foreground">Resolution Time</p>
+                  <p className="font-bold text-2xl text-foreground">Resolution Time</p>
                   <p className="text-sm text-muted-foreground">14 Working Days</p>
                 </div>
+
                 <div>
-                  <div className="w-14 h-14 rounded-2xl bg-secondary/10 flex items-center justify-center mx-auto mb-3">
-                    <Shield className="w-7 h-7 text-secondary" />
+                  <div className="w-24 h-24 rounded-full bg-[#91CD95] flex items-center justify-center mx-auto mb-3">
+                    <Shield className="w-14 h-14 text-white" />
                   </div>
-                  <p className="font-bold text-foreground">Secure & Encrypted</p>
+                  <p className="font-bold text-2xl text-foreground">Secure & Encrypted</p>
                   <p className="text-sm text-muted-foreground">End-to-End Protection</p>
                 </div>
+
                 <div>
-                  <div className="w-14 h-14 rounded-2xl bg-secondary/10 flex items-center justify-center mx-auto mb-3">
-                    <FileCheck className="w-7 h-7 text-secondary" />
+                  <div className="w-24 h-24 rounded-full bg-[#91CD95] flex items-center justify-center mx-auto mb-3">
+                    <FileCheck className="w-14 h-14 text-white" />
                   </div>
-                  <p className="font-bold text-foreground">Regulated</p>
+                  <p className="font-bold text-2xl text-foreground">Regulated</p>
                   <p className="text-sm text-muted-foreground">Bank of Uganda Compliant</p>
                 </div>
               </div>
@@ -224,7 +226,11 @@ const DisputeResolution = () => {
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-10">
-                <span className="section-label">Official Dispute</span>
+                <div className="flex items-center justify-center gap-4 mb-4">
+                  <div className="h-1 w-8 bg-secondary flex-shrink-0 translate-y-[-4px]"></div>
+                  <span className="section-label text-xl font-heading font-bold text-foreground">Official Dispute</span>
+                  <div className="h-1 w-8 bg-secondary flex-shrink-0 translate-y-[-4px]"></div>
+                </div>
                 <h2 className="section-title-dark mb-4">Submit Your Dispute</h2>
                 <p className="text-base text-muted-foreground max-w-2xl mx-auto">
                   Provide details below. All submissions are secure and handled in compliance with regulatory standards.
@@ -403,7 +409,7 @@ const DisputeResolution = () => {
       {/* Smaller accent lines */}
       <div className="flex items-center justify-center gap-3 mb-4">
         <div className="h-0.5 w-8 bg-[#91CD95]"></div>
-        <span className="text-white font-bold text-sm tracking-wide uppercase">
+        <span className="text-white font-extrabold text-xl tracking-wide uppercase">
           Need Help?
         </span>
         <div className="h-0.5 w-8 bg-[#91CD95]"></div>

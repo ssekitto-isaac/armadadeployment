@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import dataImage from "@/assets/data.jpg";
 import { Database, Shield, Zap, ArrowLeft, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import React from "react";
 
 interface DataService {
   id: string;
@@ -113,15 +114,29 @@ const DataManagementPage = () => {
               {dataServices.map((service) => (
                 <div
                   key={service.id}
-                  className="bg-muted p-8 rounded-lg hover:shadow-lg transition-shadow duration-300"
+                  className="bg-muted p-8 rounded-lg hover:shadow-lg transition-shadow duration-300 hover:bg-[hsl(var(--navy))] hover:text-white group"
                 >
                   <div className="mb-4 flex justify-center">
-                    {service.icon}
+                    <div
+                      className="icon-circle-outline flex items-center justify-center"
+                      style={{
+                        background: "#91CD95",
+                        borderRadius: "50%",
+                        width: 96,
+                        height: 96,
+                        border: "3px solid #91CD95",
+                      }}
+                    >
+                      {React.cloneElement(service.icon as React.ReactElement, {
+                        color: "#fff",
+                        className: "w-12 h-12",
+                      })}
+                    </div>
                   </div>
-                  <h3 className="text-2xl font-bold text-foreground mb-4 text-center">
+                  <h3 className="text-2xl font-bold text-foreground mb-4 text-center group-hover:text-white">
                     {service.title}
                   </h3>
-                  <p className="text-foreground leading-relaxed">
+                  <p className="text-foreground leading-relaxed group-hover:text-white">
                     {service.description}
                   </p>
                 </div>

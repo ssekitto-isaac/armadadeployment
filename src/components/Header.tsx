@@ -175,19 +175,22 @@ export default function Header() {
                         <NavigationMenuTrigger
                           className={cn(
                             "bg-transparent focus:bg-transparent data-[state=open]:bg-transparent px-1 py-2 text-base font-bold transition-none",
-                            textColor,
-                            isItemActive && `${activeColor} border-b-2 border-[#91CD95]`
+                            isItemActive
+                              ? "bg-[#0068ad] text-white border-b-2 border-[#91CD95]"
+                              : textColor
                           )}
                           style={{
-                            transition: "color 0.2s, border-bottom 0.2s",
+                            transition: "color 0.2s, border-bottom 0.2s, background 0.2s",
                           }}
                           onMouseEnter={e => {
-                            e.currentTarget.style.color = armadaGreen;
-                            e.currentTarget.style.borderBottom = `2px solid ${armadaGreen}`;
+                            e.currentTarget.style.background = "#0068ad";
+                            e.currentTarget.style.color = "#fff";
+                            e.currentTarget.style.borderBottom = `2px solid #91CD95`;
                           }}
                           onMouseLeave={e => {
-                            e.currentTarget.style.color = isItemActive ? armadaGreen : "#1A2636";
-                            e.currentTarget.style.borderBottom = isItemActive ? `2px solid ${armadaGreen}` : "";
+                            e.currentTarget.style.background = isItemActive ? "#0068ad" : "transparent";
+                            e.currentTarget.style.color = isItemActive ? "#fff" : "#1A2636";
+                            e.currentTarget.style.borderBottom = isItemActive ? `2px solid #91CD95` : "";
                           }}
                         >
                           {item.label}
@@ -211,7 +214,7 @@ export default function Header() {
                                       to={sub.href}
                                       className={cn(
                                         "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none w-full text-left transition-none font-bold",
-                                        isSubActive && `${activeColor} ${activeBg}`
+                                        isSubActive ? "bg-[#0068ad] text-white border-b-2 border-[#91CD95]" : textColor
                                       )}
                                       style={{
                                         transition: "color 0.2s, background 0.2s, border-bottom 0.2s",
@@ -247,19 +250,22 @@ export default function Header() {
                           to={item.href}
                           className={cn(
                             "group inline-flex h-10 items-center justify-center rounded-md bg-transparent px-2 py-2 text-base font-bold transition-none",
-                            textColor,
-                            isItemActive && `${activeColor} border-b-2 border-[#91CD95]`
+                            isItemActive
+                              ? "bg-[#0068ad] text-white border-b-2 border-[#91CD95]"
+                              : textColor
                           )}
                           style={{
-                            transition: "color 0.2s, border-bottom 0.2s",
+                            transition: "color 0.2s, border-bottom 0.2s, background 0.2s",
                           }}
                           onMouseEnter={e => {
-                            e.currentTarget.style.color = armadaGreen;
-                            e.currentTarget.style.borderBottom = `2px solid ${armadaGreen}`;
+                            e.currentTarget.style.background = "#0068ad";
+                            e.currentTarget.style.color = "#fff";
+                            e.currentTarget.style.borderBottom = `2px solid #91CD95`;
                           }}
                           onMouseLeave={e => {
-                            e.currentTarget.style.color = isItemActive ? armadaGreen : "#1A2636";
-                            e.currentTarget.style.borderBottom = isItemActive ? `2px solid ${armadaGreen}` : "";
+                            e.currentTarget.style.background = isItemActive ? "#0068ad" : "transparent";
+                            e.currentTarget.style.color = isItemActive ? "#fff" : "#1A2636";
+                            e.currentTarget.style.borderBottom = isItemActive ? `2px solid #91CD95` : "";
                           }}
                         >
                           {item.label}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ArrowRight, Award, Globe, Linkedin, Mail } from "lucide-react";
 import ceoImage from "@/assets/CEO.jpg";
 import TopBar from "@/components/TopBar";
@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import LiveChatWidget from "@/components/LiveChat";
 import StatsSection from "@/components/StatsSection";
+import { useLocation } from "react-router-dom";
 
 const featuredMember = {
   name: "Adebowale Atobatele",
@@ -18,8 +19,16 @@ const featuredMember = {
 };
 
 const TeamPage = () => {
+  const location = useLocation();
+  useEffect(() => {
+    if (location.hash === "#top") {
+      const el = document.getElementById("top");
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [location]);
+
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div id="top" className="min-h-screen bg-background flex flex-col">
       <TopBar />
       <Header />
 
