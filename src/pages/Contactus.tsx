@@ -20,7 +20,7 @@ const Contact = () => {
    * 3D TILT ENGINE
    * Provides realistic physics-based rotation and depth layers
    */
-  const TiltCard3D = ({ item }: { item: any }) => {
+  const TiltCard3D = ({ item, onAction }: { item: any, onAction: (action: string) => void }) => {
     const x = useMotionValue(0);
     const y = useMotionValue(0);
 
@@ -93,7 +93,11 @@ const Contact = () => {
 
           {/* BUTTON LAYER (Medium Depth: 30px) */}
           <div style={{ transform: "translateZ(30px)" }} className="text-center">
-            <button className="inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.15em] text-[#91CD95] transition-all duration-300">
+            <button
+              className="inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.15em] text-[#91CD95] transition-all duration-300"
+              onClick={() => onAction(item.action)}
+              type="button"
+            >
               <span className="text-sm relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#91CD95] group-hover:after:w-full after:transition-all">
                 {item.action}
               </span>
@@ -192,6 +196,26 @@ const Contact = () => {
     }
   ];
 
+  const navigateToSection = (action: string) => {
+    switch (action) {
+      case "View on Map":
+        document.getElementById("ContactForm")?.scrollIntoView({ behavior: "smooth" });
+        break;
+      case "Call Now":
+        window.location.href = "tel:0800280180";
+        break;
+      case "Copy Email":
+        navigator.clipboard.writeText("info@armadacrb.com");
+        alert("Email copied to clipboard!");
+        break;
+      case "Schedule Call":
+        document.getElementById("ContactForm")?.scrollIntoView({ behavior: "smooth" });
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#f8fafc] font-sans text-slate-900 selection:bg-[#91CD95]/20 selection:text-[#142842]">
       <TopBar />
@@ -200,7 +224,7 @@ const Contact = () => {
       {/* COMPACT HERO */}
       <section className="relative pt-24 pb-16 overflow-hidden">
         <div className="container mx-auto px-6 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div id="head" className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div initial={{ opacity: 0, x: -25 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}>
               <h1 className="text-4xl md:text-6xl font-black text-slate-900 mb-6 leading-tight">
                 Contact Us <br/>
@@ -237,7 +261,7 @@ const Contact = () => {
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {contactItems.map((item, idx) => (
-              <TiltCard3D key={idx} item={item} />
+              <TiltCard3D key={idx} item={item} onAction={navigateToSection} />
             ))}
           </div>
         </div>
@@ -358,7 +382,7 @@ const Contact = () => {
               </div>
 
               {/* Map Component */}
-              <div className="bg-white rounded-[2.5rem] shadow-xl overflow-hidden h-[300px] border border-slate-100 grayscale hover:grayscale-0 transition-all duration-700">
+              <div id="MapSection" className="bg-white rounded-[2.5rem] shadow-xl overflow-hidden h-[300px] border border-slate-100 grayscale hover:grayscale-0 transition-all duration-700">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.7573268772547!2d32.5771!3d0.3136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x177dbb7b6c6c6c6d%3A0x7b7b7b7b7b7b7b7b!2s29A%20Lumumba%20Ave%2C%20Kampala%2C%20Uganda!5e0!3m2!1sen!2sug!4v1234567890"
                   width="100%"

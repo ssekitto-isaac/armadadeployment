@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
 import {
   Menu,
@@ -42,7 +42,7 @@ interface NavItem {
   subItems?: NavSubItem[];
 }
 
-//  Navigation Data 
+// Navigation Data 
 const navItems: NavItem[] = [
   { label: "Home", href: "/" },
   {
@@ -114,7 +114,8 @@ const navItems: NavItem[] = [
       },
     ],
   },
-  { label: "News", href: "/news" },
+  // { label: "News", href: "/news" },
+   { label: "News", href: "#" },
   // { label: "FAQs", href: "/FAQ"},
   { label: "Contact Us", href: "/contact" },
 ];
@@ -122,7 +123,19 @@ const navItems: NavItem[] = [
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openMobileDropdowns, setOpenMobileDropdowns] = useState<string[]>([]);
+  const [isHoveringNav, setIsHoveringNav] = useState(false);
   const location = useLocation();
+  const itemRefs = useRef<Record<string, HTMLElement>>({});
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const enterNav = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    setIsHoveringNav(true);
+  };
+
+  const leaveNav = () => {
+    timeoutRef.current = setTimeout(() => setIsHoveringNav(false), 150);
+  };
 
   const toggleMobileDropdown = (label: string) => {
     setOpenMobileDropdowns((prev) =>
@@ -141,6 +154,58 @@ export default function Header() {
     if (!subItems) return false;
     return subItems.some((sub) => isActive(sub.href));
   };
+
+  const getActiveHrefs = () => {
+    const activeHrefs = new Set<string>();
+    navItems.forEach((item) => {
+      let parentActive = isActive(item.href);
+      if (item.subItems) {
+        item.subItems.forEach((sub) => {
+          if (isActive(sub.href)) {
+            activeHrefs.add(sub.href);
+            parentActive = true;
+          }
+        });
+      }
+      if (parentActive) {
+        activeHrefs.add(item.href);
+      }
+    });
+    return activeHrefs;
+  };
+
+  useEffect(() => {
+    const applyStyles = (el: HTMLElement, isSpecial: boolean) => {
+      if (isSpecial) {
+        el.style.background = "#0068ad";
+        el.style.color = "#ffffff";
+        el.style.borderBottom = `4px solid #91CD95`;
+        Array.from(el.querySelectorAll("*")).forEach(
+          (child) => ((child as HTMLElement).style.color = "#ffffff")
+        );
+      } else {
+        el.style.background = "transparent";
+        el.style.color = "#1A2636";
+        el.style.borderBottom = "";
+        Array.from(el.querySelectorAll("*")).forEach(
+          (child) => ((child as HTMLElement).style.color = "")
+        );
+      }
+    };
+
+    const activeHrefs = getActiveHrefs();
+    if (isHoveringNav) {
+      activeHrefs.forEach((href) => {
+        const el = itemRefs.current[href];
+        if (el) applyStyles(el, false);
+      });
+    } else {
+      Object.keys(itemRefs.current).forEach((href) => {
+        const el = itemRefs.current[href];
+        if (el) applyStyles(el, activeHrefs.has(href));
+      });
+    }
+  }, [isHoveringNav, location.pathname]);
 
   const textColor = "text-[#1A2636]";
   const activeColor = "text-[#91CD95]";
@@ -164,122 +229,149 @@ export default function Header() {
 
           {/* Desktop Nav */}
           <NavigationMenu className="hidden lg:flex">
-            <NavigationMenuList className="gap-6">
-              {navItems.map((item) => {
-                const isItemActive = isActive(item.href) || isAnySubActive(item.subItems);
+            <div onMouseEnter={enterNav} onMouseLeave={leaveNav}>
+              <NavigationMenuList className="gap-6">
+                {navItems.map((item) => {
+                  const isItemActive = isActive(item.href) || isAnySubActive(item.subItems);
 
-                return (
-                  <NavigationMenuItem key={item.label} className="relative inline-block">
-                    {item.subItems ? (
-                      <>
-                        <NavigationMenuTrigger
-                          className={cn(
-                            "bg-transparent focus:bg-transparent data-[state=open]:bg-transparent px-1 py-2 text-base font-bold transition-none",
-                            isItemActive
-                              ? "bg-[#0068ad] text-white border-b-2 border-[#91CD95]"
-                              : textColor
-                          )}
-                          style={{
-                            transition: "color 0.2s, border-bottom 0.2s, background 0.2s",
-                          }}
-                          onMouseEnter={e => {
-                            e.currentTarget.style.background = "#0068ad";
-                            e.currentTarget.style.color = "#fff";
-                            e.currentTarget.style.borderBottom = `2px solid #91CD95`;
-                          }}
-                          onMouseLeave={e => {
-                            e.currentTarget.style.background = isItemActive ? "#0068ad" : "transparent";
-                            e.currentTarget.style.color = isItemActive ? "#fff" : "#1A2636";
-                            e.currentTarget.style.borderBottom = isItemActive ? `2px solid #91CD95` : "";
-                          }}
-                        >
-                          {item.label}
-                        </NavigationMenuTrigger>
-
-                        {/* Dropdown positioned directly under parent tab */}
-                        <NavigationMenuContent
-                          className="absolute left-0 mt-2 z-50 min-w-[350px]"
-                          style={{
-                            minWidth: 350,
-                            width: 'max-content',
-                          }}
-                        >
-                          <ul className="flex flex-col gap-1 p-4 min-w-[350px]">
-                            {item.subItems.map((sub) => {
-                              const isSubActive = isActive(sub.href);
-                              return (
-                                <li key={sub.label}>
-                                  <NavigationMenuLink asChild>
-                                    <Link
-                                      to={sub.href}
-                                      className={cn(
-                                        "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none w-full text-left transition-none font-bold",
-                                        isSubActive ? "bg-[#0068ad] text-white border-b-2 border-[#91CD95]" : textColor
-                                      )}
-                                      style={{
-                                        transition: "color 0.2s, background 0.2s, border-bottom 0.2s",
-                                      }}
-                                      onMouseEnter={e => {
-                                        e.currentTarget.style.color = armadaGreen;
-                                        e.currentTarget.style.borderBottom = `2px solid ${armadaGreen}`;
-                                      }}
-                                      onMouseLeave={e => {
-                                        e.currentTarget.style.color = isSubActive ? armadaGreen : "#1A2636";
-                                        e.currentTarget.style.borderBottom = isSubActive ? `2px solid ${armadaGreen}` : "";
-                                      }}
-                                    >
-                                      <div className="text-base font-bold leading-none">
-                                        {sub.label}
-                                      </div>
-                                      {sub.description && (
-                                        <p className="line-clamp-2 text-xs leading-snug text-muted-foreground font-normal">
-                                          {sub.description}
-                                        </p>
-                                      )}
-                                    </Link>
-                                  </NavigationMenuLink>
-                                </li>
+                  return (
+                    <NavigationMenuItem key={item.label} className="relative inline-block">
+                      {item.subItems ? (
+                        <>
+                          <NavigationMenuTrigger
+                            ref={(el) => { if (el) itemRefs.current[item.href] = el; }}
+                            className={cn(
+                              "bg-transparent focus:bg-transparent data-[state=open]:bg-transparent px-1 py-2 text-base font-bold transition-none",
+                              isItemActive
+                                ? "bg-[#0068ad] text-white border-b-4 border-[#91CD95]"
+                                : textColor
+                            )}
+                            style={{
+                              transition: "color 0.2s, border-bottom 0.2s, background 0.2s",
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.background = "#0068ad";
+                              e.currentTarget.style.color = "#fff";
+                              e.currentTarget.style.borderBottom = `4px solid #91CD95`;
+                              Array.from(e.currentTarget.querySelectorAll("*")).forEach(
+                                (el) => ((el as HTMLElement).style.color = "#ffffff")
                               );
-                            })}
-                          </ul>
-                        </NavigationMenuContent>
-                      </>
-                    ) : (
-                      <NavigationMenuLink asChild>
-                        <Link
-                          to={item.href}
-                          className={cn(
-                            "group inline-flex h-10 items-center justify-center rounded-md bg-transparent px-2 py-2 text-base font-bold transition-none",
-                            isItemActive
-                              ? "bg-[#0068ad] text-white border-b-2 border-[#91CD95]"
-                              : textColor
-                          )}
-                          style={{
-                            transition: "color 0.2s, border-bottom 0.2s, background 0.2s",
-                          }}
-                          onMouseEnter={e => {
-                            e.currentTarget.style.background = "#0068ad";
-                            e.currentTarget.style.color = "#fff";
-                            e.currentTarget.style.borderBottom = `2px solid #91CD95`;
-                          }}
-                          onMouseLeave={e => {
-                            e.currentTarget.style.background = isItemActive ? "#0068ad" : "transparent";
-                            e.currentTarget.style.color = isItemActive ? "#fff" : "#1A2636";
-                            e.currentTarget.style.borderBottom = isItemActive ? `2px solid #91CD95` : "";
-                          }}
-                        >
-                          {item.label}
-                        </Link>
-                      </NavigationMenuLink>
-                    )}
-                  </NavigationMenuItem>
-                );
-              })}
-            </NavigationMenuList>
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.background = "transparent";
+                              e.currentTarget.style.color = "#1A2636";
+                              e.currentTarget.style.borderBottom = "";
+                              Array.from(e.currentTarget.querySelectorAll("*")).forEach(
+                                (el) => ((el as HTMLElement).style.color = "")
+                              );
+                            }}
+                          >
+                            {item.label}
+                          </NavigationMenuTrigger>
+
+                          {/* Dropdown positioned directly under parent tab */}
+                          <NavigationMenuContent
+                            onMouseEnter={enterNav}
+                            onMouseLeave={leaveNav}
+                            className="absolute left-0 mt-2 z-50 min-w-[350px]"
+                            style={{
+                              minWidth: 350,
+                              width: 'max-content',
+                            }}
+                          >
+                            <ul className="flex flex-col gap-1 p-4 min-w-[350px]">
+                              {item.subItems.map((sub) => {
+                                const isSubActive = isActive(sub.href);
+                                return (
+                                  <li key={sub.label}>
+                                    <NavigationMenuLink asChild>
+                                      <Link
+                                        ref={(el) => { if (el) itemRefs.current[sub.href] = el; }}
+                                        to={sub.href}
+                                        className={cn(
+                                          "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none w-full text-left transition-none font-bold",
+                                          isSubActive ? "bg-[#0068ad] text-white border-b-4 border-[#91CD95]" : textColor
+                                        )}
+                                        style={{
+                                          transition: "color 0.2s, background 0.2s, border-bottom 0.2s",
+                                        }}
+                                        onMouseEnter={(e) => {
+                                          e.currentTarget.style.background = "#0068ad";
+                                          e.currentTarget.style.color = "#ffffff";
+                                          e.currentTarget.style.borderBottom = `4px solid ${armadaGreen}`;
+                                          Array.from(e.currentTarget.querySelectorAll("*")).forEach(
+                                            (el) => ((el as HTMLElement).style.color = "#ffffff")
+                                          );
+                                        }}
+                                        onMouseLeave={(e) => {
+                                          e.currentTarget.style.background = "transparent";
+                                          e.currentTarget.style.color = "#1A2636";
+                                          e.currentTarget.style.borderBottom = "";
+                                          Array.from(e.currentTarget.querySelectorAll("*")).forEach(
+                                            (el) => ((el as HTMLElement).style.color = "")
+                                          );
+                                        }}
+                                      >
+                                        <div className="text-base font-bold leading-none">
+                                          {sub.label}
+                                        </div>
+                                        {sub.description && (
+                                          <p className="line-clamp-2 text-xs leading-snug font-normal">
+                                            {sub.description}
+                                          </p>
+                                        )}
+                                      </Link>
+                                    </NavigationMenuLink>
+                                  </li>
+                                );
+                              })}
+                            </ul>
+                          </NavigationMenuContent>
+                        </>
+                      ) : (
+                        <NavigationMenuLink asChild>
+                          <Link
+                            ref={(el) => { if (el) itemRefs.current[item.href] = el; }}
+                            to={item.href}
+                            className={cn(
+                              "group inline-flex h-10 items-center justify-center rounded-md bg-transparent px-2 py-2 text-base font-bold transition-none",
+                              isItemActive
+                                ? "bg-[#0068ad] text-white border-b-4 border-[#91CD95]"
+                                : textColor
+                            )}
+                            style={{
+                              transition: "color 0.2s, border-bottom 0.2s, background 0.2s",
+                            }}
+                            onMouseEnter={(e) => {
+                              e.currentTarget.style.background = "#0068ad";
+                              e.currentTarget.style.color = "#fff";
+                              e.currentTarget.style.borderBottom = `4px solid #91CD95`;
+                              Array.from(e.currentTarget.querySelectorAll("*")).forEach(
+                                (el) => ((el as HTMLElement).style.color = "#ffffff")
+                              );
+                            }}
+                            onMouseLeave={(e) => {
+                              e.currentTarget.style.background = "transparent";
+                              e.currentTarget.style.color = "#1A2636";
+                              e.currentTarget.style.borderBottom = "";
+                              Array.from(e.currentTarget.querySelectorAll("*")).forEach(
+                                (el) => ((el as HTMLElement).style.color = "")
+                              );
+                            }}
+                          >
+                            {item.label}
+                          </Link>
+                        </NavigationMenuLink>
+                      )}
+                    </NavigationMenuItem>
+                  );
+                })}
+              </NavigationMenuList>
+            </div>
           </NavigationMenu>
 
           {/* Desktop Socials */}
-          <div className="hidden lg:flex items-center gap-5">
+          <div className="hidden lg:flex items-center gap-4 ml-3">
             <SocialLink href="https://x.com/ArmadaCRB" />
             <SocialLink
               icon={Linkedin}
@@ -338,7 +430,7 @@ export default function Header() {
                           {item.label}
                           <ChevronDown
                             className={cn(
-                              "h-4 w-4 transition-transform duration-200",
+                              "h-4 w-4 transition-transform duration-10500",
                               openMobileDropdowns.includes(item.label) &&
                                 "rotate-180",
                             )}

@@ -92,7 +92,7 @@ const AboutPage = () => {
 
       <main className="flex-grow">
         {/* Hero Section */}
-        <section
+        <section id="head"
           className="relative h-[320px] sm:h-[360px] md:h-[400px] flex items-center justify-start overflow-hidden"
           style={{
             backgroundImage: `url(${heroImage})`,

@@ -8,7 +8,7 @@ const cards = [
     icon: faUsers,
     title: "About Us",
     description: "We focus on stakeholder relations and astute partnership building.",
-    link: "/AboutArmada#about",
+    link: "/AboutArmada#head",
   },
   {
     icon: faEye,

@@ -97,9 +97,9 @@ const PortfolioPage = () => {
           }}
         >
                 {/* Overlay - Stronger on mobile for better text readability */}
-      <div className="hero-overlay absolute inset-0 bg-black/4 md:bg-black/4 z-[3]" />
+        <div className="hero-overlay absolute inset-0 bg-black/4 md:bg-black/4 z-[3]" />
           <div className="relative z-10 container mx-auto px-6 md:px-20 lg:px-28 h-full flex items-center">
-            <div className="max-w-3xl">
+            <div className="max-w-3xl ml-12">
               <div className="flex items-center gap-3 text-white/90 text-sm uppercase tracking-wider mb-4 drop-shadow-md">
                 <span>Home</span>
                 <ChevronRight className="w-4 h-4" />
@@ -139,7 +139,7 @@ const PortfolioPage = () => {
           <div className="container mx-auto px-4 max-w-6xl">
             <div className="mb-16 text-center">
               <h2 className="text-3xl md:text-4xl font-bold section-title-dark mb-6">
-                Risk is Ubiquitous. You Need a Partner That Works.
+                Risk is Ubiquitous. You Need a<br/>Partner That Works.
               </h2>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
                 Manage the dynamics of your credit portfolio lifecycle while

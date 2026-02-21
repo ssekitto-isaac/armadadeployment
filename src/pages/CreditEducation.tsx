@@ -57,7 +57,7 @@ const CreditEducationPage = () => {
       <div className="hero-overlay absolute inset-0 bg-black/4 md:bg-black/4 z-[3]" />
 
           <div className="relative z-10 container mx-auto px-5 md:px-16 h-full flex items-center">
-            <div className="max-w-3xl">
+            <div className="max-w-3xl ml-20">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-5 drop-shadow-lg">
                 Credit Education & Financial Literacy
               </h1>

@@ -61,29 +61,29 @@ const AnalyticsPage = () => {
       <Header />
       <main className="flex-1">
        {/* Hero Section – standardized sizing */}
-<section
-  className="relative h-[320px] sm:h-[360px] md:h-[400px] flex items-center justify-start overflow-hidden"
-  style={{
-    backgroundImage: `url(${armada23})`,
-    backgroundAttachment: "fixed",
-    backgroundSize: "cover",
-    backgroundPosition: "center top",
-  }}
->
-      {/* Overlay - Stronger on mobile for better text readability */}
-      <div className="hero-overlay absolute inset-0 bg-black/4 md:bg-black/4 z-[3]" />
+      <section
+        className="relative h-[320px] sm:h-[360px] md:h-[400px] flex items-center justify-start overflow-hidden"
+        style={{
+          backgroundImage: `url(${armada23})`,
+          backgroundAttachment: "fixed",
+          backgroundSize: "cover",
+          backgroundPosition: "center top",
+        }}
+      >
+            {/* Overlay - Stronger on mobile for better text readability */}
+            <div className="hero-overlay absolute inset-0 bg-black/4 md:bg-black/4 z-[3]" />
 
-  <div className="relative z-10 text-left px-6 md:px-12 lg:px-20 max-w-4xl">
-    <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-4 leading-tight drop-shadow-lg">
-      Data & Decision<br />
-      Analytics
-    </h1>
+        <div className="relative z-10 text-left px-6 md:px-12 lg:px-20 max-w-4xl ml-44">
+          <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-4 leading-tight drop-shadow-lg">
+            Data & Decision<br />
+            Analytics
+          </h1>
 
-    <p className="text-base sm:text-lg md:text-xl text-white drop-shadow-md">
-      Home - Product Suites - Analytics
-    </p>
-  </div>
-</section>
+          <p className="text-base sm:text-lg md:text-xl text-white drop-shadow-md">
+            Home - Product Suites - Analytics
+          </p>
+        </div>
+      </section>
 
         <section className="py-20 bg-white">
           <div className="container mx-auto px-4 max-w-5xl">

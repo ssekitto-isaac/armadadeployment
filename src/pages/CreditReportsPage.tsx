@@ -43,28 +43,28 @@ const CreditReportsPage = () => {
       <main className="flex-1">
         {/* Hero Section – updated to standard overlay + fixed background */}
       {/* Hero Section – reduced height + better positioning to avoid heavy cropping */}
-<section
-  className="relative h-[320px] sm:h-[360px] md:h-[400px] flex items-center justify-start overflow-hidden"
-  style={{
-    backgroundImage: `url(${armada25})`,
-    backgroundAttachment: "fixed",
-    backgroundSize: "cover",
-    backgroundPosition: "center top",     // ← shows more of the top / main subjects (best for avoiding top cropping)
-    // If the image still feels cropped incorrectly, try these alternatives:
-    // backgroundPosition: "50% 25%",
-    // backgroundPosition: "center 30%",
-  }}
->
-      {/* Overlay - Stronger on mobile for better text readability */}
-      <div className="hero-overlay absolute inset-0 bg-black/4 md:bg-black/4 z-[3]" />
+      <section
+        className="relative h-[320px] sm:h-[360px] md:h-[400px] flex items-center justify-start overflow-hidden"
+        style={{
+          backgroundImage: `url(${armada25})`,
+          backgroundAttachment: "fixed",
+          backgroundSize: "cover",
+          backgroundPosition: "center top",     // ← shows more of the top / main subjects (best for avoiding top cropping)
+          // If the image still feels cropped incorrectly, try these alternatives:
+          // backgroundPosition: "50% 25%",
+          // backgroundPosition: "center 30%",
+        }}
+      >
+            {/* Overlay - Stronger on mobile for better text readability */}
+            <div className="hero-overlay absolute inset-0 bg-black/4 md:bg-black/4 z-[3]" />
 
-  <div className="relative z-10 text-left px-6 md:px-12 lg:px-20 max-w-4xl">
-    <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-4 leading-tight drop-shadow-lg">
-      Credit Information &<br />
-      Risk Reports
-    </h1>
-  </div>
-</section>
+        <div className="relative z-10 text-left px-6 md:px-12 lg:px-20 max-w-4xl ml-20">
+          <h1 className="ml-24 text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-4 leading-tight drop-shadow-lg">
+            Credit Information &<br />
+            Risk Reports
+          </h1>
+        </div>
+      </section>
 
         <section className="py-20 bg-white">
           <div className="container mx-auto px-4 max-w-5xl">
@@ -159,7 +159,7 @@ const CreditReportsPage = () => {
       </p>
 
       <Link
-        to="/contact"
+        to="/contact#head"
         className="inline-flex items-center justify-center gap-2 bg-[#91CD95] hover:bg-[#7ab87e] text-white px-6 py-3 rounded-full font-semibold text-base transition-colors shadow-md"
       >
         <span>Contact Us Now</span>
