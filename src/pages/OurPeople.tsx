@@ -15,7 +15,7 @@ const featuredMember = {
   bio: "Visionary leader in credit bureau operations, banking & technology. Driving innovation in credit reporting and analytics across Africa — focused on trust, inclusion, and data-driven decisions.",
   expertise: "Global standards, local impact",
   linkedin: "https://www.linkedin.com/in/adebowale-atobatele-9412b212?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
-  email: "info@armadacrb.co.ug",
+  email: "info@armadacrb.com",
 };
 
 const TeamPage = () => {

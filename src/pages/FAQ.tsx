@@ -221,7 +221,7 @@ const FAQ = () => {
               </a>
 
               <a
-                href="mailto:info@armadacrb.co.ug"
+                href="mailto:info@armadacrb.com"
                 className="inline-flex items-center justify-center gap-2 bg-white/15 hover:bg-white/25 text-white px-6 py-3 rounded-full font-semibold text-base transition-colors backdrop-blur-sm border border-white/30"
               >
                 <MessageSquare className="w-5 h-5" />

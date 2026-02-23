@@ -8,7 +8,7 @@ interface ProductHeroProps {
 const ProductHero = ({ title = "Product Suites", subtitle = "" }: ProductHeroProps) => {
   return (
     <section
-      className="relative h-[500px] flex items-center justify-center bg-cover bg-center"
+      className="relative h-[360px] flex items-center justify-center bg-cover bg-center"
       style={{ backgroundImage: `url(${armadaHero})` }}
     >
       <div className="absolute inset-0 bg-black/40" />

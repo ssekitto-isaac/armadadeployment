@@ -45,7 +45,7 @@ const Footer = () => {
         style={{ zIndex: 0, backgroundColor: "rgba(0, 14, 23, 0.95)" }}
       />
       <div className="container mx-auto px-4 relative z-10">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-y-12 gap-x-12 lg:gap-x-20 mb-12 justify-between">
           {/* About */}
           <div>
             <div className="flex items-center mb-6">
@@ -146,7 +146,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-secondary flex-shrink-0" />
-                <a href="mailto:info@armadacrb.co.ug" className="footer-link">
+                <a href="mailto:info@armadacrb.com" className="footer-link">
                   info@armadacrb.co.ug
                 </a>
               </li>

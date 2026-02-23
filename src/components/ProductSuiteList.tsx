@@ -45,35 +45,54 @@ const ProductSuiteList = () => {
     <section id="products" className="py-20 bg-muted">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="section-label">What We Offer</span>
+          {/* <span className="section-label">What We Offer</span> */}
+          <div className="flex items-center justify-center gap-4 mb-4">
+            <div className="h-1 w-8 bg-secondary flex-shrink-0 translate-y-[-4px]"></div>
+            <span className="section-label text-xl font-heading font-bold text-foreground">What We Offer</span>
+            <div className="h-1 w-8 bg-secondary flex-shrink-0 translate-y-[-4px]"></div>
+          </div>
           <h2 className="section-title-dark mb-4">Product Suite</h2>
           <p className="text-lg text-muted-foreground">
             Armada Credit Bureau has an advanced suite of credit bureau and analytics products and services that will help you achieve your business objectives.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 place-items-center justify-items-center">
           {products.map((p) => (
-            <div key={p.id} className="product-card group scroll-mt-24">
-              <div className="bg-primary p-8 flex justify-center">
-                <div className="w-20 h-20 rounded-full border-2 border-primary-foreground/30 flex items-center justify-center group-hover:border-secondary group-hover:bg-secondary/10 transition-all duration-300">
-                  <p.icon className="w-10 h-10 text-primary-foreground" />
+            <div
+              key={p.id}
+              className="product-card group scroll-mt-24 h-[26rem] flex flex-col w-full items-center text-center bg-white shadow-lg rounded-2xl transition-all duration-300 hover:bg-[#0068AD]"
+            >
+              {/* Icon Header */}
+              <div className="p-4 justify-center">
+                <div className="w-28 h-28 rounded-full bg-[#91CD95] flex items-center justify-center mx-auto mb-8 transition-colors duration-300">
+                  <p.icon
+                    className="w-14 h-14 text-white"
+                    stroke="currentColor"
+                  />
                 </div>
               </div>
-              <div className="p-6">
-                <h3 className="text-lg font-heading font-bold text-foreground mb-3 line-clamp-2">{p.title}</h3>
-                <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{p.description}</p>
-                <Link to={p.link} className="inline-flex items-center gap-2 text-secondary font-semibold text-sm hover:gap-3 transition-all">
-                  Read More <ArrowRight className="w-4 h-4" />
-                </Link>
+
+              {/* Content */}
+              <div className="p-6 flex flex-col flex-1 w-full items-center text-center">
+                <h3 className="text-xl md:text-2xl font-heading font-bold text-foreground mb-3 group-hover:text-white transition-colors">
+                  {p.title}
+                </h3>
+                <p className="text-muted-foreground text-base mb-4 line-clamp-3 flex-1 group-hover:text-white transition-colors">
+                  {p.description}
+                </p>
+                <a
+                  href={p.link}
+                  className="inline-flex items-center gap-2 text-foreground font-bold text-base hover:gap-3 transition-all group-hover:text-white"
+                >
+                  Read More{" "}
+                  <span className="w-8 h-8 rounded-full bg-[#1d2530] flex items-center justify-center group-hover:bg-secondary transition-colors">
+                    <ArrowRight className="w-4 h-4 text-white group-hover:text-secondary-foreground transition-colors" />
+                  </span>
+                </a>
               </div>
             </div>
           ))}
-        </div>
-
-        <div className="text-center mt-24">
-          <h3 className="text-3xl font-bold mb-4">Let's Get Started</h3>
-          <p className="text-lg text-muted-foreground">Are you ready to know your credit score?</p>
         </div>
       </div>
     </section>

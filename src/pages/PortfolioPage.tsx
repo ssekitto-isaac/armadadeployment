@@ -2,7 +2,7 @@ import React from "react";
 import TopBar from "@/components/TopBar";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import menArmada from "@/assets/men_armada.jpeg";
+import menArmada from "@/assets/men-armada123.png";
 import {
   BarChart3,
   AlertCircle,

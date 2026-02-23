@@ -370,13 +370,16 @@ const Contact = () => {
                   <Shield className="w-12 h-12 text-white" />
                 </div>
                 <h3 className="text-2xl font-bold mb-4">Enterprise Data Guard</h3>
-                <p className="text-white mb-8 leading-relaxed">Join 500+ financial institutions leveraging Armada's secure data analytics for real-time risk assessment.</p>
+                <p className="text-white mb-8 leading-relaxed">Join the numerous financial institutions leveraging Armada's secure data analytics for real-time risk assessment.</p>
                 <div className="space-y-4">
+                  <div className="flex items-center gap-3 text-sm font-medium">
+                    <CheckCircle2 className="w-4 h-4 text-[#91CD95]" /> Regulated by Bank of Uganda
+                  </div>
                   <div className="flex items-center gap-3 text-sm font-medium">
                     <CheckCircle2 className="w-4 h-4 text-[#91CD95]" /> ISO 27001 Certified
                   </div>
                   <div className="flex items-center gap-3 text-sm font-medium">
-                    <CheckCircle2 className="w-4 h-4 text-[#91CD95]" /> Bank of Uganda Regulated
+                    <CheckCircle2 className="w-4 h-4 text-[#91CD95]" /> PDPO Registered
                   </div>
                 </div>
               </div>
