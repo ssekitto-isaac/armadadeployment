@@ -88,16 +88,16 @@ const CreditEducationPage = () => {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 min-h-[420px]">
               {benefits.map((card, index) => (
                 <div
                   key={card.title}
-                  className="value-card group text-center flex flex-col justify-between h-full"
+                  className="value-card group text-center flex flex-col justify-between h-full gap-y-6"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <div>
+                  <div className="flex flex-col gap-y-4">
                     <div
-                      className="mx-auto flex items-center justify-center mb-6"
+                      className="mx-auto flex items-center justify-center mb-4"
                       style={{
                         background: "#91CD95",
                         borderRadius: "50%",
@@ -109,16 +109,16 @@ const CreditEducationPage = () => {
                       <card.icon className="w-12 h-12 text-white" />
                     </div>
 
-                    <h3 className="text-xl font-heading font-bold text-foreground mb-3 group-hover:text-white transition-colors">
+                    <h3 className="text-xl font-heading font-bold text-foreground mb-2 group-hover:text-white transition-colors">
                       {card.title}
                     </h3>
 
-                    <p className="text-muted-foreground mb-6 min-h-[100px]">
+                    <p className="text-muted-foreground mb-0 min-h-[100px]">
                       {card.description}
                     </p>
                   </div>
 
-                  <div className="flex justify-center">
+                  <div className="flex justify-center mt-2">
                     {/* Optional: add "Learn More" links here if desired */}
                   </div>
                 </div>

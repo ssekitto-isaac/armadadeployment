@@ -10,6 +10,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import analyticsImage from "@/assets/analytics_african_men.png";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const quickLinks = [
@@ -54,6 +55,7 @@ const Footer = () => {
                   src="/armada-logo-2.png"
                   alt="Armada logo"
                   className="w-full h-full object-contain"
+                  loading="lazy" 
                 />
               </div>
             </div>
@@ -100,13 +102,13 @@ const Footer = () => {
             <ul className="space-y-3">
               {quickLinks.map((item) => (
                 <li key={item.label}>
-                  <a
-                    href={item.href}
+                  <Link
+                    to={item.href}
                     className="footer-link flex items-center gap-2 group"
                   >
                     <ArrowRight className="w-4 h-4 text-secondary group-hover:translate-x-1 transition-transform" />
                     {item.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -120,13 +122,13 @@ const Footer = () => {
             <ul className="space-y-3">
               {services.map((item) => (
                 <li key={item.label}>
-                  <a
-                    href={item.href}
+                  <Link
+                    to={item.href}
                     className="footer-link flex items-center gap-2 group"
                   >
                     <ArrowRight className="w-4 h-4 text-secondary group-hover:translate-x-1 transition-transform" />
                     {item.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

@@ -66,7 +66,7 @@ const CoreValues = () => {
             >
               <div className="w-28 h-28 rounded-full bg-[#91CD95] flex items-center justify-center mx-auto mb-8 transition-colors duration-300">
                 {typeof value.icon === "string" ? (
-                  <img src={value.icon} alt={value.title} className="w-14 h-14" />
+                  <img src={value.icon} alt={value.title} className="w-14 h-14" loading="lazy" />
                 ) : (
                   <value.icon className="w-14 h-14 text-white fill-white" />
                 )}

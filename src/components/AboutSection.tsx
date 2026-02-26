@@ -21,6 +21,7 @@ const AboutSection = () => {
                 src={aboutImage}
                 alt="Armada team in meeting"
                 className="w-full h-[500px] object-cover"
+                loading="lazy" 
               />
             </div>
             {/* Decorative element */}

@@ -60,7 +60,7 @@ const Contact = () => {
             transformStyle: "preserve-3d",
             height: "420px" 
           }}
-          className="group relative h-full glass p-8 rounded-[2.5rem] bg-white/80 backdrop-blur-xl border border-white/40 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.1)] transition-shadow duration-500 overflow-hidden"
+          className="group relative h-full glass p-8 rounded-[2.5rem] bg-white/80 backdrop-blur-xl border border-white/40 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_30px_60px_rgba(0,0,0,0.1)] transition-shadow duration-500 overflow-hidden hover:bg-navy" // <-- Add hover:bg-[#142842]
         >
           {/* Dynamic Hover Glow – using Armada green */}
           <div className="absolute inset-0 bg-gradient-to-br from-[#142842]/0 via-transparent to-[#91CD95]/0 group-hover:from-[#142842]/5 group-hover:to-[#91CD95]/5 transition-colors duration-700 pointer-events-none" />
@@ -83,10 +83,10 @@ const Contact = () => {
 
           {/* TEXT LAYER (Medium Depth: 40px) */}
           <div style={{ transform: "translateZ(40px)" }} className="text-center">
-            <h3 className="text-xl font-bold text-slate-900 mb-2 tracking-tight group-hover:text-[#142842] transition-colors">
+            <h3 className="text-xl font-bold text-slate-900 mb-2 tracking-tight group-hover:text-white transition-colors">
               {item.title}
             </h3>
-            <p className="text-slate-500 text-sm mb-8 leading-relaxed font-medium">
+            <p className="text-slate-500 text-sm mb-8 leading-relaxed font-medium group-hover:text-white transition-colors">
               {item.desc}
             </p>
           </div>
@@ -94,7 +94,7 @@ const Contact = () => {
           {/* BUTTON LAYER (Medium Depth: 30px) */}
           <div style={{ transform: "translateZ(30px)" }} className="text-center">
             <button
-              className="inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.15em] text-[#91CD95] transition-all duration-300"
+              className="inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.15em] text-[#91CD95] transition-all duration-300 group-hover:text-white"
               onClick={() => onAction(item.action)}
               type="button"
             >
@@ -314,7 +314,7 @@ const Contact = () => {
                         value={formData.email}
                         onChange={handleChange}
                         placeholder="email@example.com"
-                        className="w-full bg-slate-50 border-transparent border-b-2 border-b-slate-200 py-3 px-1 focus:outline-none focus:border-[#91CD95] focus:bg-white transition-all duration-300"
+                        className="w-full bg-slate-50 border-transparent border-b-2 border-b-slate-200 py-3 px-1 focus:outline-none focus:border-[#142842] appearance-none cursor-pointer transition-all"
                         required
                       />
                     </div>

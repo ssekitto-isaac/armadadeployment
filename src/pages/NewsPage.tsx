@@ -90,6 +90,7 @@ const NewsPage = () => {
                     src={article.image}
                     alt={article.title}
                     className="h-48 w-full object-cover"
+                    loading="lazy" 
                   />
 
                   <div className="p-6">

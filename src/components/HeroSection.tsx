@@ -204,6 +204,7 @@ const HeroSection = () => {
                           alt=""
                           className="w-full h-full object-contain drop-shadow-2xl"
                           draggable={false}
+                          loading="lazy" 
                         />
                       </motion.div>
                     );
