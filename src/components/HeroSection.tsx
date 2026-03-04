@@ -91,7 +91,7 @@ const HeroSection = () => {
     const start = () => {
       intervalRef.current = window.setInterval(() => {
         setCurrentSlide((prev) => (prev + 1) % slides.length);
-      }, 3000);
+      }, 4000);
     };
 
     if (!isPaused) start();
@@ -127,8 +127,10 @@ const HeroSection = () => {
     >
       {/* Background Images with Crossfade */}
       {slides.map((slide, index) => (
-        <motion.div
+        <motion.img
           key={index}
+          src={slide.image}
+          alt={slide.title || "Hero image"}
           initial={false}
           animate={{
             opacity: index === currentSlide ? 1 : 0,
@@ -137,11 +139,8 @@ const HeroSection = () => {
             duration: 2.4,
             ease: "easeInOut",
           }}
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url(${slide.image})`,
-            zIndex: index === currentSlide ? 2 : 1,
-          }}
+          className="absolute inset-0 w-full h-full object-cover"
+          loading={index === 0 ? "eager" : "lazy"}
           aria-hidden={index !== currentSlide}
         />
       ))}
@@ -204,7 +203,7 @@ const HeroSection = () => {
                           alt=""
                           className="w-full h-full object-contain drop-shadow-2xl"
                           draggable={false}
-                          loading="lazy" 
+                          loading="eager" 
                         />
                       </motion.div>
                     );

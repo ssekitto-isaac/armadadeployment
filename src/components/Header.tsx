@@ -223,7 +223,7 @@ export default function Header() {
               alt="Armada Credit Bureau"
               className="h-12 w-auto md:h-14 max-w-[120px] md:max-w-[180px] object-contain block"
               style={{ minWidth: 0 }}
-              loading="lazy" 
+              loading="eager" 
             />
             <span className="sr-only">Armada Credit Bureau</span>
           </a>
@@ -274,7 +274,7 @@ export default function Header() {
                           <NavigationMenuContent
                             onMouseEnter={enterNav}
                             onMouseLeave={leaveNav}
-                            className="absolute left-0 mt-2 z-50 min-w-[350px]"
+                            className="absolute left-0 mt-2 z-50 min-w-[350px] bg-white"
                             style={{
                               minWidth: 350,
                               width: 'max-content',
@@ -404,7 +404,7 @@ export default function Header() {
                       src="/armada-logo.png"
                       alt="Armada"
                       className="w-24 h-24 object-contain"
-                      loading="lazy" 
+                      loading="eager" 
                     />
                     <span className="text-xl font-bold text-[#1A2636]">
                       ARMADA

@@ -59,7 +59,7 @@ const TeamPage = () => {
                     src={featuredMember.image}
                     alt={featuredMember.name}
                     className="w-full h-full object-cover object-top"
-                    loading="lazy" 
+                    loading="eager" 
                   />
                 </div>
                 <h3 className="text-xl font-bold mt-2 mb-1">{featuredMember.name}</h3>

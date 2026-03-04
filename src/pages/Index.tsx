@@ -1,5 +1,6 @@
 import TopBar from "@/components/TopBar";
 import Header from "@/components/Header";
+// import Header2 from "@/components/header2";
 import HeroSection from "@/components/HeroSection";
 import StandardsSection from "@/components/StandardsSection";
 import CoreValues from "@/components/CoreValues";
@@ -14,6 +15,7 @@ const Index = () => {
     <div className="min-h-screen">
       <TopBar />
       <Header />
+      {/* <Header2 /> */}
       <main>
         <HeroSection />
         <StandardsSection />

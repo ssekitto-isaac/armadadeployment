@@ -18,7 +18,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import LiveChatWidget from "@/components/LiveChat";
 
-import heroImage from "@/assets/men_armada.jpeg";
+// import heroImage from "@/assets/men_armada.jpeg";
+import heroImage from "@/assets/men-armada123.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 

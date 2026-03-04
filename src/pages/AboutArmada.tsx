@@ -146,7 +146,7 @@ const AboutPage = () => {
                   src={teamImage}
                   alt="Armada team analyzing data"
                   className="w-full h-[560px] object-cover"
-                  loading="lazy" 
+                  loading="eager" 
                 />
                 <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-secondary/20 rounded-2xl -z-10" />
               </div>
