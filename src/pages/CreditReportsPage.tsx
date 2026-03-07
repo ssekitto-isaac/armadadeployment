@@ -9,7 +9,7 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 interface CreditService {
   id: string;
-  icon: any;           // lucide component
+  icon: any;
   title: string;
   description: string;
 }
@@ -41,31 +41,35 @@ const CreditReportsPage = () => {
       <TopBar />
       <Header />
       <main className="flex-1">
-        {/* Hero Section – updated to standard overlay + fixed background */}
-      {/* Hero Section – reduced height + better positioning to avoid heavy cropping */}
-      <section
-        className="relative h-[320px] sm:h-[360px] md:h-[400px] flex items-center justify-start overflow-hidden"
-        style={{
-          backgroundImage: `url(${armada25})`,
-          backgroundAttachment: "fixed",
-          backgroundSize: "cover",
-          backgroundPosition: "center top",     // ← shows more of the top / main subjects (best for avoiding top cropping)
-          // If the image still feels cropped incorrectly, try these alternatives:
-          // backgroundPosition: "50% 25%",
-          // backgroundPosition: "center 30%",
-        }}
-      >
-            {/* Overlay - Stronger on mobile for better text readability */}
-            <div className="hero-overlay absolute inset-0 bg-black/4 md:bg-black/4 z-[3]" />
 
-        <div className="relative z-10 text-left px-6 md:px-12 lg:px-20 max-w-4xl ml-20">
-          <h1 className="ml-24 text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-4 leading-tight drop-shadow-lg">
-            Credit Information &<br />
-            Risk Reports
-          </h1>
-        </div>
-      </section>
+        {/* ── Hero Section ── */}
+        <section
+          className="relative flex items-center justify-start overflow-hidden"
+          style={{ minHeight: "clamp(260px, 45vw, 400px)" }}
+        >
+          {/* Image tag instead of backgroundAttachment:fixed — works on all mobile browsers */}
+          <img
+            src={armada25}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full object-cover object-top"
+            loading="eager"
+            fetchPriority="high"
+          />
+          <div className="absolute inset-0 bg-black/50 z-[3]" />
 
+          <div className="relative z-10 w-full px-4 sm:px-8 md:px-12 lg:px-20 py-10 sm:py-14 md:py-20">
+            <h1
+              className="font-heading font-bold text-white leading-tight drop-shadow-lg"
+              style={{ fontSize: "clamp(1.4rem, 5vw, 3.5rem)" }}
+            >
+              Credit Information &<br />
+              Risk Reports
+            </h1>
+          </div>
+        </section>
+
+        {/* ── Services Section ── */}
         <section className="py-20 bg-white">
           <div className="container mx-auto px-4 max-w-5xl">
             <div className="mb-16">
@@ -104,72 +108,67 @@ const CreditReportsPage = () => {
                   <p className="text-muted-foreground mb-6 min-h-[80px]">
                     {card.description}
                   </p>
-
-                  
                 </div>
               ))}
             </div>
 
-            {/* Prev / Next Buttons */}
+            {/* Prev / Next */}
             <div className="flex items-center justify-between mt-12 max-w-3xl mx-auto">
-              <Link to="/product-suites/data-management" className="inline-flex items-center gap-2 px-4 py-2 border rounded-md text-foreground hover:bg-gray-100">
+              <Link
+                to="/product-suites/data-management"
+                className="inline-flex items-center gap-2 px-4 py-2 border rounded-md text-foreground hover:bg-gray-100"
+              >
                 <ArrowLeft className="w-4 h-4" /> Previous
               </Link>
-              <Link to="/product-suites/analytics" className="inline-flex items-center gap-2 px-4 py-2 bg-secondary text-white rounded-md hover:opacity-90">
+              <Link
+                to="/product-suites/analytics"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-secondary text-white rounded-md hover:opacity-90"
+              >
                 Next <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
         </section>
 
-        {/* Closing CTA – updated to match StatsSection design */}
-       {/* Compact Closing CTA – reduced padding, smaller text, tighter layout */}
-<section
-  className="py-12 md:py-16 relative overflow-hidden"
-  style={{
-    backgroundImage: `url(${armada25})`,
-    backgroundAttachment: "fixed",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-  }}
->
-  {/* Standard overlay */}
-  <div
-    className="absolute inset-0 pointer-events-none z-0"
-    style={{ backgroundColor: "rgba(0, 30, 121, 0.77)" }}
-  />
+        {/* ── Closing CTA ── */}
+        <section className="py-12 md:py-16 relative overflow-hidden">
+          <img
+            src={armada25}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full object-cover object-center"
+          />
+          <div
+            className="absolute inset-0 pointer-events-none z-[1]"
+            style={{ backgroundColor: "rgba(0, 30, 121, 0.77)" }}
+          />
 
-  <div className="container mx-auto px-4 relative z-10 text-center">
-    <div className="max-w-3xl mx-auto">
-      {/* Smaller accent lines */}
-      <div className="flex items-center justify-center gap-3 mb-4">
-        <div className="h-0.5 w-8 bg-[#91CD95]"></div>
-        <span className="text-white font-bold text-sm tracking-wide uppercase">
-          Get Started
-        </span>
-        <div className="h-0.5 w-8 bg-[#91CD95]"></div>
-      </div>
+          <div className="container mx-auto px-4 relative z-10 text-center">
+            <div className="max-w-3xl mx-auto">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <div className="h-0.5 w-8 bg-[#91CD95]"></div>
+                <span className="text-white font-bold text-sm tracking-wide uppercase">Get Started</span>
+                <div className="h-0.5 w-8 bg-[#91CD95]"></div>
+              </div>
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
+                Ready to Make Smarter Credit Decisions?
+              </h2>
+              <p className="text-base md:text-lg text-white/90 mb-6 max-w-2xl mx-auto">
+                Access detailed credit reports and risk assessments trusted by institutions across Uganda.
+              </p>
+              <Link
+                to="/contact#head"
+                className="inline-flex items-center justify-center gap-2 bg-[#91CD95] hover:bg-[#7ab87e] text-white px-6 py-3 rounded-full font-semibold text-base transition-colors shadow-md"
+              >
+                <span>Contact Us Now</span>
+                <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
+                  <FontAwesomeIcon icon={faArrowRight} className="text-[#91CD95] text-base" />
+                </div>
+              </Link>
+            </div>
+          </div>
+        </section>
 
-      <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
-        Ready to Make Smarter Credit Decisions?
-      </h2>
-
-      <p className="text-base md:text-lg text-white/90 mb-6 max-w-2xl mx-auto">
-        Access detailed credit reports and risk assessments trusted by institutions across Uganda.
-      </p>
-
-      <Link
-        to="/contact#head"
-        className="inline-flex items-center justify-center gap-2 bg-[#91CD95] hover:bg-[#7ab87e] text-white px-6 py-3 rounded-full font-semibold text-base transition-colors shadow-md"
-      >
-        <span>Contact Us Now</span>
-        <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
-          <FontAwesomeIcon icon={faArrowRight} className="text-[#91CD95] text-base" />
-        </div>
-      </Link>
-    </div>
-  </div>
-</section>
       </main>
       <Footer />
     </div>
