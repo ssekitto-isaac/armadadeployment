@@ -5,8 +5,6 @@ import LiveChatWidget from "@/components/LiveChat";
 import TopBar from "@/components/TopBar";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 const benefits = [
@@ -43,30 +41,43 @@ const CreditEducationPage = () => {
       <Header />
 
       <main className="flex-grow">
-        {/* Hero – no overlay, fixed background */}
-        <section
-          className="relative h-[400px] md:h-[420px] overflow-hidden"
-          style={{
-            backgroundImage: `url(${literacyHero})`,
-            backgroundAttachment: "fixed",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
-               {/* Overlay - Stronger on mobile for better text readability */}
-      <div className="hero-overlay absolute inset-0 bg-black/4 md:bg-black/4 z-[3]" />
 
-          <div className="relative z-10 container mx-auto px-5 md:px-16 h-full flex items-center">
-            <div className="max-w-3xl ml-20">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-5 drop-shadow-lg">
-                Credit Education & Financial Literacy
+        {/* ── Hero ── */}
+        <section
+          className="relative flex items-center overflow-hidden"
+          style={{ minHeight: "clamp(260px, 50vw, 420px)" }}
+        >
+          {/* <img> instead of backgroundAttachment:fixed — works on all mobile browsers */}
+          <img
+            src={literacyHero}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full object-cover object-center"
+            loading="eager"
+            fetchPriority="high"
+          />
+          <div className="absolute inset-0 bg-black/50 z-[3]" />
+
+          <div className="relative z-10 w-full px-4 sm:px-8 md:px-16 py-10 sm:py-14 md:py-20">
+            <div className="max-w-3xl">
+              <h1
+                className="font-bold text-white mb-4 drop-shadow-lg leading-tight"
+                style={{ fontSize: "clamp(1.4rem, 5vw, 3.5rem)" }}
+              >
+                Credit Education &<br className="hidden sm:block" /> Financial Literacy
               </h1>
-              <p className="text-lg md:text-xl text-white/90 mb-7 drop-shadow-md">
+
+              <p
+                className="text-white/90 mb-6 drop-shadow-md"
+                style={{ fontSize: "clamp(0.85rem, 2.2vw, 1.25rem)" }}
+              >
                 Knowledge builds financial confidence. We equip individuals, businesses, and institutions with the skills to make smart credit and money decisions.
               </p>
+
               <a
                 href="#benefits"
                 className="inline-flex items-center gap-2 bg-[#91CD95] hover:bg-[#7ab87e] text-white px-7 py-3 rounded-lg font-medium transition shadow-md"
+                style={{ fontSize: "clamp(0.8rem, 2vw, 1rem)" }}
               >
                 Explore Our Programs
                 <ArrowRight className="w-5 h-5" />
@@ -75,7 +86,7 @@ const CreditEducationPage = () => {
           </div>
         </section>
 
-        {/* Benefits section – unchanged (already good) */}
+        {/* ── Benefits ── */}
         <section id="benefits" className="py-16 md:py-20 bg-muted">
           <div className="container mx-auto px-5 md:px-8">
             <div className="text-center max-w-2xl mx-auto mb-12">
@@ -118,27 +129,24 @@ const CreditEducationPage = () => {
                     </p>
                   </div>
 
-                  <div className="flex justify-center mt-2">
-                    {/* Optional: add "Learn More" links here if desired */}
-                  </div>
+                  <div className="flex justify-center mt-2" />
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Compact Final CTA – standardized navy overlay + StatsSection style, reduced size */}
-        <section
-          className="py-12 md:py-16 relative overflow-hidden"
-          style={{
-            backgroundImage: `url(${literacyHero})`,
-            backgroundAttachment: "fixed",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
+        {/* ── CTA ── */}
+        <section className="py-12 md:py-16 relative overflow-hidden">
+          {/* <img> instead of backgroundAttachment:fixed */}
+          <img
+            src={literacyHero}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full object-cover object-center"
+          />
           <div
-            className="absolute inset-0 pointer-events-none z-0"
+            className="absolute inset-0 pointer-events-none z-[1]"
             style={{ backgroundColor: "rgba(0, 30, 121, 0.77)" }}
           />
 
@@ -168,12 +176,11 @@ const CreditEducationPage = () => {
                   <span>Join a Workshop</span>
                   <ArrowRight className="w-5 h-5" />
                 </Link>
-
-              
               </div>
             </div>
           </div>
         </section>
+
       </main>
 
       <LiveChatWidget />

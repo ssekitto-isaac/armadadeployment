@@ -40,59 +40,77 @@ const DataManagementPage = () => {
       <TopBar />
       <Header />
       <main className="flex-1">
-       {/* Hero */}
-<section
-  className="relative h-[320px] sm:h-[360px] md:h-[400px] overflow-hidden"
-  style={{
-    backgroundImage: `url(${dataImage})`,
-    backgroundAttachment: "fixed",
-    backgroundSize: "cover",
-    backgroundPosition: "center top",
-  }}
->
-        {/* Overlay - Stronger on mobile for better text readability */}
-      <div className="hero-overlay absolute inset-0 bg-black/4 md:bg-black/4 z-[3]" />
-  <div className="relative z-10 container mx-auto px-6 md:px-20 lg:px-28 h-full flex items-center">
-    <div className="max-w-3xl ml-20">
-      <div className="flex items-center gap-3 text-white/90 text-sm uppercase tracking-wider mb-4 drop-shadow-md">
-        <span>Home</span>
-        <span>/</span>
-        <span>Product Suites</span>
-        <span>/</span>
-        <span className="font-semibold">Data Management</span>
-      </div>
 
-      <h1 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-white mb-4 leading-tight drop-shadow-lg">
-        Data Management
-      </h1>
-
-      <p className="text-white/90 text-lg mb-6 max-w-2xl">
-        Transform your data into a strategic asset with structured governance,
-        integration, and quality control.
-      </p>
-
-      <div className="flex flex-col sm:flex-row gap-4">
-        <a
-          href="#services"
-          className="inline-flex items-center gap-3 px-6 py-3 text-base font-semibold bg-[#91CD95] hover:bg-[#7ab87e] text-white rounded-full shadow-md transition-colors"
+        {/* ── Hero ── */}
+        <section
+          className="relative flex items-center overflow-hidden"
+          style={{ minHeight: "clamp(260px, 45vw, 400px)" }}
         >
-          Explore Solutions
-        </a>
+          {/* <img> instead of backgroundAttachment:fixed — works on all mobile browsers */}
+          <img
+            src={dataImage}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full object-cover object-top"
+            loading="eager"
+            fetchPriority="high"
+          />
+          <div className="absolute inset-0 bg-black/50 z-[3]" />
 
-        <Link
-          to="/contact"
-          className="inline-flex items-center gap-3 px-5 py-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-all text-base"
-        >
-          Speak to Our Experts
-        </Link>
-      </div>
-    </div>
-  </div>
-</section>
+          <div className="relative z-10 w-full px-4 sm:px-8 md:px-20 lg:px-28 py-10 sm:py-14 md:py-20">
+            <div className="max-w-3xl">
+              {/* Breadcrumb */}
+              <div
+                className="flex flex-wrap items-center gap-1.5 text-white/90 uppercase tracking-wider mb-4 drop-shadow-md"
+                style={{ fontSize: "clamp(0.65rem, 1.8vw, 0.875rem)" }}
+              >
+                <span>Home</span>
+                <span>/</span>
+                <span>Product Suites</span>
+                <span>/</span>
+                <span className="font-semibold">Data Management</span>
+              </div>
 
+              {/* Title */}
+              <h1
+                className="font-heading font-bold text-white mb-3 leading-tight drop-shadow-lg"
+                style={{ fontSize: "clamp(1.4rem, 5vw, 3rem)" }}
+              >
+                Data Management
+              </h1>
 
-  <section id="services" className="py-20 bg-white">
+              {/* Subtitle */}
+              <p
+                className="text-white/90 mb-6 max-w-2xl"
+                style={{ fontSize: "clamp(0.8rem, 2.2vw, 1.125rem)" }}
+              >
+                Transform your data into a strategic asset with structured governance,
+                integration, and quality control.
+              </p>
 
+              {/* CTAs */}
+              <div className="flex flex-col sm:flex-row gap-3">
+                <a
+                  href="#services"
+                  className="inline-flex items-center gap-3 px-6 py-3 font-semibold bg-[#91CD95] hover:bg-[#7ab87e] text-white rounded-full shadow-md transition-colors"
+                  style={{ fontSize: "clamp(0.8rem, 2vw, 1rem)" }}
+                >
+                  Explore Solutions
+                </a>
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center gap-3 px-5 py-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-all"
+                  style={{ fontSize: "clamp(0.8rem, 2vw, 1rem)" }}
+                >
+                  Speak to Our Experts
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Services ── */}
+        <section id="services" className="py-20 bg-white">
           <div className="container mx-auto px-4 max-w-5xl">
             <div className="mb-16">
               <h2 className="text-4xl font-bold section-title-dark mb-6">
@@ -101,7 +119,7 @@ const DataManagementPage = () => {
               <p className="text-lg text-foreground leading-relaxed mb-8">
                 Organizations that win adopt a data-driven approach to making business and management decisions, improving service delivery, and identifying trends that lead to value creation. Armada CRB has an all-inclusive data management implementation strategy that includes, but is not limited to, data architecture design, data aggregation, data management, data integration, data quality management, and data usage.
               </p>
-              
+
               <div className="bg-secondary/10 border-l-4 border-secondary pl-6 py-4 mb-8">
                 <h3 className="text-2xl font-bold text-secondary mb-2">Products</h3>
                 <p className="text-lg text-foreground">
@@ -143,70 +161,74 @@ const DataManagementPage = () => {
               ))}
             </div>
 
-            {/* Prev / Next Buttons */}
+            {/* Prev / Next */}
             <div className="flex items-center justify-between mt-12 max-w-3xl mx-auto">
-              <Link to="/product-suites/portfolio" className="inline-flex items-center gap-2 px-4 py-2 border rounded-md text-foreground hover:bg-gray-100">
+              <Link
+                to="/product-suites/portfolio"
+                className="inline-flex items-center gap-2 px-4 py-2 border rounded-md text-foreground hover:bg-gray-100"
+              >
                 <ArrowLeft className="w-4 h-4" /> Previous
               </Link>
-              <Link to="/product-suites/credit-reports" className="inline-flex items-center gap-2 px-4 py-2 bg-secondary text-white rounded-md hover:opacity-90">
+              <Link
+                to="/product-suites/credit-reports"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-secondary text-white rounded-md hover:opacity-90"
+              >
                 Next <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
         </section>
 
-       {/* CTA */}
-<section
-  className="py-12 md:py-16 relative overflow-hidden"
-  style={{
-    backgroundImage: `url(${dataImage})`,
-    backgroundAttachment: "fixed",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-  }}
->
-  <div
-    className="absolute inset-0 z-0"
-    style={{ backgroundColor: "rgba(0, 30, 121, 0.77)" }}
-  />
+        {/* ── CTA ── */}
+        <section className="py-12 md:py-16 relative overflow-hidden">
+          {/* <img> instead of backgroundAttachment:fixed */}
+          <img
+            src={dataImage}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full object-cover object-center"
+          />
+          <div
+            className="absolute inset-0 z-[1]"
+            style={{ backgroundColor: "rgba(0, 30, 121, 0.77)" }}
+          />
 
-  <div className="container mx-auto px-4 relative z-10 text-center">
-    <div className="max-w-3xl mx-auto">
-      <div className="flex items-center justify-center gap-3 mb-4">
-        <div className="h-0.5 w-8 bg-[#91CD95]" />
-        <span className="text-white font-bold text-sm tracking-wide uppercase">
-          Unlock the Power of Your Data
-        </span>
-        <div className="h-0.5 w-8 bg-[#91CD95]" />
-      </div>
+          <div className="container mx-auto px-4 relative z-10 text-center">
+            <div className="max-w-3xl mx-auto">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <div className="h-0.5 w-8 bg-[#91CD95]" />
+                <span className="text-white font-bold text-sm tracking-wide uppercase">
+                  Unlock the Power of Your Data
+                </span>
+                <div className="h-0.5 w-8 bg-[#91CD95]" />
+              </div>
 
-      <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
-        Ready to Build a Scalable Data Strategy?
-      </h2>
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
+                Ready to Build a Scalable Data Strategy?
+              </h2>
 
-      <p className="text-base md:text-lg text-white/90 mb-6 max-w-2xl mx-auto">
-        Let us help you design, consolidate, and govern your data for smarter
-        decisions and sustainable growth.
-      </p>
+              <p className="text-base md:text-lg text-white/90 mb-6 max-w-2xl mx-auto">
+                Let us help you design, consolidate, and govern your data for smarter
+                decisions and sustainable growth.
+              </p>
 
-      <div className="flex flex-col sm:flex-row justify-center gap-4">
-        <Link
-          to="/contact"
-          className="inline-flex items-center justify-center gap-2 bg-[#91CD95] hover:bg-[#7ab87e] text-white px-6 py-3 rounded-full font-semibold text-base transition-colors shadow-md"
-        >
-          Start Your Data Journey
-        </Link>
-
-        <Link
-          to="/product-suites"
-          className="inline-flex items-center justify-center gap-2 bg-white/15 hover:bg-white/25 text-white px-6 py-3 rounded-full font-semibold text-base transition-colors backdrop-blur-sm border border-white/30"
-        >
-          View All Suites
-        </Link>
-      </div>
-    </div>
-  </div>
-</section>
+              <div className="flex flex-col sm:flex-row justify-center gap-4">
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center justify-center gap-2 bg-[#91CD95] hover:bg-[#7ab87e] text-white px-6 py-3 rounded-full font-semibold text-base transition-colors shadow-md"
+                >
+                  Start Your Data Journey
+                </Link>
+                <Link
+                  to="/product-suites"
+                  className="inline-flex items-center justify-center gap-2 bg-white/15 hover:bg-white/25 text-white px-6 py-3 rounded-full font-semibold text-base transition-colors backdrop-blur-sm border border-white/30"
+                >
+                  View All Suites
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
 
       </main>
       <Footer />

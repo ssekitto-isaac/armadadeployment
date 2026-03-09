@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 
 // Background images
@@ -65,137 +65,161 @@ const slides = [
   },
 ];
 
-// Shattered logo piece configurations (9 pieces in a 3x3 grid)
-const logoPieces = [
-  // Top row
-  { id: 0, row: 0, col: 0, delay: 0 },
-  { id: 1, row: 0, col: 1, delay: 0.1 },
-  { id: 2, row: 0, col: 2, delay: 0.2 },
-  // Middle row
-  { id: 3, row: 1, col: 0, delay: 0.15 },
-  { id: 4, row: 1, col: 1, delay: 0.25 },
-  { id: 5, row: 1, col: 2, delay: 0.35 },
-  // Bottom row
-  { id: 6, row: 2, col: 0, delay: 0.3 },
-  { id: 7, row: 2, col: 1, delay: 0.4 },
-  { id: 8, row: 2, col: 2, delay: 0.5 },
-];
+// Pre-compute random positions ONCE outside the component
+const logoPieces = Array.from({ length: 9 }, (_, id) => ({
+  id,
+  row: Math.floor(id / 3),
+  col: id % 3,
+  delay: id * 0.07,
+  randomX: (Math.random() - 0.5) * 800,
+  randomY: (Math.random() - 0.5) * 800,
+  randomRotate: (Math.random() - 0.5) * 360,
+}));
+
+// Preload the next slide's image before it's needed
+function useImagePreloader(currentIndex: number) {
+  useEffect(() => {
+    const nextIndex = (currentIndex + 1) % slides.length;
+    const img = new Image();
+    img.src = slides[nextIndex].image;
+  }, [currentIndex]);
+}
 
 const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const intervalRef = useRef<number | null>(null);
   const [isPaused, setIsPaused] = useState(false);
-  const [hasAnimated, setHasAnimated] = useState(false);
+
+  // Touch/swipe support for mobile
+  const touchStartX = useRef<number | null>(null);
+  const touchEndX = useRef<number | null>(null);
+
+  useImagePreloader(currentSlide);
 
   useEffect(() => {
-    const start = () => {
-      intervalRef.current = window.setInterval(() => {
-        setCurrentSlide((prev) => (prev + 1) % slides.length);
-      }, 4000);
-    };
+    if (isPaused) return;
 
-    if (!isPaused) start();
+    intervalRef.current = window.setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 4000);
 
     return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-      }
+      if (intervalRef.current) clearInterval(intervalRef.current);
     };
   }, [isPaused]);
 
-  useEffect(() => {
-    if (currentSlide === 0 && !hasAnimated) {
-      setHasAnimated(true);
-    }
-  }, [currentSlide]);
-
   const goToSlide = (index: number) => setCurrentSlide(index);
-
   const prevSlide = () =>
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  const nextSlide = () =>
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
 
-  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % slides.length);
+  // Swipe handlers
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchEndX.current = null;
+    setIsPaused(true);
+  };
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+  const handleTouchEnd = () => {
+    if (touchStartX.current !== null && touchEndX.current !== null) {
+      const diff = touchStartX.current - touchEndX.current;
+      if (Math.abs(diff) > 40) {
+        diff > 0 ? nextSlide() : prevSlide();
+      }
+    }
+    touchStartX.current = null;
+    touchEndX.current = null;
+    setIsPaused(false);
+  };
 
   const isWelcomeSlide = currentSlide === 0;
 
   return (
     <section
-      className="hero-section h-[400px] sm:h-[450px] md:h-[500px] lg:h-[512px] relative overflow-hidden"
+      className="hero-section relative overflow-hidden w-full"
+      style={{ minHeight: "clamp(340px, 55vw, 512px)" }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
     >
-      {/* Background Images with Crossfade */}
-      {slides.map((slide, index) => (
-        <motion.img
-          key={index}
-          src={slide.image}
-          alt={slide.title || "Hero image"}
-          initial={false}
-          animate={{
-            opacity: index === currentSlide ? 1 : 0,
-          }}
-          transition={{
-            duration: 2.4,
-            ease: "easeInOut",
-          }}
-          className="absolute inset-0 w-full h-full object-cover"
-          loading={index === 0 ? "eager" : "lazy"}
-          aria-hidden={index !== currentSlide}
-        />
-      ))}
+      {/* Background Images */}
+      {slides.map((slide, index) => {
+        const isVisible = index === currentSlide;
+        const isAdjacent =
+          index === (currentSlide + 1) % slides.length ||
+          index === (currentSlide - 1 + slides.length) % slides.length;
 
-      {/* Overlay - Stronger on mobile for better text readability */}
-      <div className="hero-overlay absolute inset-0 bg-black/4 md:bg-black/4 z-[3]" />
+        if (!isVisible && !isAdjacent) return null;
 
-      {/* Content - Responsive padding and spacing */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 md:px-12 lg:px-28 py-12 sm:py-16 md:py-20 lg:py-28 h-full flex items-center">
-        <div className="max-w-4xl w-full animate-fade-in">
-          {isWelcomeSlide ? (
-            <div className="space-y-4 sm:space-y-5 md:space-y-6 lg:space-y-8">
-              {/* Welcome Text - Static Position */}
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-bold tracking-wide text-white mb-1 sm:mb-2 text-left">
-                Welcome to
-              </h2>
+        return (
+          <motion.img
+            key={index}
+            src={slide.image}
+            alt={slide.title || "Hero image"}
+            initial={false}
+            animate={{ opacity: isVisible ? 1 : 0 }}
+            transition={{ duration: 1.8, ease: "easeInOut" }}
+            className="absolute inset-0 w-full h-full object-cover"
+            loading={index === 0 ? "eager" : "lazy"}
+            {...(index === 0 ? { fetchPriority: "high" } : {})}
+            decoding={index === 0 ? "sync" : "async"}
+            aria-hidden={!isVisible}
+          />
+        );
+      })}
 
-              {/* Shattered Logo Animation Container */}
-              <div className="relative w-full max-w-[280px] sm:max-w-[320px] md:max-w-[380px] lg:max-w-[420px] mx-auto md:mx-0">
-                {/* Background glow effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/20 to-blue-500/20 blur-3xl -z-10 rounded-3xl" />
+      {/* Overlay */}
+      <div className="hero-overlay absolute inset-0 bg-black/30 z-[3]" />
 
-                {/* Shattered logo pieces */}
-                <div className="relative w-full aspect-[420/120]">
-                  {logoPieces.map((piece) => {
-                    // Calculate random starting positions for dramatic effect
-                    const randomX = (Math.random() - 0.5) * 800;
-                    const randomY = (Math.random() - 0.5) * 800;
-                    const randomRotate = (Math.random() - 0.5) * 360;
+      {/* Content */}
+      <div
+        className="relative z-10 w-full h-full flex items-center"
+        style={{ minHeight: "clamp(340px, 55vw, 512px)" }}
+      >
+        <div className="w-full px-4 xs:px-5 sm:px-8 md:px-12 lg:px-28 py-10 sm:py-14 md:py-20 lg:py-28">
+          <div className="max-w-4xl w-full animate-fade-in mx-auto md:mx-0">
+            {isWelcomeSlide ? (
+              <div className="space-y-4 sm:space-y-5 md:space-y-6 lg:space-y-8">
+                {/* "Welcome to" heading */}
+                <h2 className="font-heading font-bold tracking-wide text-white text-left"
+                  style={{ fontSize: "clamp(1.25rem, 5vw, 3rem)" }}
+                >
+                  Welcome to
+                </h2>
 
-                    return (
+                {/* Animated Logo */}
+                <div
+                  className="relative mx-auto md:mx-0"
+                  style={{ width: "clamp(200px, 55vw, 420px)" }}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/20 to-blue-500/20 blur-3xl -z-10 rounded-3xl" />
+
+                  <div className="relative w-full aspect-[420/120]">
+                    {logoPieces.map((piece) => (
                       <motion.div
                         key={piece.id}
                         initial={{
-                          x: randomX,
-                          y: randomY,
-                          rotate: randomRotate,
+                          x: piece.randomX,
+                          y: piece.randomY,
+                          rotate: piece.randomRotate,
                           opacity: 0,
                           scale: 0.3,
                         }}
-                        animate={{
-                          x: 0,
-                          y: 0,
-                          rotate: 0,
-                          opacity: 1,
-                          scale: 1,
-                        }}
+                        animate={{ x: 0, y: 0, rotate: 0, opacity: 1, scale: 1 }}
                         transition={{
                           duration: 1.2,
                           delay: piece.delay,
-                          ease: [0.34, 1.56, 0.64, 1], // Bouncy easing
+                          ease: [0.34, 1.56, 0.64, 1],
                         }}
                         className="absolute inset-0 overflow-hidden"
                         style={{
                           clipPath: `inset(${piece.row * 33.33}% ${(2 - piece.col) * 33.33}% ${(2 - piece.row) * 33.33}% ${piece.col * 33.33}%)`,
+                          willChange: "transform, opacity",
                         }}
                       >
                         <img
@@ -203,119 +227,131 @@ const HeroSection = () => {
                           alt=""
                           className="w-full h-full object-contain drop-shadow-2xl"
                           draggable={false}
-                          loading="eager" 
+                          loading="eager"
+                          fetchPriority="high"
+                          decoding="sync"
                         />
                       </motion.div>
-                    );
-                  })}
+                    ))}
+                  </div>
+
+                  {/* Shimmer */}
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: [0, 1, 0] }}
+                    transition={{ duration: 1.5, delay: 1.5, ease: "easeInOut" }}
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none"
+                  />
                 </div>
 
-                {/* Shimmer effect after pieces come together */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: [0, 1, 0] }}
-                  transition={{
-                    duration: 1.5,
-                    delay: 1.5,
-                    ease: "easeInOut",
-                  }}
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none"
+                {/* Subtitle */}
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 1.2, ease: "easeOut" }}
+                  className="text-primary-foreground text-center md:text-left mx-auto md:mx-0"
                   style={{
-                    backgroundSize: "200% 100%",
-                    animation: "shimmer 2s ease-in-out 1.5s 1",
+                    fontSize: "clamp(0.8rem, 2.5vw, 1.25rem)",
+                    maxWidth: "min(100%, 36rem)",
                   }}
-                />
-              </div>
-
-              {/* Subtitle - Animated */}
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 1.2, ease: "easeOut" }}
-                className="text-base sm:text-lg md:text-xl text-primary-foreground max-w-xl mx-auto md:mx-0 text-center md:text-left px-2 sm:px-0"
-              >
-                {slides[0].subtitle}
-              </motion.p>
-
-              {/* CTA Button - Animated */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 1.5, ease: "easeOut" }}
-                className="flex items-center gap-6 justify-center md:justify-start"
-              >
-                <Link
-                  to={slides[0].link}
-                  className="btn-secondary flex items-center gap-2 group px-6 py-3 text-sm sm:text-base"
                 >
-                  {slides[0].cta}
-                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </motion.div>
-            </div>
-          ) : (
-            <>
-              {/* Regular Slide Title - Responsive sizing */}
-              <h1
-                key={currentSlide}
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-primary-foreground mb-3 sm:mb-4 md:mb-6 animate-slide-in-left text-center md:text-left"
-              >
-                {slides[currentSlide].title.split("\n").map((line, i, arr) => (
-                  <span key={i}>
-                    {line}
-                    {i !== arr.length - 1 && <br />}
-                  </span>
-                ))}
-                {slides[currentSlide].title === "ArmadaScore®" && (
-                  <sup className="text-lg sm:text-xl md:text-2xl"></sup>
-                )}
-              </h1>
+                  {slides[0].subtitle}
+                </motion.p>
 
-              {/* Subtitle - Responsive sizing and line clamping on mobile */}
-              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-primary-foreground mb-4 sm:mb-6 md:mb-8 max-w-xl mx-auto md:mx-0 text-center md:text-left line-clamp-3 sm:line-clamp-none px-2 sm:px-0">
-                {slides[currentSlide].subtitle}
-              </p>
-
-              {/* CTA Button */}
-              <div className="flex items-center gap-6 justify-center md:justify-start">
-                <Link
-                  to={slides[currentSlide].link}
-                  className="btn-secondary flex items-center gap-2 group px-5 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base"
+                {/* CTA Button */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.6, delay: 1.5, ease: "easeOut" }}
+                  className="flex items-center gap-6 justify-center md:justify-start"
                 >
-                  {slides[currentSlide].cta}
-                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
-                </Link>
+                  <Link
+                    to={slides[0].link}
+                    className="btn-secondary flex items-center gap-2 group px-5 py-2.5 sm:px-6 sm:py-3"
+                    style={{ fontSize: "clamp(0.78rem, 2.2vw, 1rem)" }}
+                  >
+                    {slides[0].cta}
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </motion.div>
               </div>
-            </>
-          )}
+            ) : (
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentSlide}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -16 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  className="text-center md:text-left"
+                >
+                  {/* Slide Title */}
+                  <h1
+                    className="font-heading font-bold text-primary-foreground mb-3 sm:mb-4 md:mb-6"
+                    style={{ fontSize: "clamp(1.2rem, 5vw, 3rem)" }}
+                  >
+                    {slides[currentSlide].title.split("\n").map((line, i, arr) => (
+                      <span key={i}>
+                        {line}
+                        {i !== arr.length - 1 && <br />}
+                      </span>
+                    ))}
+                  </h1>
+
+                  {/* Slide Subtitle */}
+                  <p
+                    className="text-primary-foreground mb-4 sm:mb-6 md:mb-8 mx-auto md:mx-0 line-clamp-3 sm:line-clamp-none"
+                    style={{
+                      fontSize: "clamp(0.78rem, 2.2vw, 1.125rem)",
+                      maxWidth: "min(100%, 36rem)",
+                    }}
+                  >
+                    {slides[currentSlide].subtitle}
+                  </p>
+
+                  {/* CTA Button */}
+                  <div className="flex items-center gap-6 justify-center md:justify-start">
+                    <Link
+                      to={slides[currentSlide].link}
+                      className="btn-secondary flex items-center gap-2 group px-5 py-2.5 sm:px-6 sm:py-3"
+                      style={{ fontSize: "clamp(0.78rem, 2.2vw, 1rem)" }}
+                    >
+                      {slides[currentSlide].cta}
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            )}
+          </div>
         </div>
 
-        {/* Navigation arrows - Hidden on small mobile, visible on larger screens */}
+        {/* Desktop Navigation Arrows */}
         <button
           onClick={prevSlide}
-          className="hidden sm:flex absolute left-2 md:left-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-primary-foreground/10 backdrop-blur-sm items-center justify-center hover:bg-primary-foreground/20 transition-all text-primary-foreground"
+          className="hidden sm:flex absolute left-2 md:left-4 top-1/2 -translate-y-1/2 w-9 h-9 md:w-12 md:h-12 rounded-full bg-primary-foreground/10 backdrop-blur-sm items-center justify-center hover:bg-primary-foreground/20 transition-all text-primary-foreground z-20"
           aria-label="Previous slide"
         >
           <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
         </button>
         <button
           onClick={nextSlide}
-          className="hidden sm:flex absolute right-2 md:right-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 rounded-full bg-primary-foreground/10 backdrop-blur-sm items-center justify-center hover:bg-primary-foreground/20 transition-all text-primary-foreground"
+          className="hidden sm:flex absolute right-2 md:right-4 top-1/2 -translate-y-1/2 w-9 h-9 md:w-12 md:h-12 rounded-full bg-primary-foreground/10 backdrop-blur-sm items-center justify-center hover:bg-primary-foreground/20 transition-all text-primary-foreground z-20"
           aria-label="Next slide"
         >
           <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
         </button>
 
-        {/* Slide indicators - Responsive positioning and sizing */}
-        <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 flex gap-2 sm:gap-3">
+        {/* Slide Indicators */}
+        <div className="absolute bottom-3 sm:bottom-5 md:bottom-8 left-1/2 -translate-x-1/2 flex gap-1.5 sm:gap-2 z-20">
           {slides.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
+              className={`h-1.5 sm:h-2 rounded-full transition-all duration-300 ${
                 index === currentSlide
-                  ? "bg-primary-foreground w-6 sm:w-8"
-                  : "bg-primary-foreground/50 hover:bg-primary-foreground/75"
+                  ? "bg-primary-foreground w-5 sm:w-7"
+                  : "bg-primary-foreground/50 hover:bg-primary-foreground/75 w-1.5 sm:w-2"
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />
@@ -323,15 +359,10 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Add shimmer keyframe animation to global styles if not already present */}
       <style>{`
         @keyframes shimmer {
-          0% {
-            background-position: -200% 0;
-          }
-          100% {
-            background-position: 200% 0;
-          }
+          0% { background-position: -200% 0; }
+          100% { background-position: 200% 0; }
         }
       `}</style>
     </section>

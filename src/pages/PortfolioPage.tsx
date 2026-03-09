@@ -86,38 +86,51 @@ const PortfolioPage = () => {
       <Header />
 
       <main className="flex-1">
-        {/* Hero */}
+
+        {/* ── Hero ── */}
         <section
-          className="relative h-[320px] sm:h-[360px] md:h-[400px] overflow-hidden"
-          style={{
-            backgroundImage: `url(${menArmada})`,
-            backgroundAttachment: "fixed",
-            backgroundSize: "cover",
-            backgroundPosition: "center top",
-          }}
+          className="relative flex items-center overflow-hidden"
+          style={{ minHeight: "clamp(260px, 45vw, 400px)" }}
         >
-                {/* Overlay - Stronger on mobile for better text readability */}
-        <div className="hero-overlay absolute inset-0 bg-black/4 md:bg-black/4 z-[3]" />
-          <div className="relative z-10 container mx-auto px-6 md:px-20 lg:px-28 h-full flex items-center">
-            <div className="max-w-3xl ml-12">
-              <div className="flex items-center gap-3 text-white/90 text-sm uppercase tracking-wider mb-4 drop-shadow-md">
+          {/* <img> instead of backgroundAttachment:fixed — works on all mobile browsers */}
+          <img
+            src={menArmada}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full object-cover object-top"
+            loading="eager"
+            fetchPriority="high"
+          />
+          <div className="absolute inset-0 bg-black/50 z-[3]" />
+
+          <div className="relative z-10 w-full px-4 sm:px-8 md:px-20 lg:px-28 py-10 sm:py-14 md:py-20">
+            <div className="max-w-3xl">
+              {/* Breadcrumb */}
+              <div
+                className="flex flex-wrap items-center gap-1.5 text-white/90 uppercase tracking-wider mb-4 drop-shadow-md"
+                style={{ fontSize: "clamp(0.65rem, 1.8vw, 0.875rem)" }}
+              >
                 <span>Home</span>
-                <ChevronRight className="w-4 h-4" />
+                <ChevronRight className="w-3 h-3 flex-shrink-0" />
                 <span>Product Suites</span>
-                <ChevronRight className="w-4 h-4" />
-                <span className="font-semibold">
-                  Portfolio & Risk Management
-                </span>
+                <ChevronRight className="w-3 h-3 flex-shrink-0" />
+                <span className="font-semibold">Portfolio & Risk Management</span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold text-white mb-4 leading-tight drop-shadow-lg">
+              {/* Title */}
+              <h1
+                className="font-heading font-bold text-white mb-4 leading-tight drop-shadow-lg"
+                style={{ fontSize: "clamp(1.4rem, 5vw, 3rem)" }}
+              >
                 Portfolio & Risk Management
               </h1>
 
-              <div className="flex flex-col sm:flex-row gap-4">
+              {/* CTAs */}
+              <div className="flex flex-col sm:flex-row gap-3">
                 <a
                   href="#services"
-                  className="inline-flex items-center gap-3 px-6 py-3 text-base font-semibold bg-[#91CD95] hover:bg-[#7ab87e] text-white rounded-full shadow-md group transition-colors"
+                  className="inline-flex items-center gap-3 px-6 py-3 font-semibold bg-[#91CD95] hover:bg-[#7ab87e] text-white rounded-full shadow-md group transition-colors"
+                  style={{ fontSize: "clamp(0.8rem, 2vw, 1rem)" }}
                 >
                   Explore Solutions
                   <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -125,7 +138,8 @@ const PortfolioPage = () => {
 
                 <Link
                   to="/contact"
-                  className="inline-flex items-center gap-3 px-5 py-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-all text-base"
+                  className="inline-flex items-center gap-3 px-5 py-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-all"
+                  style={{ fontSize: "clamp(0.8rem, 2vw, 1rem)" }}
                 >
                   Contact Our Team
                 </Link>
@@ -134,12 +148,12 @@ const PortfolioPage = () => {
           </div>
         </section>
 
-        {/* Services */}
+        {/* ── Services ── */}
         <section id="services" className="py-20 bg-background">
           <div className="container mx-auto px-4 max-w-6xl">
             <div className="mb-16 text-center">
               <h2 className="text-3xl md:text-4xl font-bold section-title-dark mb-6">
-                Risk is Ubiquitous. You Need a<br/>Partner That Works.
+                Risk is Ubiquitous. You Need a<br />Partner That Works.
               </h2>
               <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
                 Manage the dynamics of your credit portfolio lifecycle while
@@ -149,50 +163,45 @@ const PortfolioPage = () => {
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-  {portfolioServices.map((service, index) => (
-    <div
-      key={service.id}
-      className="value-card group text-center p-8 rounded-2xl transition-all duration-300 hover:shadow-xl bg-white"
-      style={{ animationDelay: `${index * 0.1}s` }}
-    >
-      {/* Icon Circle */}
-      <div
-        className="mx-auto flex items-center justify-center mb-6"
-        style={{
-          background: "#91CD95",
-          borderRadius: "50%",
-          width: 96,
-          height: 96,
-          border: "3px solid #91CD95",
-        }}
-      >
-        <div className="text-white">
-          {React.cloneElement(service.icon as React.ReactElement, {
-            className: "w-10 h-10 text-white",
-          })}
-        </div>
-      </div>
+              {portfolioServices.map((service, index) => (
+                <div
+                  key={service.id}
+                  className="value-card group text-center p-8 rounded-2xl transition-all duration-300 hover:shadow-xl bg-white"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  <div
+                    className="mx-auto flex items-center justify-center mb-6"
+                    style={{
+                      background: "#91CD95",
+                      borderRadius: "50%",
+                      width: 96,
+                      height: 96,
+                      border: "3px solid #91CD95",
+                    }}
+                  >
+                    <div className="text-white">
+                      {React.cloneElement(service.icon as React.ReactElement, {
+                        className: "w-10 h-10 text-white",
+                      })}
+                    </div>
+                  </div>
 
-      {/* Title */}
-      <h3 className="text-xl font-heading font-bold text-foreground mb-4">
-        {service.title}
-      </h3>
+                  <h3 className="text-xl font-heading font-bold text-foreground mb-4">
+                    {service.title}
+                  </h3>
 
-      {/* Description */}
-      <p className="text-muted-foreground mb-4 leading-relaxed">
-        {service.description}
-      </p>
+                  <p className="text-muted-foreground mb-4 leading-relaxed">
+                    {service.description}
+                  </p>
 
-      {service.subDescription && (
-        <p className="text-sm text-secondary font-semibold mb-6 leading-relaxed">
-          {service.subDescription}
-        </p>
-      )}
-
-      
-    </div>
-  ))}
-</div>
+                  {service.subDescription && (
+                    <p className="text-sm text-secondary font-semibold mb-6 leading-relaxed">
+                      {service.subDescription}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
 
             {/* Navigation */}
             <div className="flex items-center justify-between mt-16 max-w-3xl mx-auto">
@@ -203,7 +212,6 @@ const PortfolioPage = () => {
                 <ArrowLeft className="w-4 h-4" />
                 Previous
               </Link>
-
               <Link
                 to="/product-suites/data-management"
                 className="inline-flex items-center gap-2 px-5 py-2 bg-secondary text-white rounded-lg hover:opacity-90 transition"
@@ -215,18 +223,17 @@ const PortfolioPage = () => {
           </div>
         </section>
 
-        {/* CTA */}
-        <section
-          className="py-12 md:py-16 relative overflow-hidden"
-          style={{
-            backgroundImage: `url(${menArmada})`,
-            backgroundAttachment: "fixed",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        >
+        {/* ── CTA ── */}
+        <section className="py-12 md:py-16 relative overflow-hidden">
+          {/* <img> instead of backgroundAttachment:fixed */}
+          <img
+            src={menArmada}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full object-cover object-center"
+          />
           <div
-            className="absolute inset-0 z-0"
+            className="absolute inset-0 z-[1]"
             style={{ backgroundColor: "rgba(0, 30, 121, 0.77)" }}
           />
 
@@ -245,8 +252,7 @@ const PortfolioPage = () => {
               </h2>
 
               <p className="text-base md:text-lg text-white/90 mb-6 max-w-2xl mx-auto">
-                Partner with us to monitor, manage, and improve portfolio
-                performance.
+                Partner with us to monitor, manage, and improve portfolio performance.
               </p>
 
               <div className="flex flex-col sm:flex-row justify-center gap-4">
@@ -270,8 +276,8 @@ const PortfolioPage = () => {
             </div>
           </div>
         </section>
-      </main>
 
+      </main>
       <Footer />
     </div>
   );
