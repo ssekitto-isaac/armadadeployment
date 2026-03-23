@@ -4,13 +4,19 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 export default defineConfig(({ mode }) => ({
-  base: "/",   // 👈 ADD THIS LINE
+  base: "/",
 
   server: {
     host: "::",
     port: 80,
     hmr: {
       overlay: false,
+    },
+    proxy: {
+      "/api": {
+        target: "http://localhost:3001",
+        changeOrigin: true,
+      },
     },
   },
 
